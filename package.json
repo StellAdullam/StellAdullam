@@ -2,6 +2,7 @@
   "name": "stelladullam",
   "version": "1.0.0",
   "description": "StellAdullam — Real Estate Tokenization & DeFi Lending on the Stellar Blockchain",
+  "license": "MIT",
   "private": true,
   "workspaces": [
     "apps/api",
