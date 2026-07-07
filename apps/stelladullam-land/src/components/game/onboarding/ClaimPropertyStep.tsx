@@ -25,7 +25,7 @@ export function ClaimPropertyStep({
   onComplete: () => void;
   onSkip: () => void;
 }) {
-  const { signAndSubmitTx } = useGameWallet();
+  const { signAndSubmit } = useGameWallet();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [status, setStatus] = useState<"idle" | "pending" | "celebrating">(
     "idle",
@@ -35,7 +35,7 @@ export function ClaimPropertyStep({
     if (selectedId === null) return;
     setStatus("pending");
     try {
-      await signAndSubmitTx("placeholder-starter-claim-xdr");
+      await signAndSubmit("placeholder-starter-claim-xdr");
       setStatus("celebrating");
       // Stay on celebration for 3 seconds, then navigate
       setTimeout(onComplete, 3000);
