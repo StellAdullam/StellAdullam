@@ -1390,7 +1390,7 @@ curl -X POST https://api.stelladullam.com/properties \
 
 - **Documentation:** https://docs.stelladullam.com
 - **Swagger UI:** https://api.stelladullam.com/swagger
-- **GitHub Issues:** https://github.com/1sraeliteX/StellAdullam/issues
+- **GitHub Issues:** https://github.com/stelladullam/stelladullam/issues
 - **Community:** https://discord.gg/StellAdullam
 
 ---
