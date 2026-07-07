@@ -100,4 +100,4 @@ Thumbs.db
 bun.lockb
 
 # Snapshot files (generated test artifacts)
-*.snap
+*.snappackages/nextjs/node_modules/
