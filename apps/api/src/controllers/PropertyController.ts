@@ -1,7 +1,4 @@
-import type {
-  PropertyInfo,
-  ShareOwnership as SharedShareOwnership,
-} from '@stelladullam/shared';
+import type { PropertyInfo, ShareOwnership as SharedShareOwnership } from '@stelladullam/shared';
 import {
   ValidationError,
   NotFoundError,
