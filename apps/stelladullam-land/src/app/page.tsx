@@ -105,7 +105,7 @@ export default function SandboxPage() {
   );
 
   // Consuming global simulated wallet hook
-  const { isConnected, address, login, logout } = useGameWallet();
+  const { isConnected, address, connect, disconnect } = useGameWallet();
 
   const handlePropertyUpdate = (updated: GameProperty) => {
     setProperties((prev) =>
@@ -174,7 +174,7 @@ export default function SandboxPage() {
             </p>
           </div>
           <button
-            onClick={() => (isConnected ? logout() : login())}
+            onClick={() => (isConnected ? disconnect() : connect())}
             className={`px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-2 border ${
               isConnected
                 ? "bg-slate-800 hover:bg-slate-700 text-white border-slate-750"
@@ -294,7 +294,7 @@ export default function SandboxPage() {
           onPropertyUpdate={handlePropertyUpdate}
           viewerAddress={isConnected ? address : null}
           isConnected={isConnected}
-          onConnect={login}
+          onConnect={connect}
           onClose={() => setSelectedPropertyId(null)}
         />
       )}
