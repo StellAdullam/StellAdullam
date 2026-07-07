@@ -27,14 +27,14 @@ export function ClaimLandStep({
   onNext: () => void;
   onSkip: () => void;
 }) {
-  const { signAndSubmitTx } = useGameWallet();
+  const { signAndSubmit } = useGameWallet();
   const [status, setStatus] = useState<Status>("idle");
 
   const handleClaim = async () => {
     setStatus("pending");
     try {
       // Simulate/call transaction
-      await signAndSubmitTx("placeholder-faucet-xdr");
+      await signAndSubmit("placeholder-faucet-xdr");
       setStatus("done");
     } catch (err) {
       setStatus("error");
