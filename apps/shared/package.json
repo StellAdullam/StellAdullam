@@ -1,0 +1,55 @@
+{
+  "name": "@stelladullam/shared",
+  "version": "1.0.0",
+  "description": "Shared utilities, types, and Stellar SDK wrappers for StellAdullam",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./contracts.testnet.json": "./src/contracts.testnet.json",
+    "./contracts.mainnet.json": "./src/contracts.mainnet.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "build:types": "tsc",
+    "dev": "tsc --watch",
+    "dev:types": "tsc --watch",
+    "test": "bun test",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": [
+    "stellar",
+    "soroban",
+    "defi",
+    "real-estate",
+    "stelladullam"
+  ],
+  "author": "StellAdullam",
+  "license": "MIT",
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "@typescript-eslint/eslint-plugin": "^8.57.0",
+    "@typescript-eslint/parser": "^8.57.0",
+    "bun-types": "latest",
+    "eslint": "^9.39.2",
+    "globals": "^17.0.0",
+    "prettier": "^3.7.4",
+    "type-coverage": "^2.29.7",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.57.0"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^13.3.0",
+    "zod": "^3.25.76"
+  },
+  "resolutions": {
+    "stellar-base": "12.1.1"
+  }
+}
