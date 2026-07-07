@@ -27,9 +27,10 @@ impl GameLandToken {
         set_engine(&env, &engine);
         set_testnet(&env, is_testnet);
 
-        env.storage()
-            .instance()
-            .set(&DataKey::Name, &String::from_str(&env, "StellAdullam Land Token"));
+        env.storage().instance().set(
+            &DataKey::Name,
+            &String::from_str(&env, "StellAdullam Land Token"),
+        );
         env.storage()
             .instance()
             .set(&DataKey::Symbol, &String::from_str(&env, "LAND"));
@@ -195,7 +196,10 @@ mod tests {
         let env = Env::default();
         let (treasury, engine, _, client) = setup_test(&env);
         client.initialize(&treasury, &engine, &true);
-        assert_eq!(client.name(), String::from_str(&env, "StellAdullam Land Token"));
+        assert_eq!(
+            client.name(),
+            String::from_str(&env, "StellAdullam Land Token")
+        );
         assert_eq!(client.symbol(), String::from_str(&env, "LAND"));
         assert_eq!(client.decimals(), 7);
     }
