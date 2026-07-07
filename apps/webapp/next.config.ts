@@ -11,6 +11,17 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  webpack: (config) => {
+    if (!config.resolve) {
+      config.resolve = {};
+    }
+    if (!config.resolve.alias) {
+      config.resolve.alias = {};
+    }
+    config.resolve.alias["@ethersproject/web"] =
+      require.resolve("@ethersproject/web");
+    return config;
+  },
 };
 
 export default nextConfig;
