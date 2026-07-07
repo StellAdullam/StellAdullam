@@ -5,8 +5,8 @@ The StellAdullam API is built with Elysia framework running on Bun, providing a 
 ## Base URL
 
 - **Development**: `http://localhost:3001`
-- **Staging**: `https://staging-api.realestate-defi.com`
-- **Production**: `https://api.realestate-defi.com`
+- **Staging**: `https://staging-api.stelladullam.com`
+- **Production**: `https://api.stelladullam.com`
 
 ## API Architecture
 
