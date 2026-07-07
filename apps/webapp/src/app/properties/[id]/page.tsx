@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import type { PropertyInfo } from "@real-estate-defi/shared";
+import type { PropertyInfo } from "@stelladullam/shared";
 import { PropertyDetail } from "@/components/property";
 import { InvestModal } from "@/components/marketplace/InvestModal";
 import { Footer, Navbar } from "@/components/layout";

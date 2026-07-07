@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Shield, Coins, CheckCircle2, ExternalLink } from "lucide-react";
-import type { LendingPool } from "@real-estate-defi/shared";
+import type { LendingPool } from "@stelladullam/shared";
 import { Modal, Badge, Button, Toggle } from "@/components/ui";
 import { Form, FormInput } from "@/components/forms";
 import {

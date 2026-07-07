@@ -22,7 +22,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@real-estate-defi/shared": ["../shared/src"]
+      "@stelladullam/shared": ["../shared/src"]
     }
   },
   "include": [

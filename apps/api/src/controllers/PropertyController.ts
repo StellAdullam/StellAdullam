@@ -1,13 +1,13 @@
 import type {
   PropertyInfo,
   ShareOwnership as SharedShareOwnership,
-} from '@real-estate-defi/shared';
+} from '@stelladullam/shared';
 import {
   ValidationError,
   NotFoundError,
   AuthenticationError,
   AuthorizationError,
-} from '@real-estate-defi/shared';
+} from '@stelladullam/shared';
 import { and, eq } from 'drizzle-orm';
 import { logger } from '../services/logger';
 import { db } from '../db';

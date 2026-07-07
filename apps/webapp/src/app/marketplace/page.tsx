@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   SlidersHorizontal,
 } from "lucide-react";
-import type { PropertyInfo } from "@real-estate-defi/shared";
+import type { PropertyInfo } from "@stelladullam/shared";
 import { useWallet } from "@/components/auth/hooks";
 import { Footer, Navbar } from "@/components/layout";
 import { InvestModal } from "@/components/marketplace/InvestModal";

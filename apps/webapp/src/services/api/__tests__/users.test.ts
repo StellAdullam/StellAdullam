@@ -1,14 +1,14 @@
 import { describe, it, expect, beforeEach, mock } from "bun:test";
 import { userApi } from "../users";
 import { setupMockFetch, wrapFetchMock } from "./helpers";
-import type { KycDocument, Transaction, User } from "@real-estate-defi/shared";
+import type { KycDocument, Transaction, User } from "@stelladullam/shared";
 import {
   VALID_STELLAR_ADDRESS,
   VALID_UUID,
   createUser,
   createTransaction,
   createKycDocument,
-} from "@real-estate-defi/shared";
+} from "@stelladullam/shared";
 
 describe("User API", () => {
   beforeEach(() => {

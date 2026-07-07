@@ -2,7 +2,7 @@ import type {
   Transaction,
   TransactionQueryParams,
   PaginatedTransactionResponse,
-} from "@real-estate-defi/shared";
+} from "@stelladullam/shared";
 import { apiClient } from "./client";
 
 /**

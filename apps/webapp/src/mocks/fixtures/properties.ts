@@ -1,4 +1,4 @@
-import type { PropertyInfo } from "@real-estate-defi/shared";
+import type { PropertyInfo } from "@stelladullam/shared";
 import type { PaginatedResponse } from "@/services/api/types";
 
 /** Realistic mock wallet addresses (Stellar G... format) */

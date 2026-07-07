@@ -1,6 +1,6 @@
 import { afterAll, beforeEach, describe, expect, it, mock } from "bun:test";
-import type { PaginatedTransactionResponse } from "@real-estate-defi/shared";
-import { VALID_TX_HASH, createTransaction } from "@real-estate-defi/shared";
+import type { PaginatedTransactionResponse } from "@stelladullam/shared";
+import { VALID_TX_HASH, createTransaction } from "@stelladullam/shared";
 import { transactionsApi } from "@/services/api";
 
 const STELLAR_EXPERT_BASE = "https://stellar.expert/explorer/testnet/tx";

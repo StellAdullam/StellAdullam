@@ -1,4 +1,4 @@
-import type { PropertyInfo } from '@real-estate-defi/shared';
+import type { PropertyInfo } from '@stelladullam/shared';
 
 /**
  * DTO for creating a new property

@@ -1,4 +1,4 @@
-import type { PropertyInfo } from "@real-estate-defi/shared";
+import type { PropertyInfo } from "@stelladullam/shared";
 
 export const MARKETPLACE_ALL_REGIONS = "All Regions";
 export const MARKETPLACE_ALL_TYPES = "All Types";

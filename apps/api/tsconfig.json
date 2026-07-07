@@ -21,8 +21,7 @@
     "noPropertyAccessFromIndexSignature": false,
     "baseUrl": ".",
     "paths": {
-      "@stelladullam/shared": ["../shared/src"],
-      "@real-estate-defi/shared": ["../shared/src"]
+      "@stelladullam/shared": ["../shared/src"]
     }
   }
 }

@@ -1,4 +1,4 @@
-import { CONTRACT_IDS } from '@real-estate-defi/shared';
+import { CONTRACT_IDS } from '@stelladullam/shared';
 
 /**
  * Resolves Soroban contract IDs for the API.

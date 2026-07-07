@@ -2,7 +2,7 @@ import type {
   RealEstateValuationPayload,
   ValuationRecord,
   ContractValuationPayload,
-} from '@real-estate-defi/shared';
+} from '@stelladullam/shared';
 import { OracleService } from '../services/OracleService';
 
 export class ValuationController {

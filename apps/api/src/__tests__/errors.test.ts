@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { NotFoundError as SharedNotFoundError } from '@real-estate-defi/shared';
+import { NotFoundError as SharedNotFoundError } from '@stelladullam/shared';
 import {
   AppError,
   BadRequestError,

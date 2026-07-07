@@ -8,7 +8,7 @@ import type {
   ReactNode,
 } from "react";
 import { cleanup, fireEvent, render, waitFor } from "@testing-library/react";
-import type { PropertyInfo } from "@real-estate-defi/shared";
+import type { PropertyInfo } from "@stelladullam/shared";
 import { propertyApi } from "@/services/api/properties";
 
 const buySharesMock = mock(() =>

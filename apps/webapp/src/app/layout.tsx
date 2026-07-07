@@ -3,9 +3,9 @@ import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "StellAdullam DeFi RWA | Real Estate Tokenization Platform",
+  title: "StellAdullam | Real Estate Tokenization & DeFi Lending",
   description:
-    "Democratizing real estate investment through blockchain tokenization. Fractional ownership, DeFi lending, and institutional-grade security on Stellar.",
+    "StellAdullam — institutional-grade real estate tokenization and DeFi lending on the Stellar blockchain. Fractional ownership, collateralized borrowing, and on-chain compliance.",
   icons: {
     icon: [
       { url: "/logo.png", type: "image/png" },

@@ -1,10 +1,10 @@
 import { afterAll, beforeEach, describe, expect, it, mock } from "bun:test";
-import type { LendingPool, DepositPosition } from "@real-estate-defi/shared";
+import type { LendingPool, DepositPosition } from "@stelladullam/shared";
 import {
   VALID_STELLAR_ADDRESS,
   createLendingPool,
   createDepositPosition,
-} from "@real-estate-defi/shared";
+} from "@stelladullam/shared";
 import { lendingApi } from "@/services/api";
 
 // ---------------------------------------------------------------------------

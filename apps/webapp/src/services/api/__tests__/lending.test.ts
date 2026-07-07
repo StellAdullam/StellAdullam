@@ -5,14 +5,14 @@ import type {
   BorrowPosition,
   DepositPosition,
   LendingPool,
-} from "@real-estate-defi/shared";
+} from "@stelladullam/shared";
 import {
   VALID_STELLAR_ADDRESS,
   VALID_UUID,
   createLendingPool,
   createDepositPosition,
   createBorrowPosition,
-} from "@real-estate-defi/shared";
+} from "@stelladullam/shared";
 
 describe("Lending API", () => {
   beforeEach(() => {

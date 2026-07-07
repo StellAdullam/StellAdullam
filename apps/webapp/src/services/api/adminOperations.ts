@@ -1,4 +1,4 @@
-import type { PropertyInfo, ValuationRecord } from "@real-estate-defi/shared";
+import type { PropertyInfo, ValuationRecord } from "@stelladullam/shared";
 import type { PaginatedResponse } from "./types";
 
 export type OperationsQueue =
