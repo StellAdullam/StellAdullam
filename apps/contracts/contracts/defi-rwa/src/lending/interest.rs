@@ -186,7 +186,7 @@ impl InterestStorage {
     ///
     /// Computes `base ^ exp` where `base` is in PRECISION units.
     /// Returns the result in PRECISION units.
-    fn pow_precision(base: i128, exp: u64) -> i128 {
+    pub(crate) fn pow_precision(base: i128, exp: u64) -> i128 {
         if exp == 0 {
             return PRECISION;
         }
