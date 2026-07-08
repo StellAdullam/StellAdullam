@@ -2849,3 +2849,270 @@ fn test_full_emergency_and_recovery_flow() {
     let total = s.contract_client.get_total_deposits(&pool_id);
     assert_eq!(total, 2_000_000_000);
 }
+
+// ═══════════════════════════════════════════════════════════════════════
+// Property-based fuzz tests for interest rate calculations
+// ═══════════════════════════════════════════════════════════════════════
+
+#[test]
+fn test_property_borrow_rate_always_ge_base_rate() {
+    let model = InterestRateModel::default();
+    let mut utilization: i128 = 0;
+    while utilization <= PRECISION {
+        let rate = model.calculate_borrow_rate(utilization);
+        assert!(rate >= model.base_rate,
+            "Borrow rate {} should be >= base rate {} at utilization {}",
+            rate, model.base_rate, utilization);
+        // Step by 5% of PRECISION to keep test fast
+        utilization += PRECISION / 20;
+    }
+}
+
+#[test]
+fn test_property_borrow_rate_is_monotonic() {
+    let model = InterestRateModel::default();
+    let mut prev_rate: i128 = 0;
+    let mut utilization: i128 = 0;
+    while utilization <= PRECISION {
+        let rate = model.calculate_borrow_rate(utilization);
+        assert!(rate >= prev_rate,
+            "Borrow rate decreased from {} to {} when utilization increased to {}",
+            prev_rate, rate, utilization);
+        prev_rate = rate;
+        utilization += PRECISION / 20;
+    }
+}
+
+#[test]
+fn test_property_borrow_rate_at_optimal() {
+    let model = InterestRateModel::default();
+    let rate_at_optimal = model.calculate_borrow_rate(model.optimal_utilization);
+    // At optimal: rate = base + slope1
+    let expected = model.base_rate + model.slope1;
+    assert_eq!(rate_at_optimal, expected,
+        "At optimal utilization, rate {} should equal base + slope1 = {}",
+        rate_at_optimal, expected);
+}
+
+#[test]
+fn test_property_borrow_rate_at_max() {
+    let model = InterestRateModel::default();
+    let rate_at_max = model.calculate_borrow_rate(PRECISION);
+    // At 100%: rate = base + slope1 + slope2
+    let expected = model.base_rate + model.slope1 + model.slope2;
+    assert_eq!(rate_at_max, expected,
+        "At 100% utilization, rate {} should equal base + slope1 + slope2 = {}",
+        rate_at_max, expected);
+}
+
+#[test]
+fn test_property_supply_rate_always_le_borrow_rate() {
+    let model = InterestRateModel::default();
+    let reserve_factor = 100_000_000_000_000_000_i128; // 10%
+
+    let mut utilization: i128 = 0;
+    while utilization <= PRECISION {
+        let borrow_rate = model.calculate_borrow_rate(utilization);
+        let supply_rate = model.calculate_supply_rate(borrow_rate, utilization, reserve_factor);
+
+        assert!(supply_rate <= borrow_rate,
+            "Supply rate {} exceeds borrow rate {} at utilization {}",
+            supply_rate, borrow_rate, utilization);
+        utilization += PRECISION / 20;
+    }
+}
+
+#[test]
+fn test_property_supply_rate_zero_at_zero_utilization() {
+    let model = InterestRateModel::default();
+    let reserve_factors = [0_i128, 100_000_000_000_000_000, 500_000_000_000_000_000];
+
+    for &rf in &reserve_factors {
+        let borrow_rate = model.calculate_borrow_rate(0);
+        let supply_rate = model.calculate_supply_rate(borrow_rate, 0, rf);
+        assert_eq!(supply_rate, 0,
+            "Supply rate should be 0 at 0% utilization (reserve_factor = {})", rf);
+    }
+}
+
+#[test]
+fn test_property_supply_rate_zero_when_borrow_rate_zero() {
+    let model = InterestRateModel::default();
+    let utilizations = [0_i128, PRECISION / 2, PRECISION];
+
+    for &util in &utilizations {
+        let supply_rate = model.calculate_supply_rate(0, util, 0);
+        assert_eq!(supply_rate, 0,
+            "Supply rate should be 0 when borrow rate is 0 (utilization = {})", util);
+    }
+}
+
+#[test]
+fn test_property_supply_rate_increases_with_utilization() {
+    let model = InterestRateModel::default();
+    let reserve_factor = 100_000_000_000_000_000_i128; // 10%
+
+    let mut prev_supply: i128 = 0;
+    let mut utilization: i128 = 0;
+    while utilization <= PRECISION {
+        let borrow_rate = model.calculate_borrow_rate(utilization);
+        let supply_rate = model.calculate_supply_rate(borrow_rate, utilization, reserve_factor);
+
+        // Supply rate should generally increase with utilization (monotonic)
+        assert!(supply_rate >= prev_supply,
+            "Supply rate decreased from {} to {} when utilization increased to {}",
+            prev_supply, supply_rate, utilization);
+        prev_supply = supply_rate;
+        utilization += PRECISION / 20;
+    }
+}
+
+#[test]
+fn test_property_supply_rate_decreases_with_reserve_factor() {
+    let model = InterestRateModel::default();
+    let utilization = PRECISION / 2; // 50%
+    let borrow_rate = model.calculate_borrow_rate(utilization);
+
+    let rf_low = 0_i128;
+    let rf_high = 200_000_000_000_000_000_i128; // 20%
+
+    let rate_low_rf = model.calculate_supply_rate(borrow_rate, utilization, rf_low);
+    let rate_high_rf = model.calculate_supply_rate(borrow_rate, utilization, rf_high);
+
+    assert!(rate_low_rf >= rate_high_rf,
+        "Higher reserve factor should not increase supply rate");
+}
+
+#[test]
+fn test_property_index_never_decreases() {
+    let model = InterestRateModel::default();
+
+    let mut index = PRECISION;
+    let mut time: u64 = 0;
+    while time <= SECONDS_PER_YEAR {
+        let new_index = InterestStorage::calculate_new_index(index, model.base_rate + model.slope1, time);
+        assert!(new_index >= PRECISION,
+            "Index {} should never drop below PRECISION at time {}", new_index, time);
+        assert!(new_index >= index,
+            "Index decreased from {} to {} at time {}", index, new_index, time);
+
+        // Use the new index for the next step to test compound growth
+        index = new_index;
+        time += SECONDS_PER_YEAR / 12; // 1 month steps
+    }
+}
+
+#[test]
+fn test_property_index_stays_same_at_time_zero() {
+    let model = InterestRateModel::default();
+    let rates = [0_i128, model.base_rate, model.base_rate + model.slope1, PRECISION];
+
+    for &rate in &rates {
+        let index = InterestStorage::calculate_new_index(PRECISION, rate, 0);
+        assert_eq!(index, PRECISION,
+            "Index should remain PRECISION when time_elapsed is 0 (rate = {})", rate);
+    }
+}
+
+#[test]
+fn test_property_pow_precision_identity() {
+    // base^0 = 1
+    let result = InterestStorage::pow_precision(PRECISION, 0);
+    assert_eq!(result, PRECISION, "base^0 should equal 1 (PRECISION)");
+
+    // base^1 = base
+    let base = 1_050_000_000_000_000_000_i128; // 1.05
+    let result = InterestStorage::pow_precision(base, 1);
+    assert_eq!(result, base, "base^1 should equal base");
+}
+
+#[test]
+fn test_property_pow_precision_preserves_order() {
+    // If base_a > base_b, then base_a^exp >= base_b^exp
+    let base_a = 1_050_000_000_000_000_000_i128; // 1.05
+    let base_b = 1_020_000_000_000_000_000_i128; // 1.02
+
+    for exp in &[1u64, 10, 100, 365, 1000] {
+        let result_a = InterestStorage::pow_precision(base_a, *exp);
+        let result_b = InterestStorage::pow_precision(base_b, *exp);
+        assert!(result_a >= result_b,
+            "Higher base should produce higher result at exponent {}", exp);
+    }
+}
+
+#[test]
+fn test_property_compound_growth_beats_linear() {
+    // For the same borrow rate and time, compound interest (via pow_precision)
+    // should be >= linear approximation
+    let borrow_rate = 60_000_000_000_000_000_i128; // 6%
+    let time_elapsed = SECONDS_PER_YEAR; // 1 year
+
+    let compound_index = InterestStorage::calculate_new_index(PRECISION, borrow_rate, time_elapsed);
+
+    // Linear approximation: index * (1 + rate)
+    let linear_index = PRECISION + borrow_rate;
+
+    assert!(compound_index >= linear_index,
+        "Compound index {} should be >= linear index {} for same borrow rate over 1 year",
+        compound_index, linear_index);
+}
+
+#[test]
+fn test_property_borrow_rate_edge_values() {
+    let model = InterestRateModel::default();
+
+    // 0% utilization → base rate
+    assert_eq!(model.calculate_borrow_rate(0), model.base_rate);
+
+    // At optimal utilization → base + slope1
+    assert_eq!(
+        model.calculate_borrow_rate(model.optimal_utilization),
+        model.base_rate + model.slope1
+    );
+
+    // 100% utilization → base + slope1 + slope2
+    assert_eq!(
+        model.calculate_borrow_rate(PRECISION),
+        model.base_rate + model.slope1 + model.slope2
+    );
+}
+
+#[test]
+fn test_property_borrow_rate_continuous() {
+    // Verify that a small change in utilization produces a correspondingly
+    // small change in borrow rate (no discontinuities)
+    let model = InterestRateModel::default();
+    let utilization_step = PRECISION / 1000;
+
+    let mut prev_rate = model.calculate_borrow_rate(0);
+    let mut utilization = utilization_step;
+    while utilization <= PRECISION {
+        let rate = model.calculate_borrow_rate(utilization);
+        let delta = rate - prev_rate;
+        // The rate delta should be bounded by the maximum slope
+        let max_delta = if utilization <= model.optimal_utilization {
+            model.slope1 * utilization_step / model.optimal_utilization
+        } else {
+            model.slope2 * utilization_step / (PRECISION - model.optimal_utilization)
+        } + 1; // +1 for integer division rounding
+        assert!(delta <= max_delta,
+            "Rate jump too large: delta {} > max {} at utilization {}",
+            delta, max_delta, utilization);
+        prev_rate = rate;
+        utilization += utilization_step;
+    }
+}
+
+#[test]
+fn test_property_index_grows_faster_with_higher_rate() {
+    let time_elapsed = SECONDS_PER_YEAR / 2; // 6 months
+
+    let low_rate = 30_000_000_000_000_000_i128; // 3%
+    let high_rate = 60_000_000_000_000_000_i128; // 6%
+
+    let index_low = InterestStorage::calculate_new_index(PRECISION, low_rate, time_elapsed);
+    let index_high = InterestStorage::calculate_new_index(PRECISION, high_rate, time_elapsed);
+
+    assert!(index_high > index_low,
+        "Higher borrow rate should produce higher interest index");
+}

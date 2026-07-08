@@ -2,7 +2,21 @@ import { Elysia } from 'elysia';
 import { jwt } from '@elysiajs/jwt';
 import { ApiError } from '../errors/ApiError';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-default-key-for-dev';
+const DEV_DEFAULT_SECRET = 'super-secret-default-key-for-dev';
+
+const JWT_SECRET = process.env.JWT_SECRET || DEV_DEFAULT_SECRET;
+
+// Runtime guard: warn if the dev default secret is used in a non-dev environment
+if (
+  JWT_SECRET === DEV_DEFAULT_SECRET &&
+  process.env.NODE_ENV !== 'development' &&
+  process.env.NODE_ENV !== 'test'
+) {
+  console.warn(
+    '⚠️  WARNING: JWT_SECRET is set to the insecure dev default. ' +
+    'Set a strong, unique JWT_SECRET environment variable in production to prevent token forgery.',
+  );
+}
 
 /**
  * The shape of context properties derived by authPlugin.
