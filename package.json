@@ -8,8 +8,7 @@
     "apps/api",
     "apps/shared",
     "apps/webapp",
-    "apps/stelladullam-land",
-    "packages/nextjs"
+    "apps/stelladullam-land"
   ],
   "scripts": {
     "dev": "concurrently \"bun run dev:webapp\" \"bun run dev:api\" \"bun run dev:land\"",
