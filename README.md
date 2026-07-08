@@ -2,19 +2,36 @@
 
 # StellAdullam
 
-**Real Estate Tokenization & DeFi Lending on the Stellar Blockchain**
+**Tokenize. Lend. Earn. — Real Estate Meets DeFi on Stellar.**
 
 [![Monorepo CI](https://github.com/stelladullam/stelladullam/actions/workflows/monorepo-ci.yml/badge.svg)](https://github.com/stelladullam/stelladullam/actions/workflows/monorepo-ci.yml)
 [![API CI](https://github.com/stelladullam/stelladullam/actions/workflows/api-ci.yml/badge.svg)](https://github.com/stelladullam/stelladullam/actions/workflows/api-ci.yml)
 [![Webapp CI](https://github.com/stelladullam/stelladullam/actions/workflows/webapp-ci.yml/badge.svg)](https://github.com/stelladullam/stelladullam/actions/workflows/webapp-ci.yml)
 [![Contracts CI](https://github.com/stelladullam/stelladullam/actions/workflows/contracts-ci.yml/badge.svg)](https://github.com/stelladullam/stelladullam/actions/workflows/contracts-ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+![Status](https://img.shields.io/badge/Status-Live_Testnet-brightgreen)
 
 StellAdullam is an institutional-grade platform that bridges traditional real estate with decentralized finance. Property owners can tokenize real-world assets as on-chain shares, and investors can use those shares as collateral to access DeFi lending pools — all on Stellar's high-throughput, low-cost network.
 
-[Getting Started](#getting-started) · [Architecture](#architecture) · [Tech Stack](#tech-stack) · [Contributing](CONTRIBUTING.md) · [Docs](docs/)
+<p align="center">
+  <a href="#features">Features</a> ·
+  <a href="#why-stellar">Why Stellar</a> ·
+  <a href="#architecture">Architecture</a> ·
+  <a href="#tech-stack">Tech Stack</a> ·
+  <a href="#getting-started">Getting Started</a> ·
+  <a href="#contributing">Contributing</a> ·
+  <a href="docs/">Docs</a>
+</p>
 
 </div>
+
+---
+
+## Demo
+
+<!-- Insert a screenshot of the StellAdullam dashboard here -->
+
+> **Try it live:** The StellAdullam API is live at [api.stelladullam.com](https://api.stelladullam.com) (production) and [staging-api.stelladullam.com](https://staging-api.stelladullam.com) (staging). The game — **StellAdullam Land** — runs locally at `localhost:3002`.
 
 ---
 
@@ -22,11 +39,29 @@ StellAdullam is an institutional-grade platform that bridges traditional real es
 
 StellAdullam solves two tightly coupled problems at the intersection of real estate and DeFi:
 
-1. **Illiquidity of real estate.** Tokenizing property into fractional on-chain shares makes it possible to trade, transfer, and leverage real-world assets with the same programmability as any blockchain token.
+1. **Illiquidity of real estate.** Tokenizing property into fractional on-chain shares makes it possible to trade, transfer, and leverage real-world assets with the same programmability as any blockchain token — starting from as little as **$100**.
 
 2. **Collateral limitations in DeFi.** By accepting tokenized real estate as collateral, StellAdullam unlocks lending capacity backed by tangible, regulated assets rather than purely speculative crypto positions.
 
-The platform is built to meet institutional compliance requirements (KYC/AML on-chain, role-based access, audit trails) while remaining open and composable for DeFi participants.
+The platform is built to meet institutional compliance requirements — KYC/AML on-chain, role-based access, audit trails — while remaining open and composable for DeFi participants. We focus on **emerging markets** (Latin America, Africa) where property-backed lending can have the greatest real-world impact.
+
+**Current status:** Live on Stellar Testnet. Smart contracts deployed, audited, and passing CI at ≥80% coverage. Mainnet launch planned Q4 2026.
+
+---
+
+## Why Stellar?
+
+StellAdullam chose **Stellar** (over Ethereum, Solana, or Polygon) for three reasons:
+
+| Factor | Stellar | Why It Matters |
+|---|---|---|
+| **Transaction cost** | ~$0.00001 per tx | Enables fractional ownership — buying $100 worth of shares costs pennies, not dollars |
+| **Throughput** | 1,000+ tx/s | Real-time settlements for lending, liquidations, and marketplace trades |
+| **Built-in compliance** | SEP-006, SEP-012, SEP-041 | First-class support for KYC/AML, multi-sig, and asset controls — no need for custom contracts to meet regulatory standards |
+
+Stellar's **Soroban smart contracts** (Rust + WASM) provide a deterministic, resource-budgeted execution environment that eliminates the risk of unbounded computation — critical for a financial platform.
+
+> **The trade-off:** Stellar's ecosystem is smaller than Ethereum's. We accept this in exchange for lower cost, higher throughput, and simpler compliance tooling.
 
 ---
 
@@ -34,31 +69,31 @@ The platform is built to meet institutional compliance requirements (KYC/AML on-
 
 ### Real Estate Tokenization
 
-- Fractional share ownership of individual properties, tracked entirely on-chain
-- KYC/AML compliance enforced at the smart contract level
-- Minting and burning controls with role-gated admin operations
-- Property metadata storage with immutable audit history
+- **Fractional share ownership** of individual properties, tracked entirely on-chain
+- **KYC/AML compliance** enforced at the smart contract level
+- **Minting and burning** controls with role-gated admin operations
+- **Property metadata** storage with immutable audit history
 
 ### DeFi Lending Protocol
 
-- Collateralized borrowing using tokenized real estate shares
-- Privacy-configurable lending pools for institutional participants
-- Automated interest calculation and liquidation mechanisms
-- Oracle-integrated asset valuation for accurate collateral ratios
+- **Collateralized borrowing** using tokenized real estate shares
+- **Privacy-configurable lending pools** for institutional participants
+- **Automated interest calculation** and liquidation mechanisms
+- **Oracle-integrated asset valuation** for accurate collateral ratios
 
 ### StellAdullam Land (Game)
 
-- Blockchain city-building game on Stellar Testnet
-- 400-tile 20×20 grid where players own, improve, and trade properties
-- LAND token economy with rental income and a live marketplace
-- Real Soroban contract integration for all game mechanics
+- **Blockchain city-building game** on Stellar Testnet
+- **400-tile 20×20 grid** where players own, improve, and trade properties
+- **LAND token economy** with rental income and a live marketplace
+- **Real Soroban contract integration** for all game mechanics
 
 ### Compliance & Security
 
-- Wallet-based authentication via Stellar signatures — no passwords, no centralized auth
-- Role-based access control across admin, operator, and user tiers
-- Webhook signature verification for all external integrations
-- Rate limiting, input sanitization, and structured audit logging throughout
+- **Wallet-based authentication** via Stellar signatures — no passwords, no centralized auth
+- **Role-based access control** across admin, operator, and user tiers
+- **Webhook signature verification** for all external integrations
+- **Rate limiting**, input sanitization, and structured audit logging throughout
 
 ---
 
@@ -90,13 +125,13 @@ The platform is built to meet institutional compliance requirements (KYC/AML on-
 
 The repository is a **Bun monorepo** with four workspaces:
 
-| Workspace | Package Name | Path | Role |
+| Workspace | Package | Path | Role |
 |---|---|---|---|
 | Main DeFi webapp | `@stelladullam/webapp` | `apps/webapp` | Next.js 16 frontend with React 19 |
-| Backend API | `@stelladullam/api` | `apps/api` | Elysia REST API running on Bun |
-| Shared library | `@stelladullam/shared` | `apps/shared` | Types, utilities, and Stellar SDK helpers |
-| Game app | `@stelladullam/land` | `apps/stelladullam-land` | Next.js city-building game — "StellAdullam Land" |
-| Smart contracts | _(Cargo workspace)_ | `apps/contracts` | Soroban smart contracts written in Rust |
+| Backend API | `@stelladullam/api` | `apps/api` | Elysia REST API on Bun |
+| Shared library | `@stelladullam/shared` | `apps/shared` | Types, utilities, Stellar SDK helpers |
+| Game app | `@stelladullam/land` | `apps/stelladullam-land` | Next.js city-building game |
+| Smart contracts | _(Cargo workspace)_ | `apps/contracts` | Soroban smart contracts (Rust) |
 
 ### Smart Contracts
 
@@ -111,7 +146,6 @@ The repository is a **Bun monorepo** with four workspaces:
 ### Data Flows
 
 **Property Tokenization**
-
 ```
 User submits property → Frontend validates → API verifies KYC
 → Soroban contract mints shares → Event emitted → API indexes
@@ -119,7 +153,6 @@ User submits property → Frontend validates → API verifies KYC
 ```
 
 **DeFi Borrowing**
-
 ```
 User requests loan → Frontend calculates available collateral
 → API checks on-chain share balance → Contract validates collateral ratio
@@ -127,7 +160,6 @@ User requests loan → Frontend calculates available collateral
 ```
 
 **Game — Claim Rental Income**
-
 ```
 Player clicks Claim → Frontend builds XDR via shared SDK
 → Wallet signs transaction → Soroban claim_rental executes
@@ -141,9 +173,9 @@ Player clicks Claim → Frontend builds XDR via shared SDK
 | Layer | Technology |
 |---|---|
 | **Frontend (webapp)** | Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4, Zustand 5, Zod 3, Framer Motion |
-| **Frontend (land)** | Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4, same stack as webapp |
+| **Frontend (land)** | Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4 |
 | **Backend API** | Elysia 1.4, Bun runtime, TypeScript 5.9, Drizzle ORM 0.45, Zod 3 |
-| **Database** | PostgreSQL 16 (Drizzle migrations), Redis (optional caching layer) |
+| **Database** | PostgreSQL 16 (Drizzle migrations), Redis (optional caching) |
 | **Smart Contracts** | Rust (no_std), Soroban SDK 25.3, WASM target `wasm32v1-none` |
 | **Blockchain** | Stellar (Testnet / Mainnet), Horizon REST API, Soroban RPC |
 | **Wallet Integration** | `@creit.tech/stellar-wallets-kit`, Privy, smart-account-kit |
@@ -157,32 +189,51 @@ Player clicks Claim → Frontend builds XDR via shared SDK
 
 ### Prerequisites
 
-- [Bun](https://bun.sh) >= 1.0
-- Docker (for PostgreSQL + Redis)
+- **Bun** >= 1.0 — [Install Bun](https://bun.sh)
+- **Docker** — for PostgreSQL and Redis [Install Docker](https://docs.docker.com/get-docker/)
+- **Rust** (optional) — only needed for smart contract work [Install Rust](https://www.rust-lang.org/tools/install)
 
-### Install
+### Quick Start
 
 ```bash
+# 1. Clone and install
 git clone https://github.com/stelladullam/stelladullam.git
 cd stelladullam
 bun install
-```
 
-### Run
-
-```bash
-# Copy environment variables
+# 2. Set up environment variables
 cp apps/api/.env.example apps/api/.env
 cp apps/webapp/.env.example apps/webapp/.env.local
 
-# Start services
+# 3. Start PostgreSQL + Redis
 docker compose -f docker-compose.dev.yml up -d
 
-# Start all apps
+# 4. Run database migrations
+cd apps/api && bun run db:migrate && cd ../..
+
+# 5. Launch everything
 bun run dev
 ```
 
-See [docs/local-setup.md](docs/local-setup.md) for the full setup walkthrough.
+- **Webapp:** [http://localhost:3000](http://localhost:3000)
+- **API:** [http://localhost:3001](http://localhost:3001)
+- **Swagger:** [http://localhost:3001/swagger](http://localhost:3001/swagger)
+- **Game (Land):** [http://localhost:3002](http://localhost:3002)
+
+See [docs/local-setup.md](docs/local-setup.md) for a complete walkthrough.
+
+---
+
+## Troubleshooting
+
+| Problem | Likely Cause | Fix |
+|---|---|---|
+| `bun install` fails | Outdated Bun version | Run `bun upgrade` (requires Bun ≥ 1.0) |
+| Docker containers won't start | Port 5432 or 6379 already in use | `docker compose -f docker-compose.dev.yml down` then `up -d` again |
+| API returns DB connection errors | Migrations not applied | `cd apps/api && bun run db:migrate` |
+| Webapp can't connect to API | `.env.local` missing or wrong URL | Verify `NEXT_PUBLIC_API_URL=http://localhost:3001` in `apps/webapp/.env.local` |
+| Stellar transaction fails | Insufficient testnet funds | Use the [Stellar Lab friendbot](https://laboratory.stellar.org/#account-creator?network=testnet) to fund your testnet account |
+| Contract deployment fails | Soroban CLI not installed | `cargo install --locked stellar-cli` |
 
 ---
 
@@ -244,34 +295,30 @@ stelladullam/
 ├── apps/
 │   ├── api/                    # Elysia/Bun backend API
 │   │   ├── src/
-│   │   │   ├── controllers/
+│   │   │   ├── controllers/    # Request parsing + response shaping
 │   │   │   ├── services/       # StellarService, OracleService, etc.
-│   │   │   ├── repositories/
-│   │   │   ├── routes/         # properties, lending, users, kyc, oracle, etc.
-│   │   │   ├── middleware/
+│   │   │   ├── repositories/   # Drizzle ORM queries
+│   │   │   ├── routes/         # properties, lending, users, kyc, oracle
+│   │   │   ├── middleware/     # requestLogger, errorHandler, auth
 │   │   │   ├── db/             # Drizzle schema + migrations
-│   │   │   └── workers/        # notification delivery worker
+│   │   │   └── workers/        # Notification delivery worker
 │   │   └── drizzle/            # SQL migration files
 │   ├── webapp/                 # Next.js DeFi frontend
 │   │   └── src/
 │   │       ├── app/            # App Router pages + layouts
-│   │       ├── components/
-│   │       ├── hooks/
-│   │       ├── services/
-│   │       └── types/
+│   │       ├── components/     # landing/, layout/, property/, lending/, kyc/, auth/, ui/
+│   │       ├── hooks/          # useLendingPools, usePortfolio, useHealthFactor
+│   │       ├── services/       # API client wrappers
+│   │       ├── mocks/          # MSW handlers + fixtures
+│   │       └── types/          # Frontend-specific TypeScript types
 │   ├── stelladullam-land/      # Next.js blockchain city-building game
-│   │   └── src/
-│   │       ├── app/            # Game pages (map, dashboard, marketplace)
-│   │       ├── components/     # CityMap, PropertyPanel, GameShell
-│   │       ├── hooks/          # useGameWallet, usePropertyActions
-│   │       └── lib/            # soroban-tx, event-store, soroban-poller
 │   ├── contracts/              # Soroban smart contracts (Rust)
 │   │   └── contracts/
-│   │       ├── defi-rwa/       # Main DeFi tokenization + lending contract
-│   │       ├── game-engine/    # Game mechanics (ECS pipeline)
+│   │       ├── defi-rwa/       # Main DeFi tokenization + lending
+│   │       ├── game-engine/    # ECS pipeline for game mechanics
 │   │       ├── game-property-nft/  # 400-tile NFT grid
 │   │       ├── game-land-token/    # LAND fungible token (SEP-41)
-│   │       └── game-marketplace/  # P2P property exchange
+│   │       └── game-marketplace/   # P2P property exchange
 │   └── shared/                 # Shared TypeScript library
 │       └── src/
 │           ├── types/          # All domain types
@@ -319,7 +366,7 @@ stelladullam/
 
 We welcome contributions. StellAdullam uses a **fork-based workflow** — all changes must come through a fork and pull request. No direct pushes to `main` or `develop`.
 
-Read the full contribution guide before submitting your first pull request: **[CONTRIBUTING.md](CONTRIBUTING.md)**
+Read the full contribution guide before submitting your first PR: **[CONTRIBUTING.md](CONTRIBUTING.md)**
 
 ---
 

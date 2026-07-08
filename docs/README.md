@@ -55,8 +55,8 @@ This platform combines two powerful concepts:
 
 - **Blockchain**: Stellar Network
 - **Smart Contracts**: Soroban (Rust)
-- **Frontend**: Next.js 14, TypeScript, Tailwind CSS
-- **Backend**: Elysia (Bun), TypeScript
+- **Frontend**: Next.js 16, React 19, TypeScript 5.9, Tailwind CSS 4
+- **Backend**: Elysia 1.4, Bun runtime, TypeScript 5.9
 - **Package Manager**: Bun
 - **CI/CD**: GitHub Actions
 
@@ -85,4 +85,4 @@ For technical support or questions:
 
 ---
 
-_This documentation is continuously updated. Last updated: March 2026_
+_This documentation is continuously updated. Last updated: July 2026_
