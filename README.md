@@ -27,14 +27,6 @@ StellAdullam is an institutional-grade platform that bridges traditional real es
 
 ---
 
-## Demo
-
-<!-- Insert a screenshot of the StellAdullam dashboard here -->
-
-> **Try it live:** The StellAdullam API is live at [api.stelladullam.com](https://api.stelladullam.com) (production) and [staging-api.stelladullam.com](https://staging-api.stelladullam.com) (staging). The game — **StellAdullam Land** — runs locally at `localhost:3002`.
-
----
-
 ## Overview
 
 StellAdullam solves two tightly coupled problems at the intersection of real estate and DeFi:
@@ -62,6 +54,14 @@ StellAdullam chose **Stellar** (over Ethereum, Solana, or Polygon) for three rea
 Stellar's **Soroban smart contracts** (Rust + WASM) provide a deterministic, resource-budgeted execution environment that eliminates the risk of unbounded computation — critical for a financial platform.
 
 > **The trade-off:** Stellar's ecosystem is smaller than Ethereum's. We accept this in exchange for lower cost, higher throughput, and simpler compliance tooling.
+
+---
+
+## Demo
+
+<!-- Insert a screenshot of the StellAdullam dashboard here -->
+
+> **Try it live:** The StellAdullam API is live at [api.stelladullam.com](https://api.stelladullam.com) (production) and [staging-api.stelladullam.com](https://staging-api.stelladullam.com) (staging). The game — **StellAdullam Land** — runs locally at `localhost:3002`.
 
 ---
 
