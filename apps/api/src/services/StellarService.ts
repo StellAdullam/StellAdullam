@@ -6,15 +6,7 @@ import {
 } from '@stelladullam/shared';
 import { ApiError } from '../errors/ApiError';
 import { getRealEstateTokenContractId } from '../config/contracts';
-import {
-  Account,
-  Contract,
-  Keypair,
-  Networks,
-  Transaction,
-  TransactionBuilder,
-  xdr,
-} from '@stellar/stellar-sdk';
+import { Account, Contract, Keypair, TransactionBuilder, xdr } from '@stellar/stellar-sdk';
 
 function toOperation(op: ReturnType<Contract['call']>): xdr.Operation {
   // The Stellar SDK types are correct here — single cast with comment
@@ -173,11 +165,7 @@ export class StellarService extends SharedStellarService {
     );
   }
 
-  private getSorobanClientConfig(
-    contractId: string,
-    publicKey?: string,
-    signerSecret?: string,
-  ) {
+  private getSorobanClientConfig(contractId: string, publicKey?: string, signerSecret?: string) {
     if (!signerSecret) {
       return {
         contractId,

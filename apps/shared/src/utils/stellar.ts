@@ -57,8 +57,10 @@ export class StellarService {
         network === "testnet" ? Networks.TESTNET : Networks.PUBLIC;
     } else {
       const config = networkOrConfig;
-      const horizonUrl = config.horizonUrl || "https://horizon-testnet.stellar.org";
-      this.sorobanRpcUrl = config.sorobanRpcUrl || "https://soroban-testnet.stellar.org";
+      const horizonUrl =
+        config.horizonUrl || "https://horizon-testnet.stellar.org";
+      this.sorobanRpcUrl =
+        config.sorobanRpcUrl || "https://soroban-testnet.stellar.org";
       this.server = new Horizon.Server(horizonUrl);
       this.networkPassphrase = config.networkPassphrase || Networks.TESTNET;
     }

@@ -14,7 +14,7 @@ if (
 ) {
   console.warn(
     '⚠️  WARNING: JWT_SECRET is set to the insecure dev default. ' +
-    'Set a strong, unique JWT_SECRET environment variable in production to prevent token forgery.',
+      'Set a strong, unique JWT_SECRET environment variable in production to prevent token forgery.',
   );
 }
 

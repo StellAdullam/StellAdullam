@@ -252,11 +252,7 @@ describe("Interest calculations — fuzz / property-based tests", () => {
       for (let i = 0; i < FUZZ_ITERATIONS; i++) {
         const borrowRate = randomBorrowRate();
         const elapsed = randomTimeElapsed();
-        const nextIndex = calculateNewIndex(
-          currentIndex,
-          borrowRate,
-          elapsed,
-        );
+        const nextIndex = calculateNewIndex(currentIndex, borrowRate, elapsed);
 
         expect(nextIndex).toBeGreaterThanOrEqual(currentIndex);
         currentIndex = nextIndex;
@@ -279,7 +275,8 @@ describe("Interest calculations — fuzz / property-based tests", () => {
         const elapsed = 86_400; // 1 day
 
         const lowRate = randomBigInt(
-          DEFAULT_INTEREST_RATE_MODEL.baseRate + DEFAULT_INTEREST_RATE_MODEL.slope1,
+          DEFAULT_INTEREST_RATE_MODEL.baseRate +
+            DEFAULT_INTEREST_RATE_MODEL.slope1,
         );
         const highRate =
           lowRate +
@@ -378,7 +375,7 @@ describe("Interest calculations — fuzz / property-based tests", () => {
 
   describe("rateToDecimal / decimalToRate round-trip", () => {
     it("round-trips correctly for standard rates", () => {
-      const testRates = [0, 0.01, 0.05, 0.10, 0.25, 0.50, 0.75, 1.0, 2.5, 10.0];
+      const testRates = [0, 0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 1.0, 2.5, 10.0];
       for (const rate of testRates) {
         const asBigInt = decimalToRate(rate);
         const backToDecimal = rateToDecimal(asBigInt);
