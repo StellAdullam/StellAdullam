@@ -1,21 +1,20 @@
 import {
-  Account,
-  Contract,
-  Horizon,
-  Keypair,
-  Networks,
-  StrKey,
-  Transaction,
-  TransactionBuilder,
-  xdr,
-} from '@stellar/stellar-sdk';
-import {
+  StellarService as SharedStellarService,
   createNodeContractSigner,
   DefiLendingContractClient,
   RealEstateTokenContractClient,
 } from '@stelladullam/shared';
 import { ApiError } from '../errors/ApiError';
 import { getRealEstateTokenContractId } from '../config/contracts';
+import {
+  Account,
+  Contract,
+  Keypair,
+  Networks,
+  Transaction,
+  TransactionBuilder,
+  xdr,
+} from '@stellar/stellar-sdk';
 
 function toOperation(op: ReturnType<Contract['call']>): xdr.Operation {
   // The Stellar SDK types are correct here — single cast with comment
@@ -36,23 +35,21 @@ export interface MintSharesResult {
   contractId: string;
 }
 
-export class StellarService {
-  private readonly server: Horizon.Server;
-  private readonly networkPassphrase: string;
-  private readonly sorobanRpcUrl: string;
-
-  constructor(
-    server?: Horizon.Server,
-    networkPassphrase: string = process.env.STELLAR_NETWORK_PASSPHRASE || Networks.TESTNET,
-  ) {
-    const horizonUrl = process.env.STELLAR_HORIZON_URL || 'https://horizon-testnet.stellar.org';
-    this.sorobanRpcUrl = process.env.STELLAR_RPC_URL || 'https://soroban-testnet.stellar.org';
-
-    this.server = server ?? new Horizon.Server(horizonUrl);
-    this.networkPassphrase = networkPassphrase;
-  }
-
-  getMintingConfig(): { contractId: string; adminPublicKey: string; adminSecret: string } {
+/**
+ * API-specific extension of the shared StellarService.
+ *
+ * Adds:
+ * - Environment-variable configuration (reads process.env)
+ * - `getMintingConfig` / `mintPropertyShares` for admin-gated tokenization
+ * - `callContractLegacy` for Horizon-based contract invocation
+ * - Error handling via `ApiError` instead of generic Error
+ */
+export class StellarService extends SharedStellarService {
+  async getMintingConfig(): Promise<{
+    contractId: string;
+    adminPublicKey: string;
+    adminSecret: string;
+  }> {
     const contractId = getRealEstateTokenContractId();
     const adminPublicKey = process.env.STELLAR_ADMIN_PUBLIC_KEY;
     const adminSecret = process.env.STELLAR_ADMIN_SECRET;
@@ -67,101 +64,6 @@ export class StellarService {
     this.assertValidAddress(adminPublicKey);
 
     return { contractId, adminPublicKey, adminSecret };
-  }
-
-  async getAccountBalance(address: string): Promise<string> {
-    try {
-      this.assertValidAddress(address);
-      const account = await this.server.accounts().accountId(address).call();
-      const nativeBalance = account.balances.find(
-        (balance: { asset_type: string; balance?: string }) => balance.asset_type === 'native',
-      );
-      return nativeBalance?.balance ?? '0';
-    } catch (error) {
-      throw new Error('Failed to get account balance', { cause: error });
-    }
-  }
-
-  async submitTransaction(signedXdr: string): Promise<string> {
-    try {
-      const envelope = xdr.TransactionEnvelope.fromXDR(signedXdr, 'base64');
-      const transaction = new Transaction(envelope, this.networkPassphrase);
-      const result = await this.server.submitTransaction(transaction);
-
-      if (!result.successful) {
-        const details = result as { result_code?: string };
-        throw new Error(details.result_code || 'Unknown transaction failure');
-      }
-
-      return result.hash;
-    } catch (error) {
-      throw new Error('Failed to submit transaction', { cause: error });
-    }
-  }
-
-  async getTransactionStatus(txHash: string): Promise<'pending' | 'success' | 'error'> {
-    try {
-      const result = await this.server.transactions().transaction(txHash).call();
-      return result.successful ? 'success' : 'error';
-    } catch {
-      return 'pending';
-    }
-  }
-
-  async callContract(
-    contractId: string,
-    method: string,
-    args: unknown[] = [],
-    sourceAccount?: string,
-  ): Promise<string> {
-    if (!sourceAccount) {
-      throw new Error('Source account is required for contract invocation');
-    }
-
-    try {
-      this.assertValidContractId(contractId);
-      this.assertValidAddress(sourceAccount);
-
-      const typedTransaction = await this.buildTypedContractTransaction(
-        contractId,
-        method,
-        args,
-        sourceAccount,
-      );
-      if (typedTransaction) {
-        return typedTransaction.toXDR();
-      }
-
-      return this.callContractLegacy(contractId, method, args, sourceAccount);
-    } catch (error) {
-      throw new Error('Failed to call contract', { cause: error });
-    }
-  }
-
-  async callAndSubmitContract(
-    contractId: string,
-    method: string,
-    args: unknown[],
-    signerSecret: string,
-    sourceAccount: string,
-  ): Promise<string> {
-    const typedTransaction = await this.buildTypedContractTransaction(
-      contractId,
-      method,
-      args,
-      sourceAccount,
-      signerSecret,
-    );
-    if (typedTransaction) {
-      const sentTransaction = await typedTransaction.signAndSend();
-      return this.getSentTransactionHash(sentTransaction);
-    }
-
-    const unsignedXdr = await this.callContractLegacy(contractId, method, args, sourceAccount);
-    const transaction = TransactionBuilder.fromXDR(unsignedXdr, this.networkPassphrase);
-    const signer = Keypair.fromSecret(signerSecret);
-    transaction.sign(signer);
-    return this.submitTransaction(transaction.toXDR());
   }
 
   async mintPropertyShares(params: MintSharesParams): Promise<MintSharesResult> {
@@ -198,42 +100,43 @@ export class StellarService {
     }
   }
 
-  createKeypair(): { publicKey: string; secretKey: string } {
-    const keypair = Keypair.random();
-
-    return {
-      publicKey: keypair.publicKey(),
-      secretKey: keypair.secret(),
-    };
-  }
-
-  validateAddress(address: string): boolean {
-    return StrKey.isValidEd25519PublicKey(address);
-  }
-
-  assertValidAddress(address: string): void {
-    if (!this.validateAddress(address)) {
-      throw ApiError.badRequest('Invalid Stellar address format');
+  async callAndSubmitContract(
+    contractId: string,
+    method: string,
+    args: unknown[],
+    signerSecret: string,
+    sourceAccount: string,
+  ): Promise<string> {
+    const typedTransaction = await this.buildTypedContractTransaction(
+      contractId,
+      method,
+      args,
+      sourceAccount,
+      signerSecret,
+    );
+    if (typedTransaction) {
+      const sentTransaction = await typedTransaction.signAndSend();
+      return this.getSentTransactionHash(sentTransaction);
     }
+
+    const unsignedXdr = await this.callContractLegacy(contractId, method, args, sourceAccount);
+    const transaction = TransactionBuilder.fromXDR(unsignedXdr, this.networkPassphrase);
+    const signer = Keypair.fromSecret(signerSecret);
+    transaction.sign(signer);
+    return this.submitTransaction(transaction.toXDR());
   }
 
-  validateContractId(contractId: string): boolean {
-    return /^C[A-Z2-7]{55}$/.test(contractId);
-  }
-
-  assertValidContractId(contractId: string): void {
-    if (!this.validateContractId(contractId)) {
-      throw ApiError.badRequest('Invalid Soroban contract ID format');
-    }
-  }
-
+  /** Legacy Horizon-based contract call (no Soroban simulation) */
   private async callContractLegacy(
     contractId: string,
     method: string,
     args: unknown[],
     sourceAccount: string,
   ): Promise<string> {
-    const accountRecord = await this.server.accounts().accountId(sourceAccount).call();
+    const accountRecord = await (this.server as import('@stellar/stellar-sdk').Horizon.Server)
+      .accounts()
+      .accountId(sourceAccount)
+      .call();
     const account = new Account(accountRecord.id, accountRecord.sequence);
     const contract = new Contract(contractId);
 
@@ -247,6 +150,8 @@ export class StellarService {
 
     return transaction.toXDR();
   }
+
+  // ─── Contract Client Factory ──────────────────────────────────────
 
   private createRealEstateClient(
     contractId: string,
@@ -268,7 +173,11 @@ export class StellarService {
     );
   }
 
-  private getSorobanClientConfig(contractId: string, publicKey?: string, signerSecret?: string) {
+  private getSorobanClientConfig(
+    contractId: string,
+    publicKey?: string,
+    signerSecret?: string,
+  ) {
     if (!signerSecret) {
       return {
         contractId,
@@ -292,6 +201,12 @@ export class StellarService {
     };
   }
 
+  // ─── Typed Contract Dispatch ──────────────────────────────────────
+
+  /**
+   * Build a typed Soroban contract transaction by dispatching on method name.
+   * Returns `null` for unknown methods (fallback to legacy Horizon path).
+   */
   private async buildTypedContractTransaction(
     contractId: string,
     method: string,
@@ -429,49 +344,7 @@ export class StellarService {
     }
   }
 
-  private asAddress(value: unknown): string {
-    if (typeof value !== 'string') {
-      throw new Error('Expected Stellar address string');
-    }
-
-    return value;
-  }
-
-  private asString(value: unknown): string {
-    if (typeof value !== 'string') {
-      throw new Error('Expected string argument');
-    }
-
-    return value;
-  }
-
-  private asBigInt(value: unknown): bigint {
-    if (typeof value === 'bigint') {
-      return value;
-    }
-
-    if (typeof value === 'number' && Number.isInteger(value)) {
-      return BigInt(value);
-    }
-
-    if (typeof value === 'string' && /^-?\d+$/.test(value)) {
-      return BigInt(value);
-    }
-
-    throw new Error('Expected integer-compatible Soroban argument');
-  }
-
-  private asNumber(value: unknown): number {
-    if (typeof value === 'number' && Number.isFinite(value)) {
-      return value;
-    }
-
-    if (typeof value === 'string' && /^-?\d+$/.test(value)) {
-      return Number.parseInt(value, 10);
-    }
-
-    throw new Error('Expected numeric argument');
-  }
+  // ─── Helpers ──────────────────────────────────────────────────────
 
   private getSentTransactionHash(sentTransaction: {
     sendTransactionResponse?: { hash?: string };
@@ -489,4 +362,9 @@ export class StellarService {
   }
 }
 
-export const stellarService = new StellarService();
+// Export singleton instance
+export const stellarService = new StellarService({
+  horizonUrl: process.env.STELLAR_HORIZON_URL,
+  sorobanRpcUrl: process.env.STELLAR_RPC_URL,
+  networkPassphrase: process.env.STELLAR_NETWORK_PASSPHRASE,
+});

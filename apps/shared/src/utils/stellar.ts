@@ -16,12 +16,18 @@ export interface WalletSigner {
   sign(transaction: string): Promise<string>;
 }
 
-type NetworkType = "testnet" | "mainnet";
-type TransactionStatus = "pending" | "success" | "error";
+export type NetworkType = "testnet" | "mainnet";
+export type TransactionStatus = "pending" | "success" | "error";
 
 const RETRY_ATTEMPTS = 5;
 const INITIAL_BACKOFF_MS = 100;
 const MAX_BACKOFF_MS = 5000;
+
+/** Precision for interest calculations (18 decimals) */
+export const PRECISION = BigInt("1000000000000000000");
+
+/** Seconds per year for APY calculations */
+export const SECONDS_PER_YEAR = 31_536_000;
 
 function toOperation(
   op: ReturnType<Contract["call"]> | StellarOperation,
@@ -30,19 +36,38 @@ function toOperation(
   return op as unknown as xdr.Operation;
 }
 
+export interface StellarServiceConfig {
+  horizonUrl?: string;
+  sorobanRpcUrl?: string;
+  networkPassphrase?: string;
+}
+
 export class StellarService {
-  private server: Horizon.Server;
-  private networkPassphrase: string;
+  protected server: Horizon.Server;
+  protected networkPassphrase: string;
+  protected sorobanRpcUrl: string;
 
-  constructor(network: NetworkType = "testnet") {
-    const rpcUrl =
-      network === "testnet"
-        ? "https://soroban-testnet.stellar.org"
-        : "https://rpc.mainnet.stellar.org";
-
-    this.server = new Horizon.Server(rpcUrl);
-    this.networkPassphrase =
-      network === "testnet" ? Networks.TESTNET : Networks.PUBLIC;
+  constructor(networkOrConfig: NetworkType | StellarServiceConfig = "testnet") {
+    if (typeof networkOrConfig === "string") {
+      const network = networkOrConfig;
+      const horizonUrl =
+        network === "testnet"
+          ? "https://horizon-testnet.stellar.org"
+          : "https://horizon.stellar.org";
+      this.sorobanRpcUrl =
+        network === "testnet"
+          ? "https://soroban-testnet.stellar.org"
+          : "https://rpc.mainnet.stellar.org";
+      this.server = new Horizon.Server(horizonUrl);
+      this.networkPassphrase =
+        network === "testnet" ? Networks.TESTNET : Networks.PUBLIC;
+    } else {
+      const config = networkOrConfig;
+      const horizonUrl = config.horizonUrl || "https://horizon-testnet.stellar.org";
+      this.sorobanRpcUrl = config.sorobanRpcUrl || "https://soroban-testnet.stellar.org";
+      this.server = new Horizon.Server(horizonUrl);
+      this.networkPassphrase = config.networkPassphrase || Networks.TESTNET;
+    }
   }
 
   async getAccountBalance(address: string): Promise<string> {
@@ -192,12 +217,69 @@ export class StellarService {
     try {
       StrKey.decodeEd25519PublicKey(address);
       return true;
-    } catch (error) {
-      throw new Error(`Invalid Stellar address: ${address}`, { cause: error });
+    } catch {
+      return false;
     }
   }
 
-  private delay(ms: number): Promise<void> {
+  validateContractId(contractId: string): boolean {
+    return /^C[A-Z2-7]{55}$/.test(contractId);
+  }
+
+  assertValidAddress(address: string): void {
+    if (!this.validateAddress(address)) {
+      throw new Error(`Invalid Stellar address: ${address}`);
+    }
+  }
+
+  assertValidContractId(contractId: string): void {
+    if (!this.validateContractId(contractId)) {
+      throw new Error(`Invalid Soroban contract ID: ${contractId}`);
+    }
+  }
+
+  /** Helper: coerce unknown to Address (Stellar string) */
+  asAddress(value: unknown): string {
+    if (typeof value !== "string") {
+      throw new Error("Expected Stellar address string");
+    }
+    return value;
+  }
+
+  /** Helper: coerce unknown to plain string */
+  asString(value: unknown): string {
+    if (typeof value !== "string") {
+      throw new Error("Expected string argument");
+    }
+    return value;
+  }
+
+  /** Helper: coerce unknown to bigint */
+  asBigInt(value: unknown): bigint {
+    if (typeof value === "bigint") {
+      return value;
+    }
+    if (typeof value === "number" && Number.isInteger(value)) {
+      return BigInt(value);
+    }
+    if (typeof value === "string" && /^-?\d+$/.test(value)) {
+      return BigInt(value);
+    }
+    throw new Error("Expected integer-compatible Soroban argument");
+  }
+
+  /** Helper: coerce unknown to number */
+  asNumber(value: unknown): number {
+    if (typeof value === "number" && Number.isFinite(value)) {
+      return value;
+    }
+    if (typeof value === "string" && /^-?\d+$/.test(value)) {
+      return Number.parseInt(value, 10);
+    }
+    throw new Error("Expected numeric argument");
+  }
+
+  protected delay(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }
