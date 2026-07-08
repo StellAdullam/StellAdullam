@@ -580,7 +580,7 @@ export class PropertyController {
 
       const buyer = await userRepository.getOrCreateByWallet(data.buyer);
       const totalPurchasePrice = (parseFloat(property.pricePerShare) * data.shares).toFixed(2);
-      const { adminPublicKey, adminSecret } = stellarService.getMintingConfig();
+      const { adminPublicKey, adminSecret } = await stellarService.getMintingConfig();
       const { txHash: transactionHash } = await stellarService.mintPropertyShares({
         contractId: property.tokenAddress,
         adminPublicKey,

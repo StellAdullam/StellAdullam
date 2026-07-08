@@ -23,5 +23,6 @@
     "paths": {
       "@stelladullam/shared": ["../shared/src"]
     }
-  }
+  },
+  "exclude": ["node_modules", "dist", "drizzle.config.ts"]
 }

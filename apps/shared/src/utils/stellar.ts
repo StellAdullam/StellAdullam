@@ -17,17 +17,11 @@ export interface WalletSigner {
 }
 
 export type NetworkType = "testnet" | "mainnet";
-export type TransactionStatus = "pending" | "success" | "error";
+type TransactionStatus = "pending" | "success" | "error";
 
 const RETRY_ATTEMPTS = 5;
 const INITIAL_BACKOFF_MS = 100;
 const MAX_BACKOFF_MS = 5000;
-
-/** Precision for interest calculations (18 decimals) */
-export const PRECISION = BigInt("1000000000000000000");
-
-/** Seconds per year for APY calculations */
-export const SECONDS_PER_YEAR = 31_536_000;
 
 function toOperation(
   op: ReturnType<Contract["call"]> | StellarOperation,

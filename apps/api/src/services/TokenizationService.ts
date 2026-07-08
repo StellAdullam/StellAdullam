@@ -52,7 +52,7 @@ export class TokenizationService {
     }
 
     const { contractId, adminPublicKey, adminSecret } =
-      this.dependencies.stellarService.getMintingConfig();
+      await this.dependencies.stellarService.getMintingConfig();
 
     if (owner.walletAddress !== userAddress && adminPublicKey !== userAddress) {
       throw new ApiError(403, 'FORBIDDEN', 'You do not have permission to tokenize this property');
