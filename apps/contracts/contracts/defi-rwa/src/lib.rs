@@ -587,6 +587,9 @@ impl PropertyTokenContract {
     pub fn get_pool(env: Env, pool_id: String) -> LendingPool {
         PoolStorage::get(&env, &pool_id).expect("pool not found")
     }
+    pub fn get_pool_list(env: Env) -> Vec<String> {
+        PoolStorage::get_list(&env)
+    }
     pub fn get_user_deposits(env: Env, user: Address) -> Vec<String> {
         PositionStorage::get_user_deposits(&env, &user)
     }
