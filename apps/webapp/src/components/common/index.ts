@@ -24,3 +24,4 @@ export * from './DisplayCurrencySwitch';
 export * from './EmergencyPauseBanner';
 export * from './FiatOnrampModal';
 export * from './NetworkLatencyBadge';
+export * from './MaintenanceNoticeModal';
