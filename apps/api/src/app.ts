@@ -15,13 +15,14 @@ import { exportRoutes } from './routes/export';
 import { simulationRoutes } from './routes/simulation';
 import { ipfsRoutes } from './routes/ipfs';
 import { errorHandler } from './middleware/errorHandler';
-import { requestLogger } from './middleware';
+import { requestLogger, requestTracing } from './middleware';
 
 /**
  * Base Elysia app without swagger
  * This allows tests to import the app without triggering @scalar/themes Zod incompatibility
  */
 const app = new Elysia()
+  .use(requestTracing)
   .use(requestLogger)
   .use(cors())
   .use(errorHandler)
