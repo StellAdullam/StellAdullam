@@ -206,35 +206,38 @@ impl GameMarketplace {
         nft_client.transfer(&marketplace, &buyer, &property_id);
     }
 
-    /// Cancel a listing and return the NFT to the seller.
-    pub fn cancel(env: Env, seller: Address, property_id: u32) {
-        seller.require_auth();
-
+    fn cancel_internal(env: &Env, seller: &Address, property_id: u32) {
         let listing: Listing = env
             .storage()
             .instance()
             .get(&DataKey::Listing(property_id))
-            .unwrap_or_else(|| panic_with_error!(&env, MarketError::NotListed));
+            .unwrap_or_else(|| panic_with_error!(env, MarketError::NotListed));
 
-        if listing.seller != seller {
-            panic_with_error!(&env, MarketError::NotSeller);
+        if &listing.seller != seller {
+            panic_with_error!(env, MarketError::NotSeller);
         }
 
         let nft: Address = env
             .storage()
             .instance()
             .get(&DataKey::NftContract)
-            .unwrap_or_else(|| panic_with_error!(&env, MarketError::NotInitialized));
+            .unwrap_or_else(|| panic_with_error!(env, MarketError::NotInitialized));
 
         env.storage()
             .instance()
             .remove(&DataKey::Listing(property_id));
-        Self::remove_from_all_listings(&env, property_id);
+        Self::remove_from_all_listings(env, property_id);
 
         // Return NFT from escrow to seller.
         let marketplace = env.current_contract_address();
-        let nft_client = NftContractClient::new(&env, &nft);
-        nft_client.transfer(&marketplace, &seller, &property_id);
+        let nft_client = NftContractClient::new(env, &nft);
+        nft_client.transfer(&marketplace, seller, &property_id);
+    }
+
+    /// Cancel a listing and return the NFT to the seller.
+    pub fn cancel(env: Env, seller: Address, property_id: u32) {
+        seller.require_auth();
+        Self::cancel_internal(&env, &seller, property_id);
     }
 
     /// Cancel multiple listings and return NFTs to the seller in a single transaction.
@@ -243,7 +246,7 @@ impl GameMarketplace {
 
         for i in 0..property_ids.len() {
             let pid = property_ids.get(i).unwrap();
-            Self::cancel(env.clone(), seller.clone(), pid);
+            Self::cancel_internal(&env, &seller, pid);
         }
     }
 
