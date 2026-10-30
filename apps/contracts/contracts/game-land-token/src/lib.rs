@@ -148,6 +148,11 @@ impl GameLandToken {
         1000 * 10_000_000
     }
 
+    /// Check whether a given account has already claimed their starter testnet faucet allocation.
+    pub fn has_claimed(env: Env, account: Address) -> bool {
+        has_claimed_faucet(&env, &account)
+    }
+
     pub fn faucet(env: Env, to: Address) {
         to.require_auth();
 
@@ -317,5 +322,17 @@ mod tests {
 
         assert_eq!(client.balance(&user), (1000 * 10_000_000) - 200);
         assert_eq!(client.allowance(&user, &spender), 300);
+    }
+
+    #[test]
+    fn test_has_claimed_query() {
+        let env = Env::default();
+        env.mock_all_auths();
+        let (treasury, engine, user, client) = setup_test(&env);
+        client.initialize(&treasury, &engine, &true);
+
+        assert_eq!(client.has_claimed(&user), false);
+        client.faucet(&user);
+        assert_eq!(client.has_claimed(&user), true);
     }
 }
