@@ -16,3 +16,5 @@ export type { PropertyShareOrderbookProps, OrderbookEntry } from "./PropertyShar
 export type { TaxAppraisalModalProps } from "./TaxAppraisalModal";
 export { OrderConfirmationModal } from "./OrderConfirmationModal";
 export type { OrderConfirmationModalProps } from "./OrderConfirmationModal";
+export { ApyRankBadge } from "./ApyRankBadge";
+export type { ApyRankBadgeProps, YieldTier } from "./ApyRankBadge";
