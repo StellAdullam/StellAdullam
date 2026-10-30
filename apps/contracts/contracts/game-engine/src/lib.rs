@@ -237,6 +237,11 @@ impl GameEngine {
     pub fn get_claim_interval_cap(_env: Env) -> u64 {
         MAX_CLAIM_INTERVAL_LEDGERS
     }
+
+    /// Returns the active competitive game season index (defaults to Season 1 Genesis).
+    pub fn get_active_season(_env: Env) -> u32 {
+        1
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
