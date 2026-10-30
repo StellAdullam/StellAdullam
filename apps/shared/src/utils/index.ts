@@ -32,3 +32,4 @@ export * from "./safe-json";
 export * from "./bigint-json";
 export * from "./sleep";
 export * from "./slug";
+export * from "./chunk";
