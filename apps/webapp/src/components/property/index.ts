@@ -18,3 +18,5 @@ export { OrderConfirmationModal } from "./OrderConfirmationModal";
 export type { OrderConfirmationModalProps } from "./OrderConfirmationModal";
 export { ApyRankBadge } from "./ApyRankBadge";
 export type { ApyRankBadgeProps, YieldTier } from "./ApyRankBadge";
+export { PropertyDeedModal } from "./PropertyDeedModal";
+export type { PropertyDeedModalProps } from "./PropertyDeedModal";
