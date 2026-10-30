@@ -8,6 +8,9 @@ pub const PRECISION: i128 = 1_000_000_000_000_000_000;
 /// Seconds per year for APY calculations
 pub const SECONDS_PER_YEAR: u64 = 31_536_000;
 
+/// Maximum permissible borrow APR (50% in PRECISION units) to protect borrowers from debt spirals
+pub const MAX_BORROW_RATE: i128 = 500_000_000_000_000_000;
+
 /// Interest rate model parameters
 /// Uses linear model: rate = base + (utilization * slope)
 #[derive(Clone)]
@@ -40,7 +43,7 @@ impl InterestRateModel {
     /// Calculate borrow rate based on utilization
     /// Uses checked arithmetic to prevent overflow
     pub fn calculate_borrow_rate(&self, utilization: i128) -> i128 {
-        if utilization <= self.optimal_utilization {
+        let raw_rate = if utilization <= self.optimal_utilization {
             // Below optimal: base + utilization * slope1 / optimal
             let slope_component = utilization
                 .checked_mul(self.slope1)
@@ -64,6 +67,13 @@ impl InterestRateModel {
             rate_at_optimal
                 .checked_add(excess_component)
                 .expect("Borrow rate overflow: rate_at_optimal + excess_component")
+        };
+
+        // Hardcap maximum APR to protect pool solvency without extreme debt explosion
+        if raw_rate > MAX_BORROW_RATE {
+            MAX_BORROW_RATE
+        } else {
+            raw_rate
         }
     }
 
