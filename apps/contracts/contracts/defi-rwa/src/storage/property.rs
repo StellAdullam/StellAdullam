@@ -9,6 +9,8 @@ pub mod property_bump {
     pub const PERSISTENT_BUMP: u32 = 518_400;
     /// Threshold before extending TTL (~7 days)
     pub const PERSISTENT_THRESHOLD: u32 = 120_960;
+    /// Standard legal title verification validity window (365 days in seconds)
+    pub const DEFAULT_VERIFICATION_VALIDITY_SECONDS: u64 = 365 * 86_400;
 }
 
 /// Property metadata stored on-chain
@@ -91,6 +93,11 @@ impl PropertyMetadata {
             created_at,
             is_active: true,
         }
+    }
+
+    /// Validates whether the property legal verification is active and within the validity window.
+    pub fn is_verification_valid(&self, current_timestamp: u64) -> bool {
+        self.is_active && (current_timestamp <= self.created_at.saturating_add(property_bump::DEFAULT_VERIFICATION_VALIDITY_SECONDS))
     }
 
     /// Stores the property metadata in persistent storage with TTL management
