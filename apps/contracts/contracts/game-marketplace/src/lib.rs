@@ -351,6 +351,7 @@ mod tests {
         marketplace_id: Address,
         marketplace: GameMarketplaceClient<'a>,
         nft: GamePropertyNftClient<'a>,
+        nft_id: Address,
         land_id: Address,
     }
 
@@ -379,6 +380,7 @@ mod tests {
             marketplace_id,
             marketplace,
             nft,
+            nft_id,
             land_id,
         }
     }
@@ -541,6 +543,6 @@ mod tests {
     fn test_contract_address_getters() {
         let s = setup();
         assert_eq!(s.marketplace.get_nft_contract(), s.nft_id);
-        assert_eq!(s.marketplace.get_land_token(), s.token_id);
+        assert_eq!(s.marketplace.get_land_token(), s.land_id);
     }
 }
