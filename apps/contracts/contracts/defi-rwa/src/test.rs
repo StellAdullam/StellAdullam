@@ -12,7 +12,7 @@ use soroban_sdk::{
 
 use crate::{
     InterestRateModel, PoolStorage, PositionStorage, PropertyTokenContract,
-    PropertyTokenContractClient, PRECISION, SECONDS_PER_YEAR,
+    PropertyTokenContractClient, MAX_BORROW_RATE, PRECISION, SECONDS_PER_YEAR,
 };
 
 // ───────────────────────────────────────────────
@@ -113,6 +113,7 @@ fn create_default_pool(setup: &TestSetup) -> String {
 // Helper for direct storage tests that used PropertyTokenContract previously
 fn setup_internal() -> (Address, Env, Address) {
     let env = Env::default();
+    env.mock_all_auths();
     let admin = Address::generate(&env);
     let contract_id = env.register(PropertyTokenContract, (&admin,));
     (contract_id, env, admin)
@@ -2895,11 +2896,12 @@ fn test_property_borrow_rate_at_optimal() {
 fn test_property_borrow_rate_at_max() {
     let model = InterestRateModel::default();
     let rate_at_max = model.calculate_borrow_rate(PRECISION);
-    // At 100%: rate = base + slope1 + slope2
-    let expected = model.base_rate + model.slope1 + model.slope2;
+    // At 100%: rate is capped at MAX_BORROW_RATE
+    let uncapped = model.base_rate + model.slope1 + model.slope2;
+    let expected = uncapped.min(MAX_BORROW_RATE);
     assert_eq!(
         rate_at_max, expected,
-        "At 100% utilization, rate {} should equal base + slope1 + slope2 = {}",
+        "At 100% utilization, rate {} should equal capped rate = {}",
         rate_at_max, expected
     );
 }
@@ -3111,10 +3113,10 @@ fn test_property_borrow_rate_edge_values() {
         model.base_rate + model.slope1
     );
 
-    // 100% utilization → base + slope1 + slope2
+    // 100% utilization → capped at MAX_BORROW_RATE
     assert_eq!(
         model.calculate_borrow_rate(PRECISION),
-        model.base_rate + model.slope1 + model.slope2
+        (model.base_rate + model.slope1 + model.slope2).min(MAX_BORROW_RATE)
     );
 }
 
