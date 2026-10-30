@@ -22,3 +22,4 @@ export * from "./address";
 export * from "./debounce";
 export * from "./currency";
 export * from "./deep-merge";
+export * from "./env-detect";
