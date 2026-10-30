@@ -38,3 +38,4 @@ export * from "./random";
 export * from "./clone";
 export * from "./color-interpolate";
 export * from "./clamp";
+export * from "./bytes";
