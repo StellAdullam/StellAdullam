@@ -25,3 +25,4 @@ export * from "./deep-merge";
 export * from "./env-detect";
 export * from "./promise-limiter";
 export * from "./event-emitter";
+export * from "./retry";
