@@ -598,6 +598,11 @@ impl PropertyTokenContract {
     pub fn get_pool_deposit_cap(_env: Env, _pool_id: String) -> i128 {
         LendingPool::DEFAULT_MAX_POOL_DEPOSIT
     }
+
+    /// Returns the maximum permissible borrow APR cap (50% in PRECISION units).
+    pub fn get_max_borrow_apr(_env: Env) -> i128 {
+        MAX_BORROW_RATE
+    }
     pub fn get_user_deposits(env: Env, user: Address) -> Vec<String> {
         PositionStorage::get_user_deposits(&env, &user)
     }

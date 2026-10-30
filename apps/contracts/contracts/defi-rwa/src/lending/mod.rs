@@ -9,7 +9,7 @@ mod oracle;
 mod pool;
 mod positions;
 
-pub use interest::{InterestRateModel, InterestStorage, PRECISION, SECONDS_PER_YEAR};
+pub use interest::{InterestRateModel, InterestStorage, MAX_BORROW_RATE, PRECISION, SECONDS_PER_YEAR};
 pub use keys::{lending_bump, LendingKey};
 pub use oracle::PriceOracle;
 pub use pool::{LendingPool, PoolStorage};
