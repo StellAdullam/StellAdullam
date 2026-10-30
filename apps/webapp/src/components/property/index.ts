@@ -20,3 +20,5 @@ export { ApyRankBadge } from "./ApyRankBadge";
 export type { ApyRankBadgeProps, YieldTier } from "./ApyRankBadge";
 export { PropertyDeedModal } from "./PropertyDeedModal";
 export type { PropertyDeedModalProps } from "./PropertyDeedModal";
+export { RentalYieldBreakdownModal } from "./RentalYieldBreakdownModal";
+export type { RentalYieldBreakdownModalProps } from "./RentalYieldBreakdownModal";
