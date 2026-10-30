@@ -1,3 +1,5 @@
+import { isValidStellarPublicKey } from './stellar';
+
 /**
  * Shortens a Stellar public address or contract ID to a human-readable format.
  * Example: 'GBZXN7PIRZGNMHGA7MUUUF4GWPY5AYPV6LY4UV2GL6VJGIQRXFDNMADI' -> 'GBZX...MADI'
@@ -18,4 +20,11 @@ export function truncateAddress(
   const head = trimmed.slice(0, headLength);
   const tail = trimmed.slice(-tailLength);
   return `${head}...${tail}`;
+}
+
+/**
+ * Validates whether a given string is a valid Stellar account or contract address.
+ */
+export function isValidStellarAddress(address: unknown): boolean {
+  return isValidStellarPublicKey(address);
 }
