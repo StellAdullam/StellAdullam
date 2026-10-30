@@ -59,3 +59,4 @@ export * from "./parse-boolean";
 export * from "./mask-email";
 export * from "./shuffle";
 export * from "./title-case";
+export * from "./shallow-equal";
