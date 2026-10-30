@@ -612,6 +612,13 @@ impl PropertyTokenContract {
     pub fn get_total_borrows(env: Env, pool_id: String) -> i128 {
         PoolStorage::get_total_borrows(&env, &pool_id)
     }
+
+    /// Returns the net protocol liquidity reserves for a given pool (deposits - borrows).
+    pub fn get_total_reserves(env: Env, pool_id: String) -> i128 {
+        let deposits = PoolStorage::get_total_deposits(&env, &pool_id);
+        let borrows = PoolStorage::get_total_borrows(&env, &pool_id);
+        deposits.saturating_sub(borrows).max(0)
+    }
     pub fn get_user_borrows(env: Env, user: Address) -> Vec<String> {
         PositionStorage::get_user_borrows(&env, &user)
     }
