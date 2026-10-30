@@ -1,7 +1,24 @@
 import { Elysia, t } from 'elysia';
 import { ipfsStorageService } from '../services/IpfsStorageService';
+import { IpfsGatewayHealthService } from '../services/IpfsGatewayHealthService';
 
 export const ipfsRoutes = new Elysia({ prefix: '/api/v1/ipfs' })
+  .get(
+    '/gateways',
+    async () => {
+      const statuses = await IpfsGatewayHealthService.checkGateways();
+      return {
+        success: true,
+        data: statuses,
+      };
+    },
+    {
+      detail: {
+        summary: 'Query IPFS gateway status and latency',
+        tags: ['IPFS'],
+      },
+    },
+  )
   .get(
     '/:cid',
     async ({ params: { cid }, set }) => {
