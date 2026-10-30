@@ -233,6 +233,10 @@ impl GameEngine {
     pub fn get_epoch_length(_env: Env) -> u64 {
         EPOCH_LENGTH
     }
+
+    pub fn get_claim_interval_cap(_env: Env) -> u64 {
+        MAX_CLAIM_INTERVAL_LEDGERS
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -638,5 +642,11 @@ mod tests {
     fn test_get_epoch_length_returns_constant() {
         let test = setup_test();
         assert_eq!(test.engine_client.get_epoch_length(), EPOCH_LENGTH);
+    }
+
+    #[test]
+    fn test_get_claim_interval_cap_returns_constant() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_claim_interval_cap(), MAX_CLAIM_INTERVAL_LEDGERS);
     }
 }
