@@ -6,6 +6,9 @@ use super::keys::LendingKey;
 /// Default maximum age for price data (1 hour in seconds).
 const DEFAULT_MAX_AGE: u64 = 3600;
 
+/// Maximum allowable future timestamp drift (60 seconds) to protect against oracle clock manipulation.
+const MAX_FUTURE_TIMESTAMP_DRIFT: u64 = 60;
+
 /// Oracle price consumer with production-grade guardrails.
 ///
 /// Every price-sensitive code path in the contract MUST go through
@@ -93,9 +96,12 @@ impl PriceOracle {
             panic!("Invalid price: price must be positive");
         }
 
-        // 3. Staleness check - configurable max age
+        // 3. Staleness and future timestamp check
         let current_time = env.ledger().timestamp();
         let max_age = Self::get_max_age(env);
+        if price_data.timestamp > current_time && (price_data.timestamp - current_time) > MAX_FUTURE_TIMESTAMP_DRIFT {
+            panic!("Price timestamp is in the future");
+        }
         if current_time > price_data.timestamp && (current_time - price_data.timestamp) > max_age {
             panic!("Price data is stale");
         }
