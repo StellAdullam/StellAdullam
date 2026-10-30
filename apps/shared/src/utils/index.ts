@@ -19,3 +19,4 @@ export * from "./uuid";
 export * from "./event-topics";
 export * from "./type-guards";
 export * from "./address";
+export * from "./debounce";
