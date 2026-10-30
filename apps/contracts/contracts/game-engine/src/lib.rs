@@ -202,6 +202,15 @@ impl GameEngine {
             .unwrap_or(0);
         rate_per_epoch * 172
     }
+
+    pub fn get_improvement_cost(_env: Env, target_level: u32) -> i128 {
+        match target_level {
+            LEVEL_RESIDENTIAL => IMPROVEMENT_COST_RESIDENTIAL,
+            LEVEL_COMMERCIAL => IMPROVEMENT_COST_COMMERCIAL,
+            LEVEL_SKYSCRAPER => IMPROVEMENT_COST_SKYSCRAPER,
+            _ => 0,
+        }
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -574,5 +583,14 @@ mod tests {
         assert!(residential_daily > vacant_daily);
         assert!(commercial_daily > residential_daily);
         assert!(skyscraper_daily > commercial_daily);
+    }
+
+    #[test]
+    fn test_get_improvement_cost_matches_constants() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_RESIDENTIAL), IMPROVEMENT_COST_RESIDENTIAL);
+        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_COMMERCIAL), IMPROVEMENT_COST_COMMERCIAL);
+        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_SKYSCRAPER), IMPROVEMENT_COST_SKYSCRAPER);
+        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_VACANT), 0);
     }
 }
