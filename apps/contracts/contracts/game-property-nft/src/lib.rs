@@ -18,6 +18,8 @@ pub use errors::NftError;
 use cougr_compat::{Ownable, Pausable, SimpleWorld};
 
 // Grid constants
+pub const GRID_WIDTH: u32 = 20;
+pub const GRID_HEIGHT: u32 = 20;
 pub const TOTAL_TILES: u32 = 400;
 
 #[soroban_sdk::contracttype]
@@ -37,6 +39,22 @@ pub struct GamePropertyNft;
 
 #[contractimpl]
 impl GamePropertyNft {
+    /// Pack 2D grid coordinates (x, y) into a 1D property ID (0 to 399).
+    pub fn coord_to_id(_env: Env, x: u32, y: u32) -> u32 {
+        if x >= GRID_WIDTH || y >= GRID_HEIGHT {
+            panic!("Coordinates out of 20x20 grid bounds");
+        }
+        y * GRID_WIDTH + x
+    }
+
+    /// Unpack 1D property ID into 2D grid coordinates (x, y).
+    pub fn id_to_coord(_env: Env, id: u32) -> (u32, u32) {
+        if id >= TOTAL_TILES {
+            panic!("Property ID out of bounds");
+        }
+        (id % GRID_WIDTH, id / GRID_WIDTH)
+    }
+
     /// Mint all 400 tiles to `treasury` logically.
     pub fn initialize(env: Env, treasury: Address, game_engine: Address) {
         let ownable = Ownable::new(symbol_short!("prop_nft"));
