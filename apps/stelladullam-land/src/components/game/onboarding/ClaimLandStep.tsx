@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useGameWallet } from "@/hooks/useGameWallet";
+import { buildClaimFaucetXdr } from "@/lib/soroban-tx";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
@@ -15,7 +16,7 @@ type Status = "idle" | "pending" | "done" | "error";
 
 const STATUS_MESSAGE: Record<Status, string> = {
   idle: "Claim 1,000 LAND",
-  pending: "Preparing your wallet on Stellar...",
+  pending: "Submitting faucet transaction on Stellar...",
   done: "1,000 LAND Received!",
   error: "Claim failed. Try again.",
 };
@@ -27,16 +28,26 @@ export function ClaimLandStep({
   onNext: () => void;
   onSkip: () => void;
 }) {
-  const { signAndSubmit } = useGameWallet();
+  const { signAndSubmit, address, isConnected, connect } = useGameWallet();
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleClaim = async () => {
     setStatus("pending");
+    setErrorMessage(null);
     try {
-      // Simulate/call transaction
-      await signAndSubmit("placeholder-faucet-xdr");
+      if (!isConnected || !address) {
+        await connect();
+        setStatus("idle");
+        return;
+      }
+      const xdr = await buildClaimFaucetXdr(address);
+      await signAndSubmit(xdr);
       setStatus("done");
     } catch (err) {
+      console.error("Faucet claim error:", err);
+      const msg = err instanceof Error ? err.message : "Claim failed. Try again.";
+      setErrorMessage(msg);
       setStatus("error");
     }
   };
@@ -184,12 +195,11 @@ export function ClaimLandStep({
               )}
 
               {status === "error" && (
-                <div className="flex items-center justify-center gap-1.5 text-xs text-rose-400">
-                  <AlertCircle size={14} />
-                  <span>
-                    Transaction failed. Please make sure you have internet
-                    access.
-                  </span>
+                <div className="flex flex-col items-center justify-center gap-1.5 text-xs text-rose-400">
+                  <div className="flex items-center gap-1.5">
+                    <AlertCircle size={14} />
+                    <span>{errorMessage || "Transaction failed. Please verify wallet network is Testnet."}</span>
+                  </div>
                 </div>
               )}
 

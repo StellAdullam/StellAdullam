@@ -58,6 +58,15 @@ export const MARKETPLACE_CONTRACT_ID =
   process.env.NEXT_PUBLIC_MARKETPLACE_CONTRACT_ID ??
   contractsTestnet.contracts.REAL_ESTATE_TOKEN;
 
+/**
+ * The Land Token contract (GameLandToken / SEP-41).
+ * Faucet claims and token allowances go through this contract.
+ */
+export const LAND_TOKEN_CONTRACT_ID =
+  process.env.NEXT_PUBLIC_LAND_TOKEN_CONTRACT_ID ??
+  (contractsTestnet.contracts as Record<string, string>)["GAME_LAND_TOKEN"] ??
+  contractsTestnet.contracts.REAL_ESTATE_TOKEN;
+
 // ── Shared RPC server singleton ──────────────────────────────────────────────
 
 let _server: SorobanRpc.Server | null = null;
@@ -167,6 +176,24 @@ export async function buildSorobanTx(opts: BuildTxOptions): Promise<string> {
 }
 
 // ── Action-specific XDR builders ─────────────────────────────────────────────
+
+/**
+ * Build XDR for: GameLandToken.faucet(to)
+ *
+ * Mints 1,000 starter LAND tokens to the caller on testnet.
+ *
+ * @param callerAddress  Stellar address of the player claiming starter LAND.
+ */
+export async function buildClaimFaucetXdr(callerAddress: string): Promise<string> {
+  return buildSorobanTx({
+    sourceAddress: callerAddress,
+    contractId: LAND_TOKEN_CONTRACT_ID,
+    functionName: "faucet",
+    args: [
+      nativeToScVal(callerAddress, { type: "address" }),
+    ],
+  });
+}
 
 /**
  * Build XDR for: GamePropertyNft.transfer(treasury, buyer, property_id)
