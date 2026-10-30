@@ -143,6 +143,11 @@ impl GameLandToken {
         events::emit_mint(&env, to, amount);
     }
 
+    /// Query the configured faucet drop amount (1,000 LAND in 7-decimal Stroops).
+    pub fn faucet_amount(_env: Env) -> i128 {
+        1000 * 10_000_000
+    }
+
     pub fn faucet(env: Env, to: Address) {
         to.require_auth();
 
@@ -154,12 +159,12 @@ impl GameLandToken {
             panic_with_error!(&env, TokenError::AlreadyClaimed);
         }
 
-        let faucet_amount: i128 = 1000 * 10_000_000; // 1,000 LAND with 7 decimals
+        let drop = Self::faucet_amount(env.clone());
         let balance = get_balance(&env, &to);
 
-        set_balance(&env, &to, balance + faucet_amount);
+        set_balance(&env, &to, balance + drop);
         set_faucet_claimed(&env, &to);
-        events::emit_mint(&env, to, faucet_amount);
+        events::emit_mint(&env, to, drop);
     }
 
     // --- Internal Helpers ---
