@@ -247,6 +247,11 @@ impl GameMarketplace {
         }
     }
 
+    /// Return the protocol marketplace trading fee in basis points (100 bps = 1.0%).
+    pub fn get_fee_bps(_env: Env) -> u32 {
+        100
+    }
+
     /// Return a single listing.
     pub fn get_listing(env: Env, property_id: u32) -> Option<Listing> {
         env.storage().instance().get(&DataKey::Listing(property_id))
@@ -476,5 +481,11 @@ mod tests {
         assert!(s.marketplace.get_listing(&8).is_none());
         assert_eq!(s.nft.get_owner(&7), s.treasury);
         assert_eq!(s.nft.get_owner(&8), s.treasury);
+    }
+
+    #[test]
+    fn test_get_fee_bps_returns_100() {
+        let s = setup();
+        assert_eq!(s.marketplace.get_fee_bps(), 100);
     }
 }
