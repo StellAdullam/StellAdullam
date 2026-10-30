@@ -22,3 +22,5 @@ export { PropertyDeedModal } from "./PropertyDeedModal";
 export type { PropertyDeedModalProps } from "./PropertyDeedModal";
 export { RentalYieldBreakdownModal } from "./RentalYieldBreakdownModal";
 export type { RentalYieldBreakdownModalProps } from "./RentalYieldBreakdownModal";
+export { RentalSaturationBadge } from "./RentalSaturationBadge";
+export type { RentalSaturationBadgeProps } from "./RentalSaturationBadge";
