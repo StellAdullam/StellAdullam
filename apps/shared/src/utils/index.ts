@@ -27,3 +27,4 @@ export * from "./promise-limiter";
 export * from "./event-emitter";
 export * from "./retry";
 export * from "./hash";
+export * from "./format-intl";
