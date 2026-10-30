@@ -6,3 +6,4 @@ export * from './PoolActionModal';
 export * from './LiquidationAlertBell';
 export * from './ApyForecastCalculator';
 export * from './CollateralRatioBar';
+export * from './ProjectedHealthFactorPill';
