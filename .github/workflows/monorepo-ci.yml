@@ -71,6 +71,11 @@ jobs:
         if grep -q "@stelladullam/shared" apps/api/package.json; then
           echo "✅ API references shared package"
         fi
+
+        # Check if Land references shared
+        if grep -q "@stelladullam/shared" apps/stelladullam-land/package.json; then
+          echo "✅ Land references shared package"
+        fi
         
     - name: Validate TypeScript configuration
       run: |
@@ -233,6 +238,12 @@ jobs:
           echo "Shared library: ${SHARED_SIZE}KB"
         fi
 
+        # Check Land bundle
+        if [ -d "apps/stelladullam-land/.next" ]; then
+          LAND_SIZE=$(du -sk apps/stelladullam-land/.next | cut -f1)
+          echo "Land app bundle: ${LAND_SIZE}KB"
+        fi
+
   integration-test:
     name: Cross-Workspace Integration
     runs-on: ubuntu-latest
@@ -284,6 +295,8 @@ jobs:
         cd apps/api
         bunx tsc --noEmit --skipLibCheck
         cd ../webapp
+        bunx tsc --noEmit --skipLibCheck
+        cd ../stelladullam-land
         bunx tsc --noEmit --skipLibCheck
         cd ../..
         
