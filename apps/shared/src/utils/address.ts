@@ -1,4 +1,4 @@
-import { isValidStellarPublicKey } from './stellar';
+import { isValidStellarPublicKey } from "./stellar";
 
 /**
  * Shortens a Stellar public address or contract ID to a human-readable format.
@@ -9,7 +9,7 @@ export function truncateAddress(
   headLength: number = 4,
   tailLength: number = 4,
 ): string {
-  if (!address || typeof address !== 'string') return '';
+  if (!address || typeof address !== "string") return "";
   const trimmed = address.trim();
   const minLength = headLength + tailLength + 3;
 

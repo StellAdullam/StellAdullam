@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface HarvestMultiplierTagProps {
   multiplierRatio: number; // e.g. 1.5, 2.0, 3.0
@@ -9,9 +9,9 @@ export interface HarvestMultiplierTagProps {
 
 export const HarvestMultiplierTag: React.FC<HarvestMultiplierTagProps> = ({
   multiplierRatio,
-  districtName = 'Downtown',
+  districtName = "Downtown",
   hasActiveEvent = false,
-  className = '',
+  className = "",
 }) => {
   if (multiplierRatio <= 1.0 && !hasActiveEvent) {
     return null;
@@ -21,8 +21,8 @@ export const HarvestMultiplierTag: React.FC<HarvestMultiplierTagProps> = ({
     <div
       className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full border text-[11px] font-mono font-bold backdrop-blur-md shadow-sm ${
         multiplierRatio >= 2.0
-          ? 'bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-amber-950/40 animate-pulse'
-          : 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300'
+          ? "bg-amber-500/20 border-amber-500/40 text-amber-300 shadow-amber-950/40 animate-pulse"
+          : "bg-emerald-500/20 border-emerald-500/40 text-emerald-300"
       } ${className}`}
       title={`${districtName} bonus: ${multiplierRatio.toFixed(1)}x rental harvest rate active`}
     >

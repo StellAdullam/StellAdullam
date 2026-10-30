@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 export interface ActivityEvent {
   id: string;
-  type: 'deposit' | 'borrow' | 'repay' | 'harvest' | 'trade';
+  type: "deposit" | "borrow" | "repay" | "harvest" | "trade";
   title: string;
   description: string;
   timestamp: string;
@@ -39,7 +39,9 @@ export const ActivityDrawer: React.FC<ActivityDrawerProps> = ({
                 <span className="w-2.5 h-2.5 rounded-full bg-cyan-400" />
                 Protocol Activity Feed
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">Real-time ledger audit log</p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                Real-time ledger audit log
+              </p>
             </div>
             <button
               type="button"
@@ -47,8 +49,18 @@ export const ActivityDrawer: React.FC<ActivityDrawerProps> = ({
               className="p-1 rounded-lg text-slate-400 hover:text-slate-200 transition-colors"
               aria-label="Close activity feed"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -66,25 +78,31 @@ export const ActivityDrawer: React.FC<ActivityDrawerProps> = ({
                   className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/50 flex items-start gap-3 text-xs"
                 >
                   <div className="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5">
-                    {act.type === 'deposit' && '📥'}
-                    {act.type === 'borrow' && '💳'}
-                    {act.type === 'repay' && '🔄'}
-                    {act.type === 'harvest' && '🌾'}
-                    {act.type === 'trade' && '🤝'}
+                    {act.type === "deposit" && "📥"}
+                    {act.type === "borrow" && "💳"}
+                    {act.type === "repay" && "🔄"}
+                    {act.type === "harvest" && "🌾"}
+                    {act.type === "trade" && "🤝"}
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-1">
-                      <span className="font-semibold text-slate-200 truncate">{act.title}</span>
+                      <span className="font-semibold text-slate-200 truncate">
+                        {act.title}
+                      </span>
                       {act.amount && (
                         <span className="font-mono text-cyan-400 text-[11px] shrink-0 font-medium">
                           {act.amount}
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-400 text-[11px] mt-0.5 leading-relaxed">{act.description}</p>
+                    <p className="text-slate-400 text-[11px] mt-0.5 leading-relaxed">
+                      {act.description}
+                    </p>
                     <div className="flex items-center justify-between mt-2 pt-1.5 border-t border-slate-700/40 text-[10px] text-slate-500">
-                      <span>{new Date(act.timestamp).toLocaleTimeString()}</span>
+                      <span>
+                        {new Date(act.timestamp).toLocaleTimeString()}
+                      </span>
                       {act.txHash && (
                         <a
                           href={`https://stellar.expert/explorer/testnet/tx/${act.txHash}`}

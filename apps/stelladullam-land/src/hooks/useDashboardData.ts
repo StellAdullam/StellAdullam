@@ -67,7 +67,7 @@ export function useDashboardData(
         const multiplier = [1, 1.5, 3, 6][p.buildingLevel] || 1;
         const rate = baseRate * multiplier;
         totalYield += rate;
-        totalUnclaimed += (p.earnedIncome || rate * 2);
+        totalUnclaimed += p.earnedIncome || rate * 2;
       });
 
       setProperties(effectiveOwned);
@@ -87,9 +87,8 @@ export function useDashboardData(
       const account = await server.getAccount(viewerAddress);
 
       // Call LandToken.balance(viewerAddress)
-      const { Contract, TransactionBuilder, Networks } = await import(
-        "@stellar/stellar-sdk"
-      );
+      const { Contract, TransactionBuilder, Networks } =
+        await import("@stellar/stellar-sdk");
       const tokenContract = new Contract(LAND_TOKEN_CONTRACT_ID);
 
       const tx = new TransactionBuilder(account, {
@@ -133,7 +132,10 @@ export function useDashboardData(
       setTotalRentalYield(totalYield);
       setUnclaimedRental(totalUnclaimed);
     } catch (err) {
-      console.warn("Live contract query failed, using resilient fallback:", err);
+      console.warn(
+        "Live contract query failed, using resilient fallback:",
+        err,
+      );
       // Fallback gracefully so dashboard stays functional
       const allProps = generateMockGrid();
       const owned = allProps.filter(

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs",
+  "buildCommand": "cd ../.. && bun run build:shared && cd apps/stelladullam-land && bun run build",
+  "installCommand": "cd ../.. && bun install --frozen-lockfile",
+  "outputDirectory": ".next",
+  "env": {
+    "NEXT_PUBLIC_SOROBAN_RPC_URL": "https://soroban-testnet.stellar.org",
+    "NEXT_PUBLIC_USE_MOCK": "true"
+  }
+}

@@ -48,3 +48,4 @@ graph LR
 | Tokenized Real Estate Valuation | \$500,000 | \$2,000,000 | \$10,000,000+ |
 | Active Weekly Discord Members | 1,200 | 4,000 | 12,000+ |
 | Monthly Rental Dividend Volume | 50,000 XLM | 250,000 XLM | 1,500,000 XLM |
+

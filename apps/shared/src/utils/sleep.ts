@@ -5,7 +5,7 @@
 export function sleep(ms: number, signal?: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal?.aborted) {
-      return reject(new Error('Sleep aborted'));
+      return reject(new Error("Sleep aborted"));
     }
 
     const timer = setTimeout(() => {
@@ -13,9 +13,9 @@ export function sleep(ms: number, signal?: AbortSignal): Promise<void> {
     }, ms);
 
     if (signal) {
-      signal.addEventListener('abort', () => {
+      signal.addEventListener("abort", () => {
         clearTimeout(timer);
-        reject(new Error('Sleep aborted'));
+        reject(new Error("Sleep aborted"));
       });
     }
   });

@@ -10,9 +10,18 @@ export { TaxAppraisalModal } from "./TaxAppraisalModal";
 
 export type { PropertyViewer3DProps } from "./PropertyViewer3D";
 export type { TokenizeFormData } from "./TokenizePropertyWizard";
-export type { DividendsClaimCardProps, PropertyDividendInfo } from "./DividendsClaimCard";
-export type { Property3DCarouselProps, PropertyMediaItem } from "./Property3DCarousel";
-export type { PropertyShareOrderbookProps, OrderbookEntry } from "./PropertyShareOrderbook";
+export type {
+  DividendsClaimCardProps,
+  PropertyDividendInfo,
+} from "./DividendsClaimCard";
+export type {
+  Property3DCarouselProps,
+  PropertyMediaItem,
+} from "./Property3DCarousel";
+export type {
+  PropertyShareOrderbookProps,
+  OrderbookEntry,
+} from "./PropertyShareOrderbook";
 export type { TaxAppraisalModalProps } from "./TaxAppraisalModal";
 export { OrderConfirmationModal } from "./OrderConfirmationModal";
 export type { OrderConfirmationModalProps } from "./OrderConfirmationModal";

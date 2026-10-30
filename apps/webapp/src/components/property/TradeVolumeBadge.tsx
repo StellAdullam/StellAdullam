@@ -1,5 +1,5 @@
-import React from 'react';
-import { Activity, TrendingUp, BarChart2 } from 'lucide-react';
+import React from "react";
+import { Activity, TrendingUp, BarChart2 } from "lucide-react";
 
 export interface TradeVolumeBadgeProps {
   volume24hUsd: number;
@@ -10,7 +10,7 @@ export interface TradeVolumeBadgeProps {
 export const TradeVolumeBadge: React.FC<TradeVolumeBadgeProps> = ({
   volume24hUsd,
   trades24hCount,
-  className = '',
+  className = "",
 }) => {
   const isHighVelocity = trades24hCount >= 10;
   const isModerateVelocity = trades24hCount >= 3 && trades24hCount < 10;
@@ -19,15 +19,19 @@ export const TradeVolumeBadge: React.FC<TradeVolumeBadgeProps> = ({
     <div
       className={`inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-medium border ${
         isHighVelocity
-          ? 'bg-purple-950/40 text-purple-300 border-purple-800/60'
+          ? "bg-purple-950/40 text-purple-300 border-purple-800/60"
           : isModerateVelocity
-          ? 'bg-blue-950/40 text-blue-300 border-blue-800/60'
-          : 'bg-slate-900/60 text-slate-400 border-slate-800'
+            ? "bg-blue-950/40 text-blue-300 border-blue-800/60"
+            : "bg-slate-900/60 text-slate-400 border-slate-800"
       } ${className}`}
     >
       <BarChart2 className="w-3.5 h-3.5 text-purple-400" />
       <span className="font-mono">
-        ${volume24hUsd.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 })}
+        $
+        {volume24hUsd.toLocaleString(undefined, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: 0,
+        })}
       </span>
       <span className="text-slate-500">•</span>
       <span className="flex items-center gap-1 text-[11px]">

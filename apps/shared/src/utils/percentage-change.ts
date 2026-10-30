@@ -7,7 +7,10 @@
 /**
  * Calculates percentage change from oldValue to newValue. Returns 0 if oldValue is 0.
  */
-export function calculatePercentChange(oldValue: number, newValue: number): number {
+export function calculatePercentChange(
+  oldValue: number,
+  newValue: number,
+): number {
   if (oldValue === 0) {
     return newValue === 0 ? 0 : 100;
   }
@@ -24,7 +27,10 @@ export function calculateBpsChange(oldValue: number, newValue: number): number {
 /**
  * Formats a percentage delta with an explicit + or - sign.
  */
-export function formatPercentChange(delta: number, decimals: number = 2): string {
-  const sign = delta > 0 ? '+' : '';
+export function formatPercentChange(
+  delta: number,
+  decimals: number = 2,
+): string {
+  const sign = delta > 0 ? "+" : "";
   return `${sign}${delta.toFixed(decimals)}%`;
 }

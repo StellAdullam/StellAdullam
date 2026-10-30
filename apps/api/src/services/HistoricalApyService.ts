@@ -46,8 +46,8 @@ export class HistoricalApyService {
       const wave = Math.sin(i * 0.4) * 0.8;
       const depositApy = Number((4.8 + wave * 0.5).toFixed(2));
       const borrowApy = Number((7.9 + wave * 0.7).toFixed(2));
-      const tvlUsd = Math.round(baseTvl * (1 + (wave * 0.05)));
-      const totalBorrowedUsd = Math.round(baseBorrow * (1 + (wave * 0.04)));
+      const tvlUsd = Math.round(baseTvl * (1 + wave * 0.05));
+      const totalBorrowedUsd = Math.round(baseBorrow * (1 + wave * 0.04));
       const utilizationRate = Number((totalBorrowedUsd / (tvlUsd || 1)).toFixed(2));
 
       sumDepositApy += depositApy;

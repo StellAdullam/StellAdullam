@@ -6,7 +6,7 @@
 
 export function partition<T>(
   items: T[],
-  predicate: (item: T, index: number) => boolean
+  predicate: (item: T, index: number) => boolean,
 ): [T[], T[]] {
   const truthy: T[] = [];
   const falsy: T[] = [];

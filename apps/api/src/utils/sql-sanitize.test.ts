@@ -9,7 +9,9 @@ describe('sql-sanitize utilities', () => {
   });
 
   it('rejects malicious or invalid SQL identifiers', () => {
-    expect(() => sanitizeIdentifier('users; DROP TABLE users;--')).toThrow('Invalid SQL identifier');
+    expect(() => sanitizeIdentifier('users; DROP TABLE users;--')).toThrow(
+      'Invalid SQL identifier',
+    );
     expect(() => sanitizeIdentifier('col"name')).toThrow('Invalid SQL identifier');
     expect(() => sanitizeIdentifier('123col')).toThrow('Invalid SQL identifier');
     expect(() => sanitizeIdentifier('')).toThrow('SQL identifier cannot be empty');

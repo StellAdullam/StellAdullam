@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface TaxAppraisalTooltipProps {
   parcelId: number;
@@ -15,9 +15,10 @@ export const TaxAppraisalTooltip: React.FC<TaxAppraisalTooltipProps> = ({
   taxRatePercent = 1.5,
   districtMultiplier = 1.0,
   annualDividendXlm,
-  className = '',
+  className = "",
 }) => {
-  const annualTaxXlm = (valuationXlm * (taxRatePercent / 100)) * districtMultiplier;
+  const annualTaxXlm =
+    valuationXlm * (taxRatePercent / 100) * districtMultiplier;
   const netAnnualDividend = Math.max(0, annualDividendXlm - annualTaxXlm);
 
   return (
@@ -26,7 +27,9 @@ export const TaxAppraisalTooltip: React.FC<TaxAppraisalTooltipProps> = ({
       role="tooltip"
     >
       <div className="flex justify-between items-center border-b border-slate-800 pb-1.5">
-        <span className="font-bold text-white font-sans">Municipal Tax # {parcelId}</span>
+        <span className="font-bold text-white font-sans">
+          Municipal Tax # {parcelId}
+        </span>
         <span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">
           {taxRatePercent}% Base
         </span>
@@ -35,11 +38,15 @@ export const TaxAppraisalTooltip: React.FC<TaxAppraisalTooltipProps> = ({
       <div className="space-y-1 text-slate-300">
         <div className="flex justify-between">
           <span className="text-slate-400">Assessed Valuation:</span>
-          <span className="text-white">{valuationXlm.toLocaleString()} XLM</span>
+          <span className="text-white">
+            {valuationXlm.toLocaleString()} XLM
+          </span>
         </div>
         <div className="flex justify-between">
           <span className="text-slate-400">District Multiplier:</span>
-          <span className="text-indigo-400">{districtMultiplier.toFixed(2)}x</span>
+          <span className="text-indigo-400">
+            {districtMultiplier.toFixed(2)}x
+          </span>
         </div>
         <div className="flex justify-between text-rose-400">
           <span>Est. Annual Tax:</span>

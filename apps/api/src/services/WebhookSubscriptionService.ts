@@ -30,7 +30,8 @@ export class WebhookSubscriptionService {
     }
 
     const id = `sub_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
-    const generatedSecret = secret || Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+    const generatedSecret =
+      secret || Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
 
     const subscription: WebhookSubscription = {
       id,

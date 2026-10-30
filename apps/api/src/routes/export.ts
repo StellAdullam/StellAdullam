@@ -14,8 +14,9 @@ export function buildCsvReport(headers: string[], rows: (string | number)[][]): 
   return `${headerLine}\n${rowLines}`;
 }
 
-export const exportRoutes = new Elysia({ prefix: '/api/v1/export' })
-  .get('/transactions.csv', ({ set }) => {
+export const exportRoutes = new Elysia({ prefix: '/api/v1/export' }).get(
+  '/transactions.csv',
+  ({ set }) => {
     const headers = [
       'TransactionHash',
       'Timestamp',
@@ -53,7 +54,9 @@ export const exportRoutes = new Elysia({ prefix: '/api/v1/export' })
     const csvContent = buildCsvReport(headers, sampleRows);
 
     set.headers['Content-Type'] = 'text/csv; charset=utf-8';
-    set.headers['Content-Disposition'] = 'attachment; filename="stelladullam_transactions_audit.csv"';
+    set.headers['Content-Disposition'] =
+      'attachment; filename="stelladullam_transactions_audit.csv"';
 
     return csvContent;
-  });
+  },
+);

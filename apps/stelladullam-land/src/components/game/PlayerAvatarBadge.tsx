@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { colorHash } from '@/lib/colorHash';
+import React from "react";
+import { colorHash } from "@/lib/colorHash";
 
 export interface PlayerAvatarBadgeProps {
   address: string;
@@ -14,10 +14,10 @@ export function PlayerAvatarBadge({
   address,
   size = 36,
   showStatus = false,
-  className = '',
+  className = "",
 }: PlayerAvatarBadgeProps) {
   const color = colorHash(address);
-  const initial = address ? address.charAt(0).toUpperCase() : '?';
+  const initial = address ? address.charAt(0).toUpperCase() : "?";
 
   return (
     <div

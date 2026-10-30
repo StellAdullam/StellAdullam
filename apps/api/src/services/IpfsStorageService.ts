@@ -40,10 +40,7 @@ export class IpfsStorageService {
   /**
    * Simulates or executes document pinning to IPFS.
    */
-  public async pinDocument(
-    buffer: Buffer,
-    filename: string,
-  ): Promise<IpfsUploadResult> {
+  public async pinDocument(buffer: Buffer, _filename: string): Promise<IpfsUploadResult> {
     const sha256Hex = this.computeSha256(buffer);
     const cid = this.computeDeterministicCid(buffer);
     const sizeBytes = buffer.length;

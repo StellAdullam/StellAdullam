@@ -4,11 +4,11 @@
  * for pagination, property filtering, and Stellar Horizon/RPC API requests.
  */
 
-export function stringifyQuery(params: Record<string, any>): string {
+export function stringifyQuery(params: Record<string, unknown>): string {
   const searchParams = new URLSearchParams();
 
   for (const [key, value] of Object.entries(params)) {
-    if (value === undefined || value === null || value === '') {
+    if (value === undefined || value === null || value === "") {
       continue;
     }
 
@@ -24,15 +24,17 @@ export function stringifyQuery(params: Record<string, any>): string {
   }
 
   const result = searchParams.toString();
-  return result ? `?${result}` : '';
+  return result ? `?${result}` : "";
 }
 
-export function parseQuery<T extends Record<string, any> = Record<string, string | string[]>>(
-  queryString: string
-): T {
-  const cleanQuery = queryString.startsWith('?') ? queryString.slice(1) : queryString;
+export function parseQuery<
+  T extends Record<string, unknown> = Record<string, string | string[]>,
+>(queryString: string): T {
+  const cleanQuery = queryString.startsWith("?")
+    ? queryString.slice(1)
+    : queryString;
   const searchParams = new URLSearchParams(cleanQuery);
-  const result: Record<string, any> = {};
+  const result: Record<string, unknown> = {};
 
   for (const [key, value] of searchParams.entries()) {
     if (key in result) {

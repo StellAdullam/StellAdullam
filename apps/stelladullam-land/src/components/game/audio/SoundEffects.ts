@@ -14,24 +14,34 @@ class SoundEffectsEngine {
   }
 
   constructor() {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('STELLADULLAM_MUTE_SFX');
-      this.muted = stored === 'true';
+    if (typeof window !== "undefined") {
+      const stored = localStorage.getItem("STELLADULLAM_MUTE_SFX");
+      this.muted = stored === "true";
     }
   }
 
   private initCtx(): AudioContext | null {
-    if (typeof window === 'undefined') return null;
+    if (typeof window === "undefined") return null;
     if (!this.ctx) {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      const AudioCtx =
+        window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext })
+          .webkitAudioContext;
       if (AudioCtx) {
         this.ctx = new AudioCtx();
       }
     }
-    if (this.ctx && this.ctx.state === 'suspended') {
+    if (this.ctx && this.ctx.state === "suspended") {
       this.ctx.resume();
     }
     return this.ctx;
+  }
+
+  public setMuted(muted: boolean): void {
+    this.muted = muted;
+    if (typeof window !== "undefined") {
+      localStorage.setItem("STELLADULLAM_MUTE_SFX", String(this.muted));
+    }
   }
 
   public isMuted(): boolean {
@@ -40,8 +50,8 @@ class SoundEffectsEngine {
 
   public toggleMute(): boolean {
     this.muted = !this.muted;
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('STELLADULLAM_MUTE_SFX', String(this.muted));
+    if (typeof window !== "undefined") {
+      localStorage.setItem("STELLADULLAM_MUTE_SFX", String(this.muted));
     }
     return this.muted;
   }
@@ -57,7 +67,7 @@ class SoundEffectsEngine {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc.type = 'sine';
+    osc.type = "sine";
     osc.frequency.setValueAtTime(440, ctx.currentTime);
     osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.04);
 
@@ -85,7 +95,7 @@ class SoundEffectsEngine {
       const gain = ctx.createGain();
       const startTime = ctx.currentTime + idx * 0.08;
 
-      osc.type = 'triangle';
+      osc.type = "triangle";
       osc.frequency.setValueAtTime(freq, startTime);
 
       gain.gain.setValueAtTime(0.12, startTime);
@@ -113,7 +123,7 @@ class SoundEffectsEngine {
       const gain = ctx.createGain();
       const startTime = ctx.currentTime + i * 0.05;
 
-      osc.type = 'sawtooth';
+      osc.type = "sawtooth";
       osc.frequency.setValueAtTime(freq, startTime);
 
       gain.gain.setValueAtTime(0.06, startTime);
@@ -138,7 +148,7 @@ class SoundEffectsEngine {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc.type = 'square';
+    osc.type = "square";
     osc.frequency.setValueAtTime(987.77, ctx.currentTime); // B5
     osc.frequency.setValueAtTime(1318.51, ctx.currentTime + 0.08); // E6
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface UnclaimedDividendsIndicatorProps {
   unclaimedAmountLand: number;
@@ -6,11 +6,9 @@ export interface UnclaimedDividendsIndicatorProps {
   className?: string;
 }
 
-export const UnclaimedDividendsIndicator: React.FC<UnclaimedDividendsIndicatorProps> = ({
-  unclaimedAmountLand,
-  onClaim,
-  className = '',
-}) => {
+export const UnclaimedDividendsIndicator: React.FC<
+  UnclaimedDividendsIndicatorProps
+> = ({ unclaimedAmountLand, onClaim, className = "" }) => {
   if (unclaimedAmountLand <= 0) {
     return null;
   }
@@ -27,7 +25,11 @@ export const UnclaimedDividendsIndicator: React.FC<UnclaimedDividendsIndicatorPr
       </span>
 
       <span className="font-bold">
-        {unclaimedAmountLand.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 })} LAND Unclaimed
+        {unclaimedAmountLand.toLocaleString(undefined, {
+          minimumFractionDigits: 1,
+          maximumFractionDigits: 1,
+        })}{" "}
+        LAND Unclaimed
       </span>
 
       {onClaim && (

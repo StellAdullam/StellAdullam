@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface ApyRankBadgeProps {
   apyPercent: number;
@@ -6,43 +6,50 @@ export interface ApyRankBadgeProps {
   className?: string;
 }
 
-export type YieldTier = 'S' | 'A' | 'B' | 'C';
+export type YieldTier = "S" | "A" | "B" | "C";
 
 export const ApyRankBadge: React.FC<ApyRankBadgeProps> = ({
   apyPercent,
   showDetails = true,
-  className = '',
+  className = "",
 }) => {
-  const getTier = (apy: number): { tier: YieldTier; label: string; badgeStyle: string; textColor: string } => {
+  const getTier = (
+    apy: number,
+  ): {
+    tier: YieldTier;
+    label: string;
+    badgeStyle: string;
+    textColor: string;
+  } => {
     if (apy >= 15.0) {
       return {
-        tier: 'S',
-        label: 'Prime High-Yield',
-        badgeStyle: 'bg-amber-500/20 border-amber-500/40 text-amber-300',
-        textColor: 'text-amber-400',
+        tier: "S",
+        label: "Prime High-Yield",
+        badgeStyle: "bg-amber-500/20 border-amber-500/40 text-amber-300",
+        textColor: "text-amber-400",
       };
     }
     if (apy >= 10.0) {
       return {
-        tier: 'A',
-        label: 'Above Average',
-        badgeStyle: 'bg-emerald-500/20 border-emerald-500/40 text-emerald-300',
-        textColor: 'text-emerald-400',
+        tier: "A",
+        label: "Above Average",
+        badgeStyle: "bg-emerald-500/20 border-emerald-500/40 text-emerald-300",
+        textColor: "text-emerald-400",
       };
     }
     if (apy >= 6.0) {
       return {
-        tier: 'B',
-        label: 'Stable Dividend',
-        badgeStyle: 'bg-cyan-500/20 border-cyan-500/40 text-cyan-300',
-        textColor: 'text-cyan-400',
+        tier: "B",
+        label: "Stable Dividend",
+        badgeStyle: "bg-cyan-500/20 border-cyan-500/40 text-cyan-300",
+        textColor: "text-cyan-400",
       };
     }
     return {
-      tier: 'C',
-      label: 'Conservative',
-      badgeStyle: 'bg-slate-700/40 border-slate-600/40 text-slate-300',
-      textColor: 'text-slate-400',
+      tier: "C",
+      label: "Conservative",
+      badgeStyle: "bg-slate-700/40 border-slate-600/40 text-slate-300",
+      textColor: "text-slate-400",
     };
   };
 

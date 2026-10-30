@@ -51,3 +51,4 @@ Rewards are denominated in USD and distributed in **USDC** or **XLM** on the Ste
    - Remediation patch deployment: **Within 7 days**.
 4. **Responsible Disclosure**:
    Researchers must maintain strict confidentiality until a remediation patch is deployed and verified on mainnet (standard 90-day embargo).
+

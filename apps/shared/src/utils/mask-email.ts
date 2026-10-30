@@ -6,7 +6,7 @@
 
 export function maskEmail(email: string): string {
   const trimmed = email.trim();
-  const atIndex = trimmed.indexOf('@');
+  const atIndex = trimmed.indexOf("@");
   if (atIndex <= 0 || atIndex === trimmed.length - 1) {
     return trimmed;
   }
@@ -20,7 +20,7 @@ export function maskEmail(email: string): string {
 
   const firstChar = username[0];
   const lastChar = username[username.length - 1];
-  const maskedMiddle = '*'.repeat(Math.max(1, username.length - 2));
+  const maskedMiddle = "*".repeat(Math.max(1, username.length - 2));
 
   return `${firstChar}${maskedMiddle}${lastChar}${domain}`;
 }

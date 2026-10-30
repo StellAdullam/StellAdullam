@@ -18,7 +18,9 @@ export class SystemDiagnosticsService {
    * Collects runtime diagnostic metrics and memory telemetry.
    */
   public static collectMetrics(): DiagnosticMetrics {
-    const memory = process.memoryUsage ? process.memoryUsage() : { heapUsed: 0, heapTotal: 0, rss: 0 };
+    const memory = process.memoryUsage
+      ? process.memoryUsage()
+      : { heapUsed: 0, heapTotal: 0, rss: 0 };
     const uptimeSeconds = Math.floor((Date.now() - this.START_TIME) / 1000);
 
     return {

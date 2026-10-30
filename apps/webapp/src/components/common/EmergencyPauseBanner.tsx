@@ -1,5 +1,5 @@
-import React from 'react';
-import { AlertTriangle, ShieldAlert } from 'lucide-react';
+import React from "react";
+import { AlertTriangle, ShieldAlert } from "lucide-react";
 
 export interface EmergencyPauseBannerProps {
   isPaused: boolean;
@@ -10,8 +10,8 @@ export interface EmergencyPauseBannerProps {
 
 export const EmergencyPauseBanner: React.FC<EmergencyPauseBannerProps> = ({
   isPaused,
-  pausedContractName = 'DeFi Lending Pool',
-  reason = 'Circuit breaker triggered pending smart contract state verification.',
+  pausedContractName = "DeFi Lending Pool",
+  reason = "Circuit breaker triggered pending smart contract state verification.",
   allowWithdrawals = true,
 }) => {
   if (!isPaused) return null;

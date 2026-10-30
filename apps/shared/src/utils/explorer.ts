@@ -4,7 +4,9 @@
 
 export type StellarNetworkId = "testnet" | "public" | "futurenet";
 
-export function getStellarExpertBaseUrl(network: StellarNetworkId = "testnet"): string {
+export function getStellarExpertBaseUrl(
+  network: StellarNetworkId = "testnet",
+): string {
   switch (network) {
     case "public":
       return "https://stellar.expert/explorer/public";

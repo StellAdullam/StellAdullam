@@ -305,3 +305,15 @@ export const IMPROVEMENT_UPGRADE_COST: Readonly<
   HOUSE: APARTMENT_COST,
   APARTMENT: SKYSCRAPER_COST,
 } as const;
+
+/**
+ * Runtime state representation for a single parcel tile in the 20x20 grid.
+ */
+export interface TileState {
+  index: number;
+  x: number;
+  y: number;
+  improvementLevel: number;
+  owner?: string;
+  name?: string;
+}

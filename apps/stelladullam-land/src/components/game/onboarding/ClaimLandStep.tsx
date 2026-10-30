@@ -46,7 +46,8 @@ export function ClaimLandStep({
       setStatus("done");
     } catch (err) {
       console.error("Faucet claim error:", err);
-      const msg = err instanceof Error ? err.message : "Claim failed. Try again.";
+      const msg =
+        err instanceof Error ? err.message : "Claim failed. Try again.";
       setErrorMessage(msg);
       setStatus("error");
     }
@@ -88,8 +89,9 @@ export function ClaimLandStep({
         Get your starter LAND
       </h2>
       <p className="mb-8 text-sm text-slate-400 max-w-sm mx-auto leading-relaxed">
-        LAND is the premium utility token of StellAdullam Land. Reclaim 1,000 LAND
-        from our testnet faucet for free to fund your very first property claim.
+        LAND is the premium utility token of StellAdullam Land. Reclaim 1,000
+        LAND from our testnet faucet for free to fund your very first property
+        claim.
       </p>
 
       <div className="relative min-h-[160px] flex flex-col justify-start">
@@ -198,7 +200,10 @@ export function ClaimLandStep({
                 <div className="flex flex-col items-center justify-center gap-1.5 text-xs text-rose-400">
                   <div className="flex items-center gap-1.5">
                     <AlertCircle size={14} />
-                    <span>{errorMessage || "Transaction failed. Please verify wallet network is Testnet."}</span>
+                    <span>
+                      {errorMessage ||
+                        "Transaction failed. Please verify wallet network is Testnet."}
+                    </span>
                   </div>
                 </div>
               )}

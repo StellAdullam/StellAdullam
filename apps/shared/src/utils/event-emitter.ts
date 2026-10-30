@@ -2,24 +2,30 @@
  * Lightweight, zero-dependency, strongly-typed event emitter for reactive client-side notifications.
  */
 
-export type EventListener<T = any> = (data: T) => void | Promise<void>;
+export type EventListener<T = unknown> = (data: T) => void | Promise<void>;
 
-export class TypedEventEmitter<Events extends Record<string, any>> {
-  private listeners: Map<keyof Events, Set<EventListener>> = new Map();
+export class TypedEventEmitter<Events extends Record<string, unknown>> {
+  private listeners: Map<keyof Events, Set<EventListener<never>>> = new Map();
 
-  public on<K extends keyof Events>(event: K, listener: EventListener<Events[K]>): () => void {
+  public on<K extends keyof Events>(
+    event: K,
+    listener: EventListener<Events[K]>,
+  ): () => void {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, new Set());
     }
-    this.listeners.get(event)!.add(listener);
+    this.listeners.get(event)!.add(listener as unknown as EventListener<never>);
 
     return () => this.off(event, listener);
   }
 
-  public off<K extends keyof Events>(event: K, listener: EventListener<Events[K]>): void {
+  public off<K extends keyof Events>(
+    event: K,
+    listener: EventListener<Events[K]>,
+  ): void {
     const set = this.listeners.get(event);
     if (set) {
-      set.delete(listener);
+      set.delete(listener as unknown as EventListener<never>);
       if (set.size === 0) {
         this.listeners.delete(event);
       }
@@ -31,9 +37,12 @@ export class TypedEventEmitter<Events extends Record<string, any>> {
     if (set) {
       for (const listener of set) {
         try {
-          listener(data);
+          (listener as unknown as EventListener<Events[K]>)(data);
         } catch (error) {
-          console.error(`[TypedEventEmitter] Error handling event "${String(event)}":`, error);
+          console.error(
+            `[TypedEventEmitter] Error handling event "${String(event)}":`,
+            error,
+          );
         }
       }
     }

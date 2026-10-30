@@ -45,3 +45,4 @@ The DAO treasury funds three core operational pillars:
 1. **Infrastructure & RPC Hosting (30%):** Dedicated Soroban RPC cluster, multi-region database replication, IPFS pinning gateways.
 2. **Security & Smart Contract Audits (30%):** Ongoing formal audits and public bug bounty rewards for protocol upgrades.
 3. **Core Development & Ecosystem Grants (40%):** Contributor bounties, hackathon sponsorships, and community ambassador rewards.
+

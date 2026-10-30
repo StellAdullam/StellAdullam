@@ -8,7 +8,7 @@
  * Formats a duration in seconds into a concise string (e.g. 3665 -> "1h 1m 5s").
  */
 export function formatDuration(seconds: number): string {
-  if (!Number.isFinite(seconds) || seconds <= 0) return '0s';
+  if (!Number.isFinite(seconds) || seconds <= 0) return "0s";
 
   const days = Math.floor(seconds / 86400);
   const hours = Math.floor((seconds % 86400) / 3600);
@@ -21,7 +21,7 @@ export function formatDuration(seconds: number): string {
   if (minutes > 0) parts.push(`${minutes}m`);
   if (secs > 0 || parts.length === 0) parts.push(`${secs}s`);
 
-  return parts.slice(0, 3).join(' ');
+  return parts.slice(0, 3).join(" ");
 }
 
 /**
@@ -39,16 +39,16 @@ export function parseDuration(durationStr: string): number {
     const unit = match[2].toLowerCase();
 
     switch (unit) {
-      case 'd':
+      case "d":
         totalSeconds += value * 86400;
         break;
-      case 'h':
+      case "h":
         totalSeconds += value * 3600;
         break;
-      case 'm':
+      case "m":
         totalSeconds += value * 60;
         break;
-      case 's':
+      case "s":
         totalSeconds += value;
         break;
     }

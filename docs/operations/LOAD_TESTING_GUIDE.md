@@ -83,3 +83,4 @@ When executing stress tests against Stellar Soroban Testnet / Mainnet:
    ```
 3. **Monitor Cache Hit Rates**:
    Ensure `HistoricalApyService` and `GeocodingService` in-memory LRU caches achieve > 85% cache hit ratio under high read volumes.
+

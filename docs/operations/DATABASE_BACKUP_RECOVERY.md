@@ -112,3 +112,4 @@ Once confirmed:
 kubectl scale deployment stelladullam-api --replicas=3
 kubectl scale deployment stelladullam-indexer --replicas=1
 ```
+

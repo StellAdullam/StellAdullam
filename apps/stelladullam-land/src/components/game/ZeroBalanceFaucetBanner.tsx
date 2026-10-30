@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import Link from 'next/link';
-import { Gift, ArrowRight, Coins } from 'lucide-react';
+import React from "react";
+import Link from "next/link";
+import { Gift, ArrowRight, Coins } from "lucide-react";
 
 export interface ZeroBalanceFaucetBannerProps {
   landBalance: number;
@@ -26,7 +26,8 @@ export function ZeroBalanceFaucetBanner({
             Need In-Game Currency?
           </h4>
           <p className="text-xs text-slate-300 mt-0.5">
-            Your LAND balance is 0. Claim 1,000 free testnet LAND tokens from the faucet to buy plots and upgrade buildings!
+            Your LAND balance is 0. Claim 1,000 free testnet LAND tokens from
+            the faucet to buy plots and upgrade buildings!
           </p>
         </div>
       </div>

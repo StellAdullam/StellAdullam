@@ -22,7 +22,7 @@ export class PortfolioAllocationService {
     realEstateValueUsd: number,
     depositValueUsd: number,
     liquidTokensUsd: number,
-    dividendsUsd: number
+    dividendsUsd: number,
   ): PortfolioAllocationBreakdown {
     const rawItems: Array<{
       category: AssetAllocationItem['category'];
@@ -60,9 +60,7 @@ export class PortfolioAllocationService {
 
     const allocations: AssetAllocationItem[] = rawItems.map((item) => {
       const percentage =
-        totalValueUsd > 0
-          ? Number(((item.valueUsd / totalValueUsd) * 100).toFixed(2))
-          : 0;
+        totalValueUsd > 0 ? Number(((item.valueUsd / totalValueUsd) * 100).toFixed(2)) : 0;
       return {
         ...item,
         percentage,

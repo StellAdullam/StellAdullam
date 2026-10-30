@@ -16,12 +16,15 @@ export async function mapConcurrent<T, R>(
   const results: R[] = new Array(items.length);
   let currentIndex = 0;
 
-  const workers = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
-    while (currentIndex < items.length) {
-      const index = currentIndex++;
-      results[index] = await fn(items[index], index);
-    }
-  });
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    async () => {
+      while (currentIndex < items.length) {
+        const index = currentIndex++;
+        results[index] = await fn(items[index], index);
+      }
+    },
+  );
 
   await Promise.all(workers);
   return results;

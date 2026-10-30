@@ -318,6 +318,15 @@ export class LendingRepository extends BaseRepository<
     return db.select().from(borrowPositions);
   }
 
+  async findBorrowPositionsByBorrower(borrowerId: string): Promise<BorrowPosition[]> {
+    try {
+      const all = await this.getAllBorrowPositions();
+      return all.filter((p) => p.borrowerId === borrowerId);
+    } catch {
+      return [];
+    }
+  }
+
   private buildFilterConditions(filter: LendingPoolFilter): SQL[] {
     const conditions: SQL[] = [];
 

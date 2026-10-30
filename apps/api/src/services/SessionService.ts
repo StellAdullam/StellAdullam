@@ -18,14 +18,19 @@ export class SessionService {
   public static readonly DEFAULT_TTL_SECONDS = 86_400; // 24 hours
   public static readonly RENEWAL_WINDOW_SECONDS = 3_600; // 1 hour
 
-  constructor(secret: string = process.env.JWT_SECRET || 'stelladullam-production-hmac-secret-key-2026') {
+  constructor(
+    secret: string = process.env.JWT_SECRET || 'stelladullam-production-hmac-secret-key-2026',
+  ) {
     this.secret = secret;
   }
 
   /**
    * Generates a signed session token envelope (base64url payload + HMAC signature).
    */
-  public createSession(stellarAddress: string, ttlSeconds = SessionService.DEFAULT_TTL_SECONDS): SessionTokenResult {
+  public createSession(
+    stellarAddress: string,
+    ttlSeconds = SessionService.DEFAULT_TTL_SECONDS,
+  ): SessionTokenResult {
     const now = Math.floor(Date.now() / 1000);
     const exp = now + ttlSeconds;
 

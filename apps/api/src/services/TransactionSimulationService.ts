@@ -13,7 +13,9 @@ export interface SimulationResultSummary {
 export class TransactionSimulationService {
   private rpcServer: rpc.Server;
 
-  constructor(rpcUrl: string = process.env.STELLAR_RPC_URL ?? 'https://soroban-testnet.stellar.org') {
+  constructor(
+    rpcUrl: string = process.env.STELLAR_RPC_URL ?? 'https://soroban-testnet.stellar.org',
+  ) {
     this.rpcServer = new rpc.Server(rpcUrl, { allowHttp: rpcUrl.startsWith('http://') });
   }
 
@@ -25,7 +27,8 @@ export class TransactionSimulationService {
     passphrase?: string,
   ): Promise<SimulationResultSummary> {
     try {
-      const networkPassphrase = passphrase ?? process.env.STELLAR_NETWORK_PASSPHRASE ?? 'Test SDF Network ; September 2015';
+      const networkPassphrase =
+        passphrase ?? process.env.STELLAR_NETWORK_PASSPHRASE ?? 'Test SDF Network ; September 2015';
       const tx = new Transaction(transactionXdr, networkPassphrase);
 
       const simResponse = await this.rpcServer.simulateTransaction(tx);

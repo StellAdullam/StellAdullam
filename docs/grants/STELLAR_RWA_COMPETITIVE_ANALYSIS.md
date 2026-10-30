@@ -43,3 +43,4 @@ StellAdullam operates as a dual-sided marketplace:
 
 ### 3.3 Frictionless Onboarding
 With integrated testnet Friendbot proxying, QR-based SEP-0007 mobile signing, and automated fee-bump wrapping, users can experience tokenized real estate without needing pre-existing cryptocurrency holdings.
+

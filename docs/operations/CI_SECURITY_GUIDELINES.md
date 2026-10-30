@@ -49,3 +49,4 @@ graph TD
 2. **Require linear commit history:** Rebase or squash merges only.
 3. **No direct pushes to `main` without admin authorization.**
 4. **Require signed commits:** GPG/SSH verified commit signatures for all maintainers.
+

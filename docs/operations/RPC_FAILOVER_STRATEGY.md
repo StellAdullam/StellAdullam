@@ -83,3 +83,4 @@ kubectl rollout restart deployment/stelladullam-indexer
 curl -s http://localhost:3000/api/v1/health/system | jq .probes.stellarRpc
 ```
 Verify that `latencyMs < 350` and `healthy: true`.
+

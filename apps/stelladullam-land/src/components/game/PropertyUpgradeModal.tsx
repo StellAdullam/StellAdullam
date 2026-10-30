@@ -1,8 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { ArrowUpCircle, Sparkles, Building, Coins, CheckCircle2, X } from 'lucide-react';
-import { soundEffects } from './audio/SoundEffects';
+import React, { useState } from "react";
+import {
+  ArrowUpCircle,
+  Sparkles,
+  Building,
+  Coins,
+  CheckCircle2,
+  X,
+} from "lucide-react";
+import { soundEffects } from "./audio/SoundEffects";
 
 export interface PropertyUpgradeModalProps {
   isOpen: boolean;
@@ -15,11 +22,11 @@ export interface PropertyUpgradeModalProps {
 }
 
 const TIER_DATA = [
-  { tier: 0, name: 'Vacant Lot', costLand: 0, rentPerHour: 1.0 },
-  { tier: 1, name: 'Residential Villa', costLand: 100, rentPerHour: 2.5 },
-  { tier: 2, name: 'Apartment Complex', costLand: 250, rentPerHour: 6.0 },
-  { tier: 3, name: 'Commercial Tower', costLand: 500, rentPerHour: 15.0 },
-  { tier: 4, name: 'Crown Skyscraper', costLand: 1000, rentPerHour: 35.0 },
+  { tier: 0, name: "Vacant Lot", costLand: 0, rentPerHour: 1.0 },
+  { tier: 1, name: "Residential Villa", costLand: 100, rentPerHour: 2.5 },
+  { tier: 2, name: "Apartment Complex", costLand: 250, rentPerHour: 6.0 },
+  { tier: 3, name: "Commercial Tower", costLand: 500, rentPerHour: 15.0 },
+  { tier: 4, name: "Crown Skyscraper", costLand: 1000, rentPerHour: 35.0 },
 ];
 
 export function PropertyUpgradeModal({
@@ -47,9 +54,11 @@ export function PropertyUpgradeModal({
     if (isMaxTier || !hasEnoughLand) return;
     setIsUpgrading(true);
     try {
-      const res = onUpgrade ? await onUpgrade(tileIndex, nextTier) : 'upgrade-tx-success';
+      const res = onUpgrade
+        ? await onUpgrade(tileIndex, nextTier)
+        : "upgrade-tx-success";
       soundEffects.playUpgrade();
-      if (typeof res === 'string') {
+      if (typeof res === "string") {
         setTxHash(res);
       }
     } finally {
@@ -73,7 +82,9 @@ export function PropertyUpgradeModal({
             <ArrowUpCircle className="w-6 h-6" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Upgrade Property Tier</h3>
+            <h3 className="text-lg font-bold text-white">
+              Upgrade Property Tier
+            </h3>
             <p className="text-xs text-slate-400">
               Tile #{tileIndex} &bull; {propertyName}
             </p>
@@ -85,9 +96,16 @@ export function PropertyUpgradeModal({
             <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-bold text-white">Upgrade Successful!</h4>
+            <h4 className="text-lg font-bold text-white">
+              Upgrade Successful!
+            </h4>
             <p className="text-xs text-slate-300">
-              Upgraded to <strong>Tier {nextTier}: {nextConfig.name}</strong>. Rental yield generation increased to {nextConfig.rentPerHour} LAND/hour.
+              Upgraded to{" "}
+              <strong>
+                Tier {nextTier}: {nextConfig.name}
+              </strong>
+              . Rental yield generation increased to {nextConfig.rentPerHour}{" "}
+              LAND/hour.
             </p>
             <div className="pt-2">
               <button
@@ -103,17 +121,27 @@ export function PropertyUpgradeModal({
             {/* Visual Transition Card */}
             <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-center">
               <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-850">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider">Current</span>
-                <p className="font-bold text-slate-200 mt-0.5">Tier {currentTier}</p>
-                <p className="text-[11px] text-slate-400">{currentConfig.name}</p>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wider">
+                  Current
+                </span>
+                <p className="font-bold text-slate-200 mt-0.5">
+                  Tier {currentTier}
+                </p>
+                <p className="text-[11px] text-slate-400">
+                  {currentConfig.name}
+                </p>
                 <span className="inline-block mt-2 font-mono text-emerald-400 font-semibold">
                   {currentConfig.rentPerHour} LAND/hr
                 </span>
               </div>
 
               <div className="p-2.5 rounded-lg bg-indigo-950/20 border border-indigo-500/30">
-                <span className="text-[10px] text-indigo-300 uppercase tracking-wider font-semibold">Next</span>
-                <p className="font-bold text-indigo-200 mt-0.5">Tier {nextTier}</p>
+                <span className="text-[10px] text-indigo-300 uppercase tracking-wider font-semibold">
+                  Next
+                </span>
+                <p className="font-bold text-indigo-200 mt-0.5">
+                  Tier {nextTier}
+                </p>
                 <p className="text-[11px] text-indigo-300">{nextConfig.name}</p>
                 <span className="inline-block mt-2 font-mono text-emerald-300 font-bold">
                   {nextConfig.rentPerHour} LAND/hr
@@ -127,12 +155,20 @@ export function PropertyUpgradeModal({
                 <Coins className="w-4 h-4 text-amber-400" />
                 <span className="text-slate-400">Upgrade Cost (Burned):</span>
               </div>
-              <span className="font-mono font-bold text-amber-300">{upgradeCost} LAND</span>
+              <span className="font-mono font-bold text-amber-300">
+                {upgradeCost} LAND
+              </span>
             </div>
 
             <div className="flex justify-between items-center text-xs text-slate-400 px-1">
               <span>Your LAND Balance:</span>
-              <span className={hasEnoughLand ? 'text-slate-200' : 'text-red-400 font-semibold'}>
+              <span
+                className={
+                  hasEnoughLand
+                    ? "text-slate-200"
+                    : "text-red-400 font-semibold"
+                }
+              >
                 {landBalance.toLocaleString()} LAND
               </span>
             </div>
@@ -153,11 +189,11 @@ export function PropertyUpgradeModal({
                 className="flex-1 py-2 text-xs rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-40 text-white font-semibold transition-colors flex items-center justify-center gap-1.5"
               >
                 {isUpgrading ? (
-                  'Burning LAND...'
+                  "Burning LAND..."
                 ) : isMaxTier ? (
-                  'Max Tier Reached'
+                  "Max Tier Reached"
                 ) : !hasEnoughLand ? (
-                  'Insufficient LAND'
+                  "Insufficient LAND"
                 ) : (
                   <>
                     <Sparkles className="w-3.5 h-3.5" />

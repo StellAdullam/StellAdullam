@@ -18,7 +18,7 @@ export class StellarNetworkService {
    * Retrieves Stellar network operational metrics with TTL caching.
    */
   public static async getNetworkStatus(
-    horizonUrl: string = process.env.STELLAR_HORIZON_URL || 'https://horizon-testnet.stellar.org'
+    horizonUrl: string = process.env.STELLAR_HORIZON_URL || 'https://horizon-testnet.stellar.org',
   ): Promise<StellarNetworkStatus> {
     const now = Date.now();
     if (this.cachedStatus && now - this.lastFetchedMs < this.CACHE_TTL_MS) {

@@ -7,7 +7,7 @@ export function safeJsonParse<T>(
   fallback: T,
   validator?: (val: unknown) => val is T,
 ): T {
-  if (typeof raw !== 'string') {
+  if (typeof raw !== "string") {
     return fallback;
   }
 
@@ -24,7 +24,7 @@ export function safeJsonParse<T>(
 
 export function safeJsonStringify(
   value: unknown,
-  fallback = '{}',
+  fallback = "{}",
   indent?: number,
 ): string {
   try {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Calculator, TrendingUp, DollarSign, Calendar } from 'lucide-react';
+import React, { useState } from "react";
+import { X, Calculator, TrendingUp, DollarSign, Calendar } from "lucide-react";
 
 export interface RoiCalculatorModalProps {
   isOpen: boolean;
@@ -16,9 +16,11 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
   sharePriceUsd,
   baseApyPercent,
 }) => {
-  const [initialInvestmentUsd, setInitialInvestmentUsd] = useState<number>(1000);
+  const [initialInvestmentUsd, setInitialInvestmentUsd] =
+    useState<number>(1000);
   const [holdingYears, setHoldingYears] = useState<number>(3);
-  const [projectedAppreciationBps, setProjectedAppreciationBps] = useState<number>(400); // 4%
+  const [projectedAppreciationBps, setProjectedAppreciationBps] =
+    useState<number>(400); // 4%
   const [reinvestDividends, setReinvestDividends] = useState<boolean>(true);
 
   if (!isOpen) return null;
@@ -31,11 +33,16 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
   let projectedEndValue = initialInvestmentUsd;
   if (reinvestDividends) {
     const combinedRate = annualApyRate + annualAppreciationRate;
-    projectedEndValue = initialInvestmentUsd * Math.pow(1 + combinedRate, holdingYears);
+    projectedEndValue =
+      initialInvestmentUsd * Math.pow(1 + combinedRate, holdingYears);
   } else {
     const totalDividends = initialInvestmentUsd * annualApyRate * holdingYears;
-    const propertyAppreciation = initialInvestmentUsd * Math.pow(1 + annualAppreciationRate, holdingYears) - initialInvestmentUsd;
-    projectedEndValue = initialInvestmentUsd + totalDividends + propertyAppreciation;
+    const propertyAppreciation =
+      initialInvestmentUsd *
+        Math.pow(1 + annualAppreciationRate, holdingYears) -
+      initialInvestmentUsd;
+    projectedEndValue =
+      initialInvestmentUsd + totalDividends + propertyAppreciation;
   }
 
   const netGainUsd = projectedEndValue - initialInvestmentUsd;
@@ -55,7 +62,10 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
               <Calculator className="w-5 h-5" />
             </div>
             <div>
-              <h3 id="roi-calculator-modal-title" className="font-semibold text-base">
+              <h3
+                id="roi-calculator-modal-title"
+                className="font-semibold text-base"
+              >
                 Investor ROI Simulator
               </h3>
               <p className="text-xs text-slate-400">{propertyName}</p>
@@ -82,11 +92,14 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
                 max="500000"
                 step="50"
                 value={initialInvestmentUsd}
-                onChange={(e) => setInitialInvestmentUsd(Math.max(10, Number(e.target.value)))}
+                onChange={(e) =>
+                  setInitialInvestmentUsd(Math.max(10, Number(e.target.value)))
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-500 font-mono"
               />
               <span className="text-[11px] text-slate-500 mt-0.5 block">
-                ≈ {sharesCount} share{sharesCount === 1 ? '' : 's'} (${sharePriceUsd}/share)
+                ≈ {sharesCount} share{sharesCount === 1 ? "" : "s"} ($
+                {sharePriceUsd}/share)
               </span>
             </div>
 
@@ -112,8 +125,12 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
 
           <div className="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
             <div>
-              <span className="text-xs font-medium text-slate-200 block">Reinvest Dividends</span>
-              <span className="text-[11px] text-slate-400">Compound monthly cash flow distributions</span>
+              <span className="text-xs font-medium text-slate-200 block">
+                Reinvest Dividends
+              </span>
+              <span className="text-[11px] text-slate-400">
+                Compound monthly cash flow distributions
+              </span>
             </div>
             <input
               type="checkbox"
@@ -127,21 +144,35 @@ export const RoiCalculatorModal: React.FC<RoiCalculatorModalProps> = ({
           <div className="bg-emerald-950/30 border border-emerald-800/50 rounded-xl p-4 space-y-3">
             <div className="flex justify-between items-center text-xs">
               <span className="text-emerald-300">Base Rental APY</span>
-              <span className="font-mono font-semibold text-emerald-400">+{baseApyPercent.toFixed(2)}% / yr</span>
+              <span className="font-mono font-semibold text-emerald-400">
+                +{baseApyPercent.toFixed(2)}% / yr
+              </span>
             </div>
             <div className="flex justify-between items-center text-xs">
-              <span className="text-emerald-300">Projected Capital Appreciation</span>
-              <span className="font-mono font-semibold text-emerald-400">+{(projectedAppreciationBps / 100).toFixed(2)}% / yr</span>
+              <span className="text-emerald-300">
+                Projected Capital Appreciation
+              </span>
+              <span className="font-mono font-semibold text-emerald-400">
+                +{(projectedAppreciationBps / 100).toFixed(2)}% / yr
+              </span>
             </div>
             <div className="border-t border-emerald-800/40 pt-2 flex justify-between items-center">
               <div>
-                <span className="text-xs text-slate-400 block">Projected Portfolio Value</span>
+                <span className="text-xs text-slate-400 block">
+                  Projected Portfolio Value
+                </span>
                 <span className="text-lg font-bold font-mono text-emerald-300">
-                  ${projectedEndValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  $
+                  {projectedEndValue.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                  })}
                 </span>
               </div>
               <div className="text-right">
-                <span className="text-xs text-slate-400 block">Cumulative Return</span>
+                <span className="text-xs text-slate-400 block">
+                  Cumulative Return
+                </span>
                 <span className="text-sm font-semibold font-mono text-emerald-400">
                   +{totalReturnPercent.toFixed(1)}% (+${netGainUsd.toFixed(2)})
                 </span>

@@ -3,7 +3,9 @@ import { analyticsRoutes } from './analytics';
 
 describe('Analytics Routes', () => {
   it('GET /api/v1/analytics/overview returns valid ecosystem numbers', async () => {
-    const res = await analyticsRoutes.handle(new Request('http://localhost/api/v1/analytics/overview'));
+    const res = await analyticsRoutes.handle(
+      new Request('http://localhost/api/v1/analytics/overview'),
+    );
     expect(res.status).toBe(200);
     const body = (await res.json()) as any;
     expect(body.success).toBe(true);
@@ -12,7 +14,9 @@ describe('Analytics Routes', () => {
   });
 
   it('GET /api/v1/analytics/marketplace returns volume metrics', async () => {
-    const res = await analyticsRoutes.handle(new Request('http://localhost/api/v1/analytics/marketplace'));
+    const res = await analyticsRoutes.handle(
+      new Request('http://localhost/api/v1/analytics/marketplace'),
+    );
     expect(res.status).toBe(200);
     const body = (await res.json()) as any;
     expect(body.success).toBe(true);

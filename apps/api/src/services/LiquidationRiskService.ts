@@ -62,11 +62,17 @@ export class LiquidationRiskService {
     const isLiquidatable = healthFactor < LiquidationRiskService.LIQUIDATION_THRESHOLD_HF;
 
     // Distance to liquidation: percentage debt can increase or collateral drop before reaching HF 1.0
-    const distanceToLiquidationPercent = Math.max(0, Number(((healthFactor - 1.0) / healthFactor * 100).toFixed(2)));
+    const distanceToLiquidationPercent = Math.max(
+      0,
+      Number((((healthFactor - 1.0) / healthFactor) * 100).toFixed(2)),
+    );
 
     // Target debt: targetDebt = (collateralValue * liquidationThreshold) / targetSafeHf
     const maxDebtForTargetHf = (collateralValueUsd * liquidationThresholdRatio) / targetSafeHf;
-    const suggestedRepaymentToTargetHf = Math.max(0, Number((debtValueUsd - maxDebtForTargetHf).toFixed(2)));
+    const suggestedRepaymentToTargetHf = Math.max(
+      0,
+      Number((debtValueUsd - maxDebtForTargetHf).toFixed(2)),
+    );
 
     return {
       healthFactor: Number(healthFactor.toFixed(2)),

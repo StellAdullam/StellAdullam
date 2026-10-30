@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface LiquidationAlertItem {
   poolId: string;
@@ -54,8 +54,8 @@ export const LiquidationAlertBell: React.FC<LiquidationAlertBellProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`relative p-2 rounded-lg transition-all ${
           criticalCount > 0
-            ? 'bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 animate-pulse'
-            : 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/30'
+            ? "bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 animate-pulse"
+            : "bg-amber-500/20 text-amber-400 hover:bg-amber-500/30"
         }`}
         aria-label={`Liquidation Alerts: ${alerts.length}`}
         aria-expanded={isOpen}
@@ -75,7 +75,7 @@ export const LiquidationAlertBell: React.FC<LiquidationAlertBellProps> = ({
         </svg>
         <span
           className={`absolute -top-1 -right-1 px-1.5 py-0.5 text-xs font-bold rounded-full text-white ${
-            criticalCount > 0 ? 'bg-rose-600' : 'bg-amber-600'
+            criticalCount > 0 ? "bg-rose-600" : "bg-amber-600"
           }`}
         >
           {alerts.length}
@@ -90,7 +90,7 @@ export const LiquidationAlertBell: React.FC<LiquidationAlertBellProps> = ({
               Liquidation Watchlist
             </span>
             <span className="text-xs text-slate-400">
-              {alerts.length} position{alerts.length > 1 ? 's' : ''} at risk
+              {alerts.length} position{alerts.length > 1 ? "s" : ""} at risk
             </span>
           </div>
 
@@ -107,8 +107,8 @@ export const LiquidationAlertBell: React.FC<LiquidationAlertBellProps> = ({
                   <span
                     className={`text-xs font-bold px-1.5 py-0.5 rounded ${
                       alert.healthFactor < 1.15
-                        ? 'bg-rose-500/20 text-rose-400'
-                        : 'bg-amber-500/20 text-amber-400'
+                        ? "bg-rose-500/20 text-rose-400"
+                        : "bg-amber-500/20 text-amber-400"
                     }`}
                   >
                     HF: {alert.healthFactor.toFixed(2)}

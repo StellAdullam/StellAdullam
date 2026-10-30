@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Building2, CheckCircle2, Lock, ShieldCheck, ArrowRight, X } from "lucide-react";
+import {
+  Building2,
+  CheckCircle2,
+  Lock,
+  ShieldCheck,
+  ArrowRight,
+  X,
+} from "lucide-react";
 import { Button, Card, Badge } from "@/components/ui";
 
 export interface PropertyShareCollateralOption {
@@ -41,7 +48,7 @@ export function CollateralDepositModal({
   onDeposit,
 }: CollateralDepositModalProps) {
   const [selectedPropertyId, setSelectedPropertyId] = useState(
-    availableProperties[0]?.propertyId ?? "1"
+    availableProperties[0]?.propertyId ?? "1",
   );
   const [sharesToDeposit, setSharesToDeposit] = useState<number>(100);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,9 +60,11 @@ export function CollateralDepositModal({
     availableProperties.find((p) => p.propertyId === selectedPropertyId) ??
     availableProperties[0];
 
-  const totalCollateralValueUsd = (sharesToDeposit || 0) * (selectedProp?.sharePriceUsd ?? 0);
+  const totalCollateralValueUsd =
+    (sharesToDeposit || 0) * (selectedProp?.sharePriceUsd ?? 0);
   const borrowingPowerUnlockedUsd =
-    totalCollateralValueUsd * ((selectedProp?.collateralFactorPercent ?? 75) / 100);
+    totalCollateralValueUsd *
+    ((selectedProp?.collateralFactorPercent ?? 75) / 100);
 
   const handleMax = () => {
     if (selectedProp) {
@@ -94,8 +103,12 @@ export function CollateralDepositModal({
             <Lock className="w-5 h-5" />
           </div>
           <div>
-            <h3 className="text-lg font-bold text-white">Deposit RWA Collateral</h3>
-            <p className="text-xs text-slate-400">Lock real estate shares into Soroban lending pool</p>
+            <h3 className="text-lg font-bold text-white">
+              Deposit RWA Collateral
+            </h3>
+            <p className="text-xs text-slate-400">
+              Lock real estate shares into Soroban lending pool
+            </p>
           </div>
         </div>
 
@@ -104,12 +117,18 @@ export function CollateralDepositModal({
             <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-semibold text-white">Collateral Deposited!</h4>
+            <h4 className="text-lg font-semibold text-white">
+              Collateral Deposited!
+            </h4>
             <p className="text-xs text-slate-300">
-              {sharesToDeposit} shares of &ldquo;{selectedProp?.name}&rdquo; successfully locked as collateral.
+              {sharesToDeposit} shares of &ldquo;{selectedProp?.name}&rdquo;
+              successfully locked as collateral.
             </p>
             <div className="pt-2">
-              <Button onClick={onClose} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white">
+              <Button
+                onClick={onClose}
+                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white"
+              >
                 Done
               </Button>
             </div>
@@ -118,7 +137,9 @@ export function CollateralDepositModal({
           <div className="space-y-4">
             {/* Property Selector */}
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Select Property Shares</label>
+              <label className="block text-xs text-slate-400 mb-1">
+                Select Property Shares
+              </label>
               <select
                 value={selectedPropertyId}
                 onChange={(e) => {
@@ -152,7 +173,9 @@ export function CollateralDepositModal({
                 min="1"
                 max={selectedProp?.sharesOwned ?? 1}
                 value={sharesToDeposit}
-                onChange={(e) => setSharesToDeposit(Number(e.target.value) || 0)}
+                onChange={(e) =>
+                  setSharesToDeposit(Number(e.target.value) || 0)
+                }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
@@ -161,26 +184,42 @@ export function CollateralDepositModal({
             <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-xs space-y-2">
               <div className="flex justify-between">
                 <span className="text-slate-400">Appraised Value Locked:</span>
-                <span className="font-semibold text-white">${totalCollateralValueUsd.toLocaleString()} USD</span>
+                <span className="font-semibold text-white">
+                  ${totalCollateralValueUsd.toLocaleString()} USD
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-400">Collateral Factor:</span>
-                <span className="font-semibold text-indigo-400">{selectedProp?.collateralFactorPercent}%</span>
+                <span className="font-semibold text-indigo-400">
+                  {selectedProp?.collateralFactorPercent}%
+                </span>
               </div>
               <div className="flex justify-between border-t border-slate-850 pt-1.5">
-                <span className="text-slate-300 font-medium">New Borrowing Power:</span>
-                <span className="font-bold text-emerald-400">+${borrowingPowerUnlockedUsd.toLocaleString()} USDC</span>
+                <span className="text-slate-300 font-medium">
+                  New Borrowing Power:
+                </span>
+                <span className="font-bold text-emerald-400">
+                  +${borrowingPowerUnlockedUsd.toLocaleString()} USDC
+                </span>
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex gap-2 pt-2">
-              <Button variant="outline" onClick={onClose} className="flex-1 border-slate-700">
+              <Button
+                variant="outline"
+                onClick={onClose}
+                className="flex-1 border-slate-700"
+              >
                 Cancel
               </Button>
               <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting || sharesToDeposit <= 0 || (selectedProp && sharesToDeposit > selectedProp.sharesOwned)}
+                disabled={
+                  isSubmitting ||
+                  sharesToDeposit <= 0 ||
+                  (selectedProp && sharesToDeposit > selectedProp.sharesOwned)
+                }
                 className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium"
               >
                 {isSubmitting ? "Locking Shares..." : "Confirm Deposit"}

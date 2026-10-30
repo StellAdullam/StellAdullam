@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export interface HighContrastToggleProps {
   onToggle?: (isHighContrast: boolean) => void;
@@ -7,11 +7,11 @@ export interface HighContrastToggleProps {
 
 export const HighContrastToggle: React.FC<HighContrastToggleProps> = ({
   onToggle,
-  className = '',
+  className = "",
 }) => {
   const [isHighContrast, setIsHighContrast] = useState<boolean>(() => {
     try {
-      return localStorage.getItem('stelladullam_high_contrast') === 'true';
+      return localStorage.getItem("stelladullam_high_contrast") === "true";
     } catch {
       return false;
     }
@@ -19,9 +19,9 @@ export const HighContrastToggle: React.FC<HighContrastToggleProps> = ({
 
   useEffect(() => {
     if (isHighContrast) {
-      document.documentElement.classList.add('high-contrast');
+      document.documentElement.classList.add("high-contrast");
     } else {
-      document.documentElement.classList.remove('high-contrast');
+      document.documentElement.classList.remove("high-contrast");
     }
   }, [isHighContrast]);
 
@@ -29,7 +29,7 @@ export const HighContrastToggle: React.FC<HighContrastToggleProps> = ({
     const next = !isHighContrast;
     setIsHighContrast(next);
     try {
-      localStorage.setItem('stelladullam_high_contrast', String(next));
+      localStorage.setItem("stelladullam_high_contrast", String(next));
     } catch {
       // Ignore
     }
@@ -42,15 +42,19 @@ export const HighContrastToggle: React.FC<HighContrastToggleProps> = ({
       onClick={handleToggle}
       className={`inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-xs font-mono transition-all ${
         isHighContrast
-          ? 'bg-yellow-400 border-yellow-300 text-black font-bold shadow-md'
-          : 'bg-slate-900/80 border-slate-700/60 text-slate-300 hover:bg-slate-800'
+          ? "bg-yellow-400 border-yellow-300 text-black font-bold shadow-md"
+          : "bg-slate-900/80 border-slate-700/60 text-slate-300 hover:bg-slate-800"
       } ${className}`}
-      title={isHighContrast ? 'Disable high contrast mode' : 'Enable high contrast accessibility mode'}
+      title={
+        isHighContrast
+          ? "Disable high contrast mode"
+          : "Enable high contrast accessibility mode"
+      }
       aria-label="Toggle high contrast accessibility mode"
     >
       <span className="text-sm select-none">🔲</span>
       <span className="hidden sm:inline font-sans font-medium">
-        {isHighContrast ? 'High Contrast ON' : 'High Contrast'}
+        {isHighContrast ? "High Contrast ON" : "High Contrast"}
       </span>
     </button>
   );

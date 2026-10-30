@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export interface UpgradeCooldownHudProps {
   x: number;
@@ -13,10 +13,10 @@ export const UpgradeCooldownHud: React.FC<UpgradeCooldownHudProps> = ({
   y,
   cooldownEndsAtEpochMs,
   onCooldownComplete,
-  className = '',
+  className = "",
 }) => {
   const [remainingMs, setRemainingMs] = useState<number>(() =>
-    Math.max(0, cooldownEndsAtEpochMs - Date.now())
+    Math.max(0, cooldownEndsAtEpochMs - Date.now()),
   );
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export const UpgradeCooldownHud: React.FC<UpgradeCooldownHudProps> = ({
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const isReady = remainingMs <= 0;
@@ -47,8 +47,8 @@ export const UpgradeCooldownHud: React.FC<UpgradeCooldownHudProps> = ({
     <div
       className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-mono backdrop-blur-md transition-all ${
         isReady
-          ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300 shadow-emerald-950/50 shadow-md'
-          : 'bg-slate-900/80 border-slate-700/60 text-slate-300'
+          ? "bg-emerald-950/40 border-emerald-500/50 text-emerald-300 shadow-emerald-950/50 shadow-md"
+          : "bg-slate-900/80 border-slate-700/60 text-slate-300"
       } ${className}`}
       role="timer"
       aria-label={`Upgrade cooldown for parcel (${x}, ${y})`}

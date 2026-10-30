@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState } from "react";
 
 export interface ApyForecastCalculatorProps {
   baseAprPercent?: number; // default 2%
@@ -60,14 +60,18 @@ export const ApyForecastCalculator: React.FC<ApyForecastCalculatorProps> = ({
 
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/50">
-          <div className="text-xs text-slate-400 mb-1">Projected Supply APY</div>
+          <div className="text-xs text-slate-400 mb-1">
+            Projected Supply APY
+          </div>
           <div className="text-2xl font-bold text-emerald-400">
             {supplyApr.toFixed(2)}%
           </div>
         </div>
 
         <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/50">
-          <div className="text-xs text-slate-400 mb-1">Projected Borrow APR</div>
+          <div className="text-xs text-slate-400 mb-1">
+            Projected Borrow APR
+          </div>
           <div className="text-2xl font-bold text-indigo-400">
             {borrowApr.toFixed(2)}%
           </div>
@@ -99,8 +103,9 @@ export const ApyForecastCalculator: React.FC<ApyForecastCalculatorProps> = ({
       </div>
 
       <p className="mt-4 text-[11px] text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-        Rates dynamically adjust according to pool liquidity utilization. Exceeding the{' '}
-        {optimalUtilizationPercent}% kink point accelerates borrow rates to protect reserve solvency.
+        Rates dynamically adjust according to pool liquidity utilization.
+        Exceeding the {optimalUtilizationPercent}% kink point accelerates borrow
+        rates to protect reserve solvency.
       </p>
     </div>
   );

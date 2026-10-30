@@ -1,20 +1,52 @@
-import React from 'react';
+import React from "react";
 
 export interface ShortcutItem {
   keys: string[];
   description: string;
-  category: 'Navigation' | 'Actions' | 'General';
+  category: "Navigation" | "Actions" | "General";
 }
 
 export const SYSTEM_SHORTCUTS: ShortcutItem[] = [
-  { keys: ['W', 'A', 'S', 'D'], description: 'Pan 2.5D City Map canvas', category: 'Navigation' },
-  { keys: ['+', '-'], description: 'Zoom in / Zoom out of parcel grid', category: 'Navigation' },
-  { keys: ['Space'], description: 'Center camera on player home parcel', category: 'Navigation' },
-  { keys: ['H'], description: 'Toggle spatial density heatmap overlay', category: 'Actions' },
-  { keys: ['M'], description: 'Mute / Unmute ambient sound effects', category: 'Actions' },
-  { keys: ['P'], description: 'Toggle balance privacy blur mask', category: 'Actions' },
-  { keys: ['Esc'], description: 'Close open dialogs and drawers', category: 'General' },
-  { keys: ['?'], description: 'Open this keyboard shortcuts guide', category: 'General' },
+  {
+    keys: ["W", "A", "S", "D"],
+    description: "Pan 2.5D City Map canvas",
+    category: "Navigation",
+  },
+  {
+    keys: ["+", "-"],
+    description: "Zoom in / Zoom out of parcel grid",
+    category: "Navigation",
+  },
+  {
+    keys: ["Space"],
+    description: "Center camera on player home parcel",
+    category: "Navigation",
+  },
+  {
+    keys: ["H"],
+    description: "Toggle spatial density heatmap overlay",
+    category: "Actions",
+  },
+  {
+    keys: ["M"],
+    description: "Mute / Unmute ambient sound effects",
+    category: "Actions",
+  },
+  {
+    keys: ["P"],
+    description: "Toggle balance privacy blur mask",
+    category: "Actions",
+  },
+  {
+    keys: ["Esc"],
+    description: "Close open dialogs and drawers",
+    category: "General",
+  },
+  {
+    keys: ["?"],
+    description: "Open this keyboard shortcuts guide",
+    category: "General",
+  },
 ];
 
 export interface KeyboardShortcutsModalProps {
@@ -34,7 +66,9 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
             <span className="text-xl">⌨️</span>
-            <h3 className="text-lg font-bold text-white tracking-tight">Keyboard Shortcuts</h3>
+            <h3 className="text-lg font-bold text-white tracking-tight">
+              Keyboard Shortcuts
+            </h3>
           </div>
           <button
             onClick={onClose}
@@ -45,8 +79,10 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
         </div>
 
         <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
-          {['Navigation', 'Actions', 'General'].map((category) => {
-            const items = SYSTEM_SHORTCUTS.filter((s) => s.category === category);
+          {["Navigation", "Actions", "General"].map((category) => {
+            const items = SYSTEM_SHORTCUTS.filter(
+              (s) => s.category === category,
+            );
             return (
               <div key={category} className="space-y-2">
                 <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-indigo-400">
@@ -58,7 +94,9 @@ export const KeyboardShortcutsModal: React.FC<KeyboardShortcutsModalProps> = ({
                       key={item.description}
                       className="flex items-center justify-between text-xs py-1 border-b border-slate-800/60"
                     >
-                      <span className="text-slate-300 font-sans">{item.description}</span>
+                      <span className="text-slate-300 font-sans">
+                        {item.description}
+                      </span>
                       <div className="flex gap-1">
                         {item.keys.map((k) => (
                           <kbd

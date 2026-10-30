@@ -1,5 +1,4 @@
 import { logger } from './logger';
-import { OracleService } from './OracleService';
 import type { RealEstateValuationPayload } from '@stelladullam/shared';
 
 export interface OracleFeedConfig {

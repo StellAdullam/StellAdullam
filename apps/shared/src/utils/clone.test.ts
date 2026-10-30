@@ -1,10 +1,10 @@
-import { describe, expect, it } from 'vitest';
-import { deepClone } from './clone';
+import { describe, expect, it } from "vitest";
+import { deepClone } from "./clone";
 
-describe('Deep Clone Utility', () => {
-  it('deeply clones complex nested objects and arrays without mutating source', () => {
+describe("Deep Clone Utility", () => {
+  it("deeply clones complex nested objects and arrays without mutating source", () => {
     const original = {
-      user: { name: 'Alice', balances: [100, 200, 300] },
+      user: { name: "Alice", balances: [100, 200, 300] },
       meta: { active: true },
     };
 
@@ -19,9 +19,9 @@ describe('Deep Clone Utility', () => {
     expect(original.user.balances.length).toBe(3);
   });
 
-  it('preserves primitive values and null/undefined', () => {
+  it("preserves primitive values and null/undefined", () => {
     expect(deepClone(42)).toBe(42);
-    expect(deepClone('stellar')).toBe('stellar');
+    expect(deepClone("stellar")).toBe("stellar");
     expect(deepClone(null)).toBeNull();
     expect(deepClone(undefined)).toBeUndefined();
   });

@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { Sparkles } from 'lucide-react';
+import React, { useEffect, useState } from "react";
+import { Sparkles } from "lucide-react";
 
 export interface BuildingUpgradeParticlesProps {
   active: boolean;
@@ -13,7 +13,14 @@ export function BuildingUpgradeParticles({
   onComplete,
 }: BuildingUpgradeParticlesProps) {
   const [particles, setParticles] = useState<
-    { id: number; x: number; y: number; size: number; delay: number; color: string }[]
+    {
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      delay: number;
+      color: string;
+    }[]
   >([]);
 
   useEffect(() => {
@@ -22,7 +29,7 @@ export function BuildingUpgradeParticles({
       return;
     }
 
-    const colors = ['#f59e0b', '#10b981', '#6366f1', '#ec4899', '#38bdf8'];
+    const colors = ["#f59e0b", "#10b981", "#6366f1", "#ec4899", "#38bdf8"];
     const generated = Array.from({ length: 16 }, (_, i) => {
       const angle = (i / 16) * Math.PI * 2;
       const dist = 40 + Math.random() * 50;
@@ -59,7 +66,7 @@ export function BuildingUpgradeParticles({
             height: p.size,
             backgroundColor: p.color,
             transform: `translate(${p.x}px, ${p.y}px)`,
-            animationDuration: '1.0s',
+            animationDuration: "1.0s",
             animationDelay: `${p.delay}s`,
             boxShadow: `0 0 10px ${p.color}`,
           }}

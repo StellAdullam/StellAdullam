@@ -28,3 +28,4 @@ See the [LICENSE](../LICENSE) file in the repository root for the complete licen
 
 - Smart contracts on Soroban are subject to technological and economic risks, including network congestion, oracle deviation, and potential software bugs.
 - Users and developers deploying or interacting with StellAdullam smart contracts do so at their own risk. The authors and contributors provide the software on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND.
+

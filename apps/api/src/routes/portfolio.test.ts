@@ -6,7 +6,7 @@ describe('Portfolio Routes', () => {
 
   it('GET /api/v1/portfolio/:address returns portfolio summary', async () => {
     const res = await portfolioRoutes.handle(
-      new Request(`http://localhost/api/v1/portfolio/${validStellarAddress}`)
+      new Request(`http://localhost/api/v1/portfolio/${validStellarAddress}`),
     );
 
     expect(res.status).toBe(200);
@@ -18,7 +18,7 @@ describe('Portfolio Routes', () => {
 
   it('GET /api/v1/portfolio/:address/allocation returns allocation breakdown', async () => {
     const res = await portfolioRoutes.handle(
-      new Request(`http://localhost/api/v1/portfolio/${validStellarAddress}/allocation`)
+      new Request(`http://localhost/api/v1/portfolio/${validStellarAddress}/allocation`),
     );
 
     expect(res.status).toBe(200);
@@ -30,7 +30,7 @@ describe('Portfolio Routes', () => {
 
   it('rejects invalid Stellar address with HTTP 400', async () => {
     const res = await portfolioRoutes.handle(
-      new Request('http://localhost/api/v1/portfolio/invalid-address/allocation')
+      new Request('http://localhost/api/v1/portfolio/invalid-address/allocation'),
     );
 
     expect(res.status).toBe(400);

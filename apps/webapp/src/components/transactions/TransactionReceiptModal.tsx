@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface TransactionReceiptModalProps {
   isOpen: boolean;
@@ -8,10 +8,12 @@ export interface TransactionReceiptModalProps {
   amount?: string;
   ledgerSequence?: number;
   feeStroops?: number;
-  network?: 'testnet' | 'public';
+  network?: "testnet" | "public";
 }
 
-export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = ({
+export const TransactionReceiptModal: React.FC<
+  TransactionReceiptModalProps
+> = ({
   isOpen,
   onClose,
   txHash,
@@ -19,7 +21,7 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
   amount,
   ledgerSequence,
   feeStroops = 100,
-  network = 'testnet',
+  network = "testnet",
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -46,18 +48,40 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
           className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition-colors"
           aria-label="Close modal"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
         <div className="flex flex-col items-center text-center mb-6">
           <div className="w-14 h-14 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-3">
-            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="w-7 h-7"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
-          <h2 className="text-xl font-bold text-white">Transaction Confirmed</h2>
+          <h2 className="text-xl font-bold text-white">
+            Transaction Confirmed
+          </h2>
           <p className="text-xs text-slate-400 mt-1">{actionTitle}</p>
         </div>
 
@@ -65,24 +89,32 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
           {amount && (
             <div className="flex justify-between items-center">
               <span className="text-slate-400">Total Transferred</span>
-              <span className="font-semibold text-emerald-400 text-sm">{amount}</span>
+              <span className="font-semibold text-emerald-400 text-sm">
+                {amount}
+              </span>
             </div>
           )}
 
           {ledgerSequence && (
             <div className="flex justify-between items-center">
               <span className="text-slate-400">Ledger Sequence</span>
-              <span className="font-mono text-slate-200">#{ledgerSequence.toLocaleString()}</span>
+              <span className="font-mono text-slate-200">
+                #{ledgerSequence.toLocaleString()}
+              </span>
             </div>
           )}
 
           <div className="flex justify-between items-center">
             <span className="text-slate-400">Network Fee</span>
-            <span className="font-mono text-slate-200">{feeStroops} Stroops ({(feeStroops / 10_000_000).toFixed(7)} XLM)</span>
+            <span className="font-mono text-slate-200">
+              {feeStroops} Stroops ({(feeStroops / 10_000_000).toFixed(7)} XLM)
+            </span>
           </div>
 
           <div className="pt-2 border-t border-slate-700/40">
-            <span className="text-slate-400 block mb-1.5">Transaction Hash</span>
+            <span className="text-slate-400 block mb-1.5">
+              Transaction Hash
+            </span>
             <div className="flex items-center gap-2 bg-slate-900 px-2.5 py-1.5 rounded-lg border border-slate-700 font-mono text-[11px] text-slate-300">
               <span className="truncate">{txHash}</span>
               <button
@@ -90,7 +122,7 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
                 onClick={handleCopy}
                 className="text-cyan-400 hover:text-cyan-300 font-sans font-medium text-xs shrink-0"
               >
-                {copied ? 'Copied!' : 'Copy'}
+                {copied ? "Copied!" : "Copy"}
               </button>
             </div>
           </div>
@@ -104,8 +136,18 @@ export const TransactionReceiptModal: React.FC<TransactionReceiptModalProps> = (
             className="w-full text-center py-2.5 px-4 rounded-xl bg-cyan-600 hover:bg-cyan-500 font-medium text-sm text-white transition-colors flex items-center justify-center gap-2"
           >
             <span>View on Stellar Expert</span>
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
             </svg>
           </a>
           <button

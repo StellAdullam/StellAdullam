@@ -64,8 +64,8 @@ export function MarketplaceClient() {
         return matchesQuery && matchesLevel;
       })
       .sort((a, b) => {
-        const priceA = a.pricePerShare || 0;
-        const priceB = b.pricePerShare || 0;
+        const priceA = Number(a.pricePerShare) || 0;
+        const priceB = Number(b.pricePerShare) || 0;
         return sortOrder === "asc" ? priceA - priceB : priceB - priceA;
       });
   }, [listedProperties, searchQuery, selectedLevel, sortOrder]);
@@ -92,7 +92,7 @@ export function MarketplaceClient() {
                   ...item,
                   owner: address,
                   isListed: false,
-                  pricePerShare: 0,
+                  pricePerShare: "0",
                 }
               : item,
           ),

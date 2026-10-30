@@ -7,9 +7,9 @@
 /**
  * Creates an object composed of the picked object properties.
  */
-export function pick<T extends Record<string, any>, K extends keyof T>(
+export function pick<T extends Record<string, unknown>, K extends keyof T>(
   obj: T,
-  keys: K[]
+  keys: K[],
 ): Pick<T, K> {
   const result = {} as Pick<T, K>;
   for (const key of keys) {
@@ -23,9 +23,9 @@ export function pick<T extends Record<string, any>, K extends keyof T>(
 /**
  * Creates an object composed of the properties that are not omitted.
  */
-export function omit<T extends Record<string, any>, K extends keyof T>(
+export function omit<T extends Record<string, unknown>, K extends keyof T>(
   obj: T,
-  keys: K[]
+  keys: K[],
 ): Omit<T, K> {
   const result = { ...obj };
   for (const key of keys) {
@@ -37,11 +37,11 @@ export function omit<T extends Record<string, any>, K extends keyof T>(
 /**
  * Removes null, undefined, and empty string properties from an object.
  */
-export function compact<T extends Record<string, any>>(obj: T): Partial<T> {
+export function compact<T extends Record<string, unknown>>(obj: T): Partial<T> {
   const result: Partial<T> = {};
   for (const [key, value] of Object.entries(obj)) {
-    if (value !== null && value !== undefined && value !== '') {
-      result[key as keyof T] = value;
+    if (value !== null && value !== undefined && value !== "") {
+      result[key as keyof T] = value as T[keyof T];
     }
   }
   return result;

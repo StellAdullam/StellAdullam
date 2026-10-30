@@ -28,7 +28,9 @@ export function LoanRepaymentModal({
   onRepay,
 }: LoanRepaymentModalProps) {
   const totalDue = currentDebtUsdc + accruedInterestUsdc;
-  const [repayAmount, setRepayAmount] = useState<number>(Math.min(totalDue, 1000));
+  const [repayAmount, setRepayAmount] = useState<number>(
+    Math.min(totalDue, 1000),
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [txHash, setTxHash] = useState<string | null>(null);
 
@@ -74,7 +76,9 @@ export function LoanRepaymentModal({
           </div>
           <div>
             <h3 className="text-lg font-bold text-white">Repay Loan Debt</h3>
-            <p className="text-xs text-slate-400">Extinguish borrow position & boost health factor</p>
+            <p className="text-xs text-slate-400">
+              Extinguish borrow position & boost health factor
+            </p>
           </div>
         </div>
 
@@ -83,12 +87,18 @@ export function LoanRepaymentModal({
             <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
               <CheckCircle2 className="w-8 h-8" />
             </div>
-            <h4 className="text-lg font-semibold text-white">Repayment Confirmed!</h4>
+            <h4 className="text-lg font-semibold text-white">
+              Repayment Confirmed!
+            </h4>
             <p className="text-xs text-slate-300">
-              Successfully repaid ${repayAmount.toLocaleString()} {assetSymbol}. Remaining debt: ${remainingDebt.toLocaleString()} {assetSymbol}.
+              Successfully repaid ${repayAmount.toLocaleString()} {assetSymbol}.
+              Remaining debt: ${remainingDebt.toLocaleString()} {assetSymbol}.
             </p>
             <div className="pt-2">
-              <Button onClick={onClose} className="w-full bg-indigo-600 hover:bg-indigo-500 text-white">
+              <Button
+                onClick={onClose}
+                className="w-full bg-indigo-600 hover:bg-indigo-500 text-white"
+              >
                 Done
               </Button>
             </div>
@@ -99,22 +109,30 @@ export function LoanRepaymentModal({
             <div className="p-3.5 rounded-lg bg-slate-950 border border-slate-800 text-xs space-y-1.5">
               <div className="flex justify-between text-slate-400">
                 <span>Principal Borrowed:</span>
-                <span className="text-slate-200 font-mono">${currentDebtUsdc.toLocaleString()}</span>
+                <span className="text-slate-200 font-mono">
+                  ${currentDebtUsdc.toLocaleString()}
+                </span>
               </div>
               <div className="flex justify-between text-slate-400">
                 <span>Accrued Interest:</span>
-                <span className="text-amber-400 font-mono">+${accruedInterestUsdc.toFixed(2)}</span>
+                <span className="text-amber-400 font-mono">
+                  +${accruedInterestUsdc.toFixed(2)}
+                </span>
               </div>
               <div className="flex justify-between border-t border-slate-850 pt-1.5 font-semibold text-white">
                 <span>Total Outstanding Debt:</span>
-                <span className="font-mono text-emerald-400">${totalDue.toLocaleString()} {assetSymbol}</span>
+                <span className="font-mono text-emerald-400">
+                  ${totalDue.toLocaleString()} {assetSymbol}
+                </span>
               </div>
             </div>
 
             {/* Repay Input */}
             <div>
               <div className="flex justify-between items-center mb-1 text-xs">
-                <span className="text-slate-400">Repay Amount ({assetSymbol})</span>
+                <span className="text-slate-400">
+                  Repay Amount ({assetSymbol})
+                </span>
                 <button
                   type="button"
                   onClick={handleMax}
@@ -140,21 +158,32 @@ export function LoanRepaymentModal({
                 <span>New Health Factor:</span>
               </div>
               <div className="font-mono font-bold text-emerald-400">
-                {currentHealthFactor.toFixed(2)} &rarr; {newHealthFactor >= 99 ? "∞" : newHealthFactor.toFixed(2)}
+                {currentHealthFactor.toFixed(2)} &rarr;{" "}
+                {newHealthFactor >= 99 ? "∞" : newHealthFactor.toFixed(2)}
               </div>
             </div>
 
             {/* Actions */}
             <div className="flex gap-2 pt-2">
-              <Button variant="outline" onClick={onClose} className="flex-1 border-slate-700">
+              <Button
+                variant="outline"
+                onClick={onClose}
+                className="flex-1 border-slate-700"
+              >
                 Cancel
               </Button>
               <Button
                 onClick={handleSubmit}
-                disabled={isSubmitting || repayAmount <= 0 || repayAmount > userBalanceUsdc}
+                disabled={
+                  isSubmitting ||
+                  repayAmount <= 0 ||
+                  repayAmount > userBalanceUsdc
+                }
                 className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-medium"
               >
-                {isSubmitting ? "Submitting..." : `Repay $${repayAmount.toLocaleString()}`}
+                {isSubmitting
+                  ? "Submitting..."
+                  : `Repay $${repayAmount.toLocaleString()}`}
               </Button>
             </div>
           </div>

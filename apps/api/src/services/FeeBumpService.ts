@@ -1,9 +1,4 @@
-import {
-  Keypair,
-  TransactionBuilder,
-  Transaction,
-  FeeBumpTransaction,
-} from '@stellar/stellar-sdk';
+import { Keypair, TransactionBuilder, Transaction } from '@stellar/stellar-sdk';
 
 export interface FeeBumpOptions {
   feeSourceSecret?: string;
@@ -28,8 +23,7 @@ export class FeeBumpService {
     innerTxXdr: string,
     options?: FeeBumpOptions,
   ): { feeBumpXdr: string; totalFeeStroops: number } {
-    const feeSourceSecret =
-      options?.feeSourceSecret ?? process.env.STELLAR_ADMIN_SECRET;
+    const feeSourceSecret = options?.feeSourceSecret ?? process.env.STELLAR_ADMIN_SECRET;
 
     if (!feeSourceSecret) {
       throw new Error('Fee bump requires a configured feeSourceSecret');

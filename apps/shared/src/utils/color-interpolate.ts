@@ -9,7 +9,7 @@ export interface RgbColor {
 }
 
 export function hexToRgb(hex: string): RgbColor {
-  const clean = hex.replace('#', '');
+  const clean = hex.replace("#", "");
   const bigint = parseInt(clean, 16);
   return {
     r: (bigint >> 16) & 255,
@@ -19,7 +19,10 @@ export function hexToRgb(hex: string): RgbColor {
 }
 
 export function rgbToHex(r: number, g: number, b: number): string {
-  const toHex = (n: number) => Math.min(255, Math.max(0, Math.round(n))).toString(16).padStart(2, '0');
+  const toHex = (n: number) =>
+    Math.min(255, Math.max(0, Math.round(n)))
+      .toString(16)
+      .padStart(2, "0");
   return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 }
 

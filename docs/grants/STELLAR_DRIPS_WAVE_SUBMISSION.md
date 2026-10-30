@@ -72,3 +72,4 @@ StellAdullam is an end-to-end institutional-grade real-world asset tokenization 
 - **Protocol Revenue**: 1.0% marketplace transaction fee + 10% interest spread from lending reserves continuously funds protocol growth and token burn mechanics.
 - **Anchor Expansion**: Partnering with regional African and Latin American Stellar anchors to expand accessible localized real estate investments.
 - **Open Source Community**: Fully licensed under Apache 2.0, providing reusable Soroban building blocks, mathematical utilities, and UI components for the wider Stellar ecosystem.
+

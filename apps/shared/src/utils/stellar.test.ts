@@ -55,7 +55,7 @@ describe("StellarService", () => {
 
     it("should throw error for invalid address", async () => {
       expect(() => {
-        service.validateAddress("invalid-address");
+        service.assertValidAddress("invalid-address");
       }).toThrow("Invalid Stellar address");
     });
 
@@ -137,7 +137,7 @@ describe("StellarService", () => {
 
     it("should throw error for invalid source account format", async () => {
       expect(() => {
-        service.validateAddress("invalid");
+        service.assertValidAddress("invalid");
       }).toThrow("Invalid Stellar address");
     });
 
@@ -233,7 +233,7 @@ describe("StellarService", () => {
       });
 
       expect(() => {
-        service.validateAddress("invalid");
+        service.assertValidAddress("invalid");
       }).toThrow("Invalid Stellar address");
     });
 
@@ -280,10 +280,8 @@ describe("StellarService", () => {
       expect(service.validateAddress(testAddress)).toBe(true);
     });
 
-    it("should throw for invalid Stellar address", () => {
-      expect(() => {
-        service.validateAddress("invalid-address");
-      }).toThrow("Invalid Stellar address");
+    it("should return false for invalid Stellar address", () => {
+      expect(service.validateAddress("invalid-address")).toBe(false);
     });
 
     it("should accept valid generated public keys", () => {

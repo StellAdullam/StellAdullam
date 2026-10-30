@@ -17,7 +17,7 @@ export class PropertyValuationAuditService {
     propertyId: number,
     currentValuationUsd: number,
     previousValuationUsd?: number,
-    cadastreAreaSqm?: number
+    cadastreAreaSqm?: number,
   ): ValuationAuditResult {
     const reasons: string[] = [];
     let riskScore = 0;
@@ -37,7 +37,7 @@ export class PropertyValuationAuditService {
     let percentageChange = 0;
     if (previousValuationUsd && previousValuationUsd > 0) {
       percentageChange = Number(
-        (((currentValuationUsd - previousValuationUsd) / previousValuationUsd) * 100).toFixed(2)
+        (((currentValuationUsd - previousValuationUsd) / previousValuationUsd) * 100).toFixed(2),
       );
 
       if (percentageChange > 50) {
@@ -45,7 +45,9 @@ export class PropertyValuationAuditService {
         reasons.push(`Extreme appraisal jump (+${percentageChange}%) exceeds 50% threshold.`);
       } else if (percentageChange > 25) {
         riskScore += 35;
-        reasons.push(`Moderate appraisal increase (+${percentageChange}%) requires secondary appraisal verification.`);
+        reasons.push(
+          `Moderate appraisal increase (+${percentageChange}%) requires secondary appraisal verification.`,
+        );
       }
     }
 
@@ -53,7 +55,9 @@ export class PropertyValuationAuditService {
       const pricePerSqm = currentValuationUsd / cadastreAreaSqm;
       if (pricePerSqm > 25000) {
         riskScore += 30;
-        reasons.push(`Price per square meter ($${pricePerSqm.toFixed(0)}/sqm) exceeds municipal market median.`);
+        reasons.push(
+          `Price per square meter ($${pricePerSqm.toFixed(0)}/sqm) exceeds municipal market median.`,
+        );
       }
     }
 

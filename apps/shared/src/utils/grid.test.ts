@@ -1,14 +1,14 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it } from "vitest";
 import {
   indexToCoord,
   coordToIndex,
   getAdjacentTileIndices,
   getManhattanDistance,
   calculateClusterBonus,
-} from './grid';
+} from "./grid";
 
-describe('Grid Math Utilities', () => {
-  it('correctly maps between 1D index and 2D coordinates', () => {
+describe("Grid Math Utilities", () => {
+  it("correctly maps between 1D index and 2D coordinates", () => {
     expect(indexToCoord(0)).toEqual({ x: 0, y: 0 });
     expect(indexToCoord(19)).toEqual({ x: 19, y: 0 });
     expect(indexToCoord(20)).toEqual({ x: 0, y: 1 });
@@ -20,7 +20,7 @@ describe('Grid Math Utilities', () => {
     expect(coordToIndex(19, 19)).toBe(399);
   });
 
-  it('determines orthogonal neighbors and boundaries correctly', () => {
+  it("determines orthogonal neighbors and boundaries correctly", () => {
     // Top-left corner (0, 0)
     const cornerNeighbors = getAdjacentTileIndices(0);
     expect(cornerNeighbors).toContain(1); // right
@@ -33,7 +33,7 @@ describe('Grid Math Utilities', () => {
     expect(centerNeighbors).toEqual(expect.arrayContaining([1, 41, 20, 22]));
   });
 
-  it('calculates Manhattan distance and cluster bonuses', () => {
+  it("calculates Manhattan distance and cluster bonuses", () => {
     // (0, 0) to (3, 4) -> distance = 3 + 4 = 7
     const idxA = coordToIndex(0, 0);
     const idxB = coordToIndex(3, 4);

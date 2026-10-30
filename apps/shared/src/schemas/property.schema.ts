@@ -95,7 +95,10 @@ export type ShareOwnershipInput = z.input<typeof shareOwnershipSchema>;
  */
 export const tokenizationParamsSchema = z.object({
   propertyId: z.string().uuid(),
-  totalShares: z.number().int().positive("Total shares must be a positive integer"),
+  totalShares: z
+    .number()
+    .int()
+    .positive("Total shares must be a positive integer"),
   pricePerShare: positiveAmountSchema,
   sorobanPropertyId: z.number().int().nonnegative().optional(),
   recipientAddress: stellarAddressSchema,

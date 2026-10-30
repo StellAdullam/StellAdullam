@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 export interface PerformanceStatsHudProps {
   totalEntities?: number;
@@ -50,7 +50,11 @@ export const PerformanceStatsHud: React.FC<PerformanceStatsHudProps> = ({
   }
 
   const fpsColor =
-    fps >= 55 ? 'text-emerald-400' : fps >= 30 ? 'text-amber-400' : 'text-rose-400 animate-pulse';
+    fps >= 55
+      ? "text-emerald-400"
+      : fps >= 30
+        ? "text-amber-400"
+        : "text-rose-400 animate-pulse";
 
   return (
     <div className="fixed bottom-3 right-3 z-30 p-2.5 rounded-xl bg-slate-900/95 border border-slate-700/80 shadow-2xl backdrop-blur-md text-[11px] font-mono text-slate-300 w-48 select-none">

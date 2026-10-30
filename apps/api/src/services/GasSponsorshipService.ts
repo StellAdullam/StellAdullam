@@ -14,7 +14,7 @@ export class GasSponsorshipService {
   /**
    * Evaluates whether a Stellar address is eligible for gas fee sponsorship.
    */
-  public static checkEligibility(address: string, operationType?: string): SponsorshipEligibility {
+  public static checkEligibility(address: string, _operationType?: string): SponsorshipEligibility {
     const now = Date.now();
     const record = this.userDailyCounts.get(address);
 
@@ -29,7 +29,8 @@ export class GasSponsorshipService {
     if (record.count >= this.DAILY_QUOTA) {
       return {
         eligible: false,
-        reason: 'Daily gas sponsorship quota exceeded. Please self-fund transaction fees or retry tomorrow.',
+        reason:
+          'Daily gas sponsorship quota exceeded. Please self-fund transaction fees or retry tomorrow.',
         remainingDailyQuota: 0,
         maxSponsoredFeeStroops: this.MAX_SPONSORED_FEE_STROOPS,
       };

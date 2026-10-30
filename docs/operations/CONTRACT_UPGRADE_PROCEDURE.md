@@ -80,3 +80,4 @@ Run the automated post-upgrade check suite:
 ./scripts/verify-contracts.sh
 ```
 Verify that all query endpoints (`get_pool_list`, `get_health_factor`, `get_listing_count`) respond normally and maintain historical ledger balances.
+

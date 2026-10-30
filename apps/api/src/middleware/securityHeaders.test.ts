@@ -4,9 +4,7 @@ import { securityHeaders } from './securityHeaders';
 
 describe('Security Headers Middleware', () => {
   it('attaches OWASP security headers to all HTTP responses', async () => {
-    const app = new Elysia()
-      .use(securityHeaders)
-      .get('/ping', () => 'pong');
+    const app = new Elysia().use(securityHeaders).get('/ping', () => 'pong');
 
     const response = await app.handle(new Request('http://localhost/ping'));
     expect(response.status).toBe(200);

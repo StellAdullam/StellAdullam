@@ -1,8 +1,8 @@
-import { describe, expect, it, vi } from 'vitest';
-import { debounce, throttle } from './debounce';
+import { describe, expect, it, vi } from "vitest";
+import { debounce, throttle } from "./debounce";
 
-describe('Debounce and Throttle Utilities', () => {
-  it('debounces rapid calls to a single trailing invocation', async () => {
+describe("Debounce and Throttle Utilities", () => {
+  it("debounces rapid calls to a single trailing invocation", async () => {
     const fn = vi.fn();
     const debounced = debounce(fn, 50);
 
@@ -16,7 +16,7 @@ describe('Debounce and Throttle Utilities', () => {
     expect(fn).toHaveBeenCalledTimes(1);
   });
 
-  it('throttles rapid calls to rate-limited invocations', async () => {
+  it("throttles rapid calls to rate-limited invocations", async () => {
     const fn = vi.fn();
     const throttled = throttle(fn, 50);
 

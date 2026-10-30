@@ -59,3 +59,5 @@ export function addressToGlow(address: string): string {
   const hue = hash % 360;
   return `hsla(${hue}, 70%, 55%, 0.35)`;
 }
+
+export const colorHash = addressToHSL;

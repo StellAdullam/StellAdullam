@@ -184,14 +184,14 @@ export async function buildSorobanTx(opts: BuildTxOptions): Promise<string> {
  *
  * @param callerAddress  Stellar address of the player claiming starter LAND.
  */
-export async function buildClaimFaucetXdr(callerAddress: string): Promise<string> {
+export async function buildClaimFaucetXdr(
+  callerAddress: string,
+): Promise<string> {
   return buildSorobanTx({
     sourceAddress: callerAddress,
     contractId: LAND_TOKEN_CONTRACT_ID,
     functionName: "faucet",
-    args: [
-      nativeToScVal(callerAddress, { type: "address" }),
-    ],
+    args: [nativeToScVal(callerAddress, { type: "address" })],
   });
 }
 

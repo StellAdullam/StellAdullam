@@ -1,5 +1,5 @@
-import React from 'react';
-import { X, Wrench, Clock, AlertCircle } from 'lucide-react';
+import React from "react";
+import { X, Wrench, Clock, AlertCircle } from "lucide-react";
 
 export interface MaintenanceNoticeModalProps {
   isOpen: boolean;
@@ -13,10 +13,13 @@ export interface MaintenanceNoticeModalProps {
 export const MaintenanceNoticeModal: React.FC<MaintenanceNoticeModalProps> = ({
   isOpen,
   onClose,
-  title = 'Scheduled Network Maintenance',
-  maintenanceWindow = 'Sunday, 02:00 - 04:00 UTC',
-  affectedServices = ['Soroban Smart Contract State Transitions', 'Automated Liquidation Sweeps'],
-  description = 'StellAdullam will undergo scheduled protocol maintenance to apply Soroban node upgrades. Read-only portfolio browsing remains accessible.',
+  title = "Scheduled Network Maintenance",
+  maintenanceWindow = "Sunday, 02:00 - 04:00 UTC",
+  affectedServices = [
+    "Soroban Smart Contract State Transitions",
+    "Automated Liquidation Sweeps",
+  ],
+  description = "StellAdullam will undergo scheduled protocol maintenance to apply Soroban node upgrades. Read-only portfolio browsing remains accessible.",
 }) => {
   if (!isOpen) return null;
 
@@ -33,7 +36,10 @@ export const MaintenanceNoticeModal: React.FC<MaintenanceNoticeModalProps> = ({
             <div className="p-1.5 rounded-lg bg-amber-500/20 text-amber-400">
               <Wrench className="w-5 h-5" />
             </div>
-            <h3 id="maintenance-modal-title" className="font-semibold text-base">
+            <h3
+              id="maintenance-modal-title"
+              className="font-semibold text-base"
+            >
               {title}
             </h3>
           </div>
@@ -54,10 +60,15 @@ export const MaintenanceNoticeModal: React.FC<MaintenanceNoticeModalProps> = ({
         </div>
 
         <div>
-          <span className="block text-xs font-semibold text-slate-400 mb-2">Affected Services</span>
+          <span className="block text-xs font-semibold text-slate-400 mb-2">
+            Affected Services
+          </span>
           <ul className="space-y-1.5">
             {affectedServices.map((svc, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-xs text-slate-300">
+              <li
+                key={idx}
+                className="flex items-center gap-2 text-xs text-slate-300"
+              >
                 <AlertCircle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                 <span>{svc}</span>
               </li>

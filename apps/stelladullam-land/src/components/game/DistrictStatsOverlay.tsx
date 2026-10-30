@@ -1,5 +1,5 @@
-import React from 'react';
-import { Building2, TrendingUp, Sparkles } from 'lucide-react';
+import React from "react";
+import { Building2, TrendingUp, Sparkles } from "lucide-react";
 
 export interface DistrictStatsOverlayProps {
   districtName: string;
@@ -13,8 +13,8 @@ export const DistrictStatsOverlay: React.FC<DistrictStatsOverlayProps> = ({
   districtName,
   developmentPercentage,
   yieldMultiplier,
-  averageTierName = 'Commercial',
-  className = '',
+  averageTierName = "Commercial",
+  className = "",
 }) => {
   return (
     <div
@@ -28,7 +28,10 @@ export const DistrictStatsOverlay: React.FC<DistrictStatsOverlayProps> = ({
       <span className="text-slate-600">•</span>
 
       <span className="text-slate-400">
-        Dev: <span className="font-mono text-slate-200 font-medium">{developmentPercentage}%</span>
+        Dev:{" "}
+        <span className="font-mono text-slate-200 font-medium">
+          {developmentPercentage}%
+        </span>
       </span>
 
       <span className="text-slate-600">•</span>

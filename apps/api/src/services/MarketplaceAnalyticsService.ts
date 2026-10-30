@@ -20,7 +20,10 @@ export class MarketplaceAnalyticsService {
   /**
    * Calculates comprehensive summary metrics across a series of marketplace trades.
    */
-  public static computeSummary(trades: TradeRecord[], nowTimestamp: number = Date.now()): MarketplaceSummaryMetrics {
+  public static computeSummary(
+    trades: TradeRecord[],
+    nowTimestamp: number = Date.now(),
+  ): MarketplaceSummaryMetrics {
     if (!trades || trades.length === 0) {
       return {
         totalTradesCount: 0,

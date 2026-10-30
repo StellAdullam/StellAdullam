@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface AutoRefreshToggleProps {
   enabled: boolean;
@@ -25,7 +25,7 @@ export const AutoRefreshToggle: React.FC<AutoRefreshToggleProps> = ({
       >
         <span
           className={`w-2 h-2 rounded-full transition-colors ${
-            enabled ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'
+            enabled ? "bg-emerald-400 animate-pulse" : "bg-slate-600"
           }`}
         />
         <span className="text-[11px] text-slate-400">
@@ -43,7 +43,7 @@ export const AutoRefreshToggle: React.FC<AutoRefreshToggleProps> = ({
           aria-label="Refresh now"
         >
           <svg
-            className={`w-3.5 h-3.5 ${isRefreshing ? 'animate-spin text-cyan-400' : ''}`}
+            className={`w-3.5 h-3.5 ${isRefreshing ? "animate-spin text-cyan-400" : ""}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

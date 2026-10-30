@@ -4,12 +4,15 @@
  * auction deadlines, and oracle update intervals.
  */
 
-export function timeAgo(timestamp: number | Date, now: number | Date = Date.now()): string {
+export function timeAgo(
+  timestamp: number | Date,
+  now: number | Date = Date.now(),
+): string {
   const target = timestamp instanceof Date ? timestamp.getTime() : timestamp;
   const current = now instanceof Date ? now.getTime() : now;
   const diffSec = Math.floor((current - target) / 1000);
 
-  if (diffSec < 5) return 'just now';
+  if (diffSec < 5) return "just now";
   if (diffSec < 60) return `${diffSec}s ago`;
 
   const diffMin = Math.floor(diffSec / 60);
@@ -28,12 +31,15 @@ export function timeAgo(timestamp: number | Date, now: number | Date = Date.now(
   return `${diffYear}y ago`;
 }
 
-export function timeUntil(timestamp: number | Date, now: number | Date = Date.now()): string {
+export function timeUntil(
+  timestamp: number | Date,
+  now: number | Date = Date.now(),
+): string {
   const target = timestamp instanceof Date ? timestamp.getTime() : timestamp;
   const current = now instanceof Date ? now.getTime() : now;
   const diffSec = Math.floor((target - current) / 1000);
 
-  if (diffSec <= 0) return 'expired';
+  if (diffSec <= 0) return "expired";
   if (diffSec < 60) return `in ${diffSec}s`;
 
   const diffMin = Math.floor(diffSec / 60);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface ParcelQuickSearchInputProps {
   onSearch: (x: number, y: number) => void;
@@ -9,9 +9,9 @@ export interface ParcelQuickSearchInputProps {
 export const ParcelQuickSearchInput: React.FC<ParcelQuickSearchInputProps> = ({
   onSearch,
   gridSize = 20,
-  className = '',
+  className = "",
 }) => {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,30 +25,37 @@ export const ParcelQuickSearchInput: React.FC<ParcelQuickSearchInputProps> = ({
       const y = parseInt(coordMatch[2], 10);
       if (x < gridSize && y < gridSize) {
         onSearch(x, y);
-        setQuery('');
+        setQuery("");
         return;
       }
     }
 
     // Pattern 2: Parcel ID number "#145" or "145"
-    const idMatch = trimmed.replace(/^#/, '').match(/^(\d+)$/);
+    const idMatch = trimmed.replace(/^#/, "").match(/^(\d+)$/);
     if (idMatch) {
       const id = parseInt(idMatch[1], 10);
       if (id < gridSize * gridSize) {
         const x = id % gridSize;
         const y = Math.floor(id / gridSize);
         onSearch(x, y);
-        setQuery('');
+        setQuery("");
         return;
       }
     }
 
-    alert(`Invalid search. Enter coordinates (0-${gridSize - 1}, 0-${gridSize - 1}) or parcel ID (#0-${gridSize * gridSize - 1}).`);
+    alert(
+      `Invalid search. Enter coordinates (0-${gridSize - 1}, 0-${gridSize - 1}) or parcel ID (#0-${gridSize * gridSize - 1}).`,
+    );
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`relative flex items-center ${className}`}>
-      <span className="absolute left-2.5 text-xs text-slate-400 select-none">🔍</span>
+    <form
+      onSubmit={handleSubmit}
+      className={`relative flex items-center ${className}`}
+    >
+      <span className="absolute left-2.5 text-xs text-slate-400 select-none">
+        🔍
+      </span>
       <input
         type="text"
         value={query}

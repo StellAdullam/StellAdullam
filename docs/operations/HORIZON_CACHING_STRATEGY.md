@@ -52,3 +52,4 @@ When an upstream 429 response is detected:
 3. Shift active routing to the secondary dedicated enterprise node.
 4. Retry the request with randomized exponential jitter:
    $$\text{Backoff} = \min(\text{Retry-After} \times 2^{\text{attempt}} + \text{jitter}, 8000\text{ms})$$
+

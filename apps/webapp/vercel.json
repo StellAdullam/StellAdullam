@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
-  "buildCommand": "cd ../.. && bun run build --filter=@stelladullam/webapp",
+  "buildCommand": "cd ../.. && bun run build:shared && cd apps/webapp && bun run build",
   "installCommand": "cd ../.. && bun install --frozen-lockfile",
   "outputDirectory": ".next",
   "env": {

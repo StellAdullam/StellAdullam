@@ -1,10 +1,15 @@
-import type { PropertyInfo, LendingPool, BorrowPosition, TileState } from '../types';
+import type {
+  PropertyInfo,
+  LendingPool,
+  BorrowPosition,
+  TileState,
+} from "../types";
 
 /**
  * Checks if a value is a non-null object.
  */
 function isRecord(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null;
+  return typeof value === "object" && value !== null;
 }
 
 /**
@@ -13,11 +18,11 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 export function isPropertyInfo(val: unknown): val is PropertyInfo {
   if (!isRecord(val)) return false;
   return (
-    typeof val.id === 'string' &&
-    typeof val.name === 'string' &&
-    typeof val.valuation === 'number' &&
-    typeof val.totalShares === 'number' &&
-    typeof val.availableShares === 'number'
+    typeof val.id === "string" &&
+    typeof val.name === "string" &&
+    typeof val.valuation === "number" &&
+    typeof val.totalShares === "number" &&
+    typeof val.availableShares === "number"
   );
 }
 
@@ -27,12 +32,12 @@ export function isPropertyInfo(val: unknown): val is PropertyInfo {
 export function isLendingPool(val: unknown): val is LendingPool {
   if (!isRecord(val)) return false;
   return (
-    typeof val.id === 'string' &&
-    typeof val.assetSymbol === 'string' &&
-    typeof val.totalLiquidity === 'string' &&
-    typeof val.totalBorrowed === 'string' &&
-    typeof val.supplyAPY === 'number' &&
-    typeof val.borrowAPY === 'number'
+    typeof val.id === "string" &&
+    typeof val.assetSymbol === "string" &&
+    typeof val.totalLiquidity === "string" &&
+    typeof val.totalBorrowed === "string" &&
+    typeof val.supplyAPY === "number" &&
+    typeof val.borrowAPY === "number"
   );
 }
 
@@ -42,11 +47,11 @@ export function isLendingPool(val: unknown): val is LendingPool {
 export function isBorrowPosition(val: unknown): val is BorrowPosition {
   if (!isRecord(val)) return false;
   return (
-    typeof val.id === 'string' &&
-    typeof val.borrowerId === 'string' &&
-    typeof val.poolId === 'string' &&
-    typeof val.principal === 'string' &&
-    typeof val.collateralAmount === 'string'
+    typeof val.id === "string" &&
+    typeof val.borrowerId === "string" &&
+    typeof val.poolId === "string" &&
+    typeof val.principal === "string" &&
+    typeof val.collateralAmount === "string"
   );
 }
 
@@ -56,9 +61,9 @@ export function isBorrowPosition(val: unknown): val is BorrowPosition {
 export function isTileState(val: unknown): val is TileState {
   if (!isRecord(val)) return false;
   return (
-    typeof val.index === 'number' &&
-    typeof val.x === 'number' &&
-    typeof val.y === 'number' &&
-    typeof val.improvementLevel === 'number'
+    typeof val.index === "number" &&
+    typeof val.x === "number" &&
+    typeof val.y === "number" &&
+    typeof val.improvementLevel === "number"
   );
 }

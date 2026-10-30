@@ -1,6 +1,9 @@
 import { Elysia, t } from 'elysia';
 import { historicalApyService } from '../services/HistoricalApyService';
-import { MarketplaceAnalyticsService, TradeRecord } from '../services/MarketplaceAnalyticsService';
+import {
+  MarketplaceAnalyticsService,
+  type TradeRecord,
+} from '../services/MarketplaceAnalyticsService';
 
 export interface EcosystemOverviewMetrics {
   totalPropertiesTokenized: number;

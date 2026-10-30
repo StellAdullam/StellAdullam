@@ -136,7 +136,9 @@ export function useGameWallet() {
    */
   const signAndSubmit = async (unsignedXdr: string): Promise<string> => {
     if (!isConnected || !address) {
-      throw new Error("Wallet not connected. Please connect your wallet first.");
+      throw new Error(
+        "Wallet not connected. Please connect your wallet first.",
+      );
     }
 
     const kit = getWalletKit();

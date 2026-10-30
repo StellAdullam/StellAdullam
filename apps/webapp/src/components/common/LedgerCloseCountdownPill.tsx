@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 export interface LedgerCloseCountdownPillProps {
   currentLedgerSequence?: number;
@@ -7,13 +7,16 @@ export interface LedgerCloseCountdownPillProps {
   className?: string;
 }
 
-export const LedgerCloseCountdownPill: React.FC<LedgerCloseCountdownPillProps> = ({
+export const LedgerCloseCountdownPill: React.FC<
+  LedgerCloseCountdownPillProps
+> = ({
   currentLedgerSequence = 1052840,
   expectedCloseSeconds = 5,
   onLedgerClose,
-  className = '',
+  className = "",
 }) => {
-  const [remainingSec, setRemainingSec] = useState<number>(expectedCloseSeconds);
+  const [remainingSec, setRemainingSec] =
+    useState<number>(expectedCloseSeconds);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,7 +32,8 @@ export const LedgerCloseCountdownPill: React.FC<LedgerCloseCountdownPillProps> =
     return () => clearInterval(timer);
   }, [expectedCloseSeconds, onLedgerClose]);
 
-  const progressPercent = ((expectedCloseSeconds - remainingSec) / expectedCloseSeconds) * 100;
+  const progressPercent =
+    ((expectedCloseSeconds - remainingSec) / expectedCloseSeconds) * 100;
 
   return (
     <div
@@ -41,7 +45,9 @@ export const LedgerCloseCountdownPill: React.FC<LedgerCloseCountdownPillProps> =
       <span className="flex items-center gap-1.5 text-slate-300">
         <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
         <span className="text-slate-400">Ledger</span>
-        <span className="font-bold text-white">#{currentLedgerSequence.toLocaleString()}</span>
+        <span className="font-bold text-white">
+          #{currentLedgerSequence.toLocaleString()}
+        </span>
       </span>
 
       <span className="text-slate-600">|</span>

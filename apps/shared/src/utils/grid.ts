@@ -12,7 +12,9 @@ export interface GridCoordinate {
  */
 export function indexToCoord(index: number): GridCoordinate {
   if (index < 0 || index >= TOTAL_GRID_TILES) {
-    throw new Error(`Tile index ${index} out of bounds [0, ${TOTAL_GRID_TILES - 1}]`);
+    throw new Error(
+      `Tile index ${index} out of bounds [0, ${TOTAL_GRID_TILES - 1}]`,
+    );
   }
   return {
     x: index % GRID_WIDTH,

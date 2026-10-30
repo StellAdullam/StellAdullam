@@ -56,7 +56,10 @@ export class StellarAnchorService {
   /**
    * Calculates net deposit value after anchor fee deduction.
    */
-  public static calculateNetDeposit(depositAmountUsd: number, assetCode: string): {
+  public static calculateNetDeposit(
+    depositAmountUsd: number,
+    assetCode: string,
+  ): {
     feeUsd: number;
     netAmountUsd: number;
   } {

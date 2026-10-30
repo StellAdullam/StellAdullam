@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-export type DisplayUnit = 'XLM' | 'USD';
+export type DisplayUnit = "XLM" | "USD";
 
 export interface DisplayCurrencySwitchProps {
   initialUnit?: DisplayUnit;
@@ -9,14 +9,14 @@ export interface DisplayCurrencySwitchProps {
 }
 
 export const DisplayCurrencySwitch: React.FC<DisplayCurrencySwitchProps> = ({
-  initialUnit = 'XLM',
+  initialUnit = "XLM",
   onChange,
-  className = '',
+  className = "",
 }) => {
   const [unit, setUnit] = useState<DisplayUnit>(() => {
     try {
-      const stored = localStorage.getItem('stelladullam_display_unit');
-      return stored === 'USD' ? 'USD' : initialUnit;
+      const stored = localStorage.getItem("stelladullam_display_unit");
+      return stored === "USD" ? "USD" : initialUnit;
     } catch {
       return initialUnit;
     }
@@ -25,7 +25,7 @@ export const DisplayCurrencySwitch: React.FC<DisplayCurrencySwitchProps> = ({
   const handleSelect = (newUnit: DisplayUnit) => {
     setUnit(newUnit);
     try {
-      localStorage.setItem('stelladullam_display_unit', newUnit);
+      localStorage.setItem("stelladullam_display_unit", newUnit);
     } catch {
       // Ignore
     }
@@ -40,22 +40,22 @@ export const DisplayCurrencySwitch: React.FC<DisplayCurrencySwitchProps> = ({
     >
       <button
         type="button"
-        onClick={() => handleSelect('XLM')}
+        onClick={() => handleSelect("XLM")}
         className={`px-2 py-1 rounded-md font-bold transition-all ${
-          unit === 'XLM'
-            ? 'bg-indigo-600 text-white shadow-sm'
-            : 'text-slate-400 hover:text-slate-200'
+          unit === "XLM"
+            ? "bg-indigo-600 text-white shadow-sm"
+            : "text-slate-400 hover:text-slate-200"
         }`}
       >
         XLM
       </button>
       <button
         type="button"
-        onClick={() => handleSelect('USD')}
+        onClick={() => handleSelect("USD")}
         className={`px-2 py-1 rounded-md font-bold transition-all ${
-          unit === 'USD'
-            ? 'bg-indigo-600 text-white shadow-sm'
-            : 'text-slate-400 hover:text-slate-200'
+          unit === "USD"
+            ? "bg-indigo-600 text-white shadow-sm"
+            : "text-slate-400 hover:text-slate-200"
         }`}
       >
         USD ($)

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Percent, DollarSign } from 'lucide-react';
+import React from "react";
+import { Percent, DollarSign } from "lucide-react";
 
 export interface ShareFractionSliderProps {
   totalShares: number;
@@ -16,20 +16,27 @@ export const ShareFractionSlider: React.FC<ShareFractionSliderProps> = ({
   selectedShares,
   onSharesChange,
   maxAvailableShares = totalShares,
-  className = '',
+  className = "",
 }) => {
   const percentageOfTotal = ((selectedShares / totalShares) * 100).toFixed(2);
   const totalCostUsd = (selectedShares * sharePriceUsd).toFixed(2);
 
   const setByPercentage = (pct: number) => {
-    const calculated = Math.max(1, Math.min(maxAvailableShares, Math.round((pct / 100) * totalShares)));
+    const calculated = Math.max(
+      1,
+      Math.min(maxAvailableShares, Math.round((pct / 100) * totalShares)),
+    );
     onSharesChange(calculated);
   };
 
   return (
-    <div className={`p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 ${className}`}>
+    <div
+      className={`p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 ${className}`}
+    >
       <div className="flex justify-between items-center text-xs">
-        <span className="text-slate-400 font-medium">Fractional Investment Quantity</span>
+        <span className="text-slate-400 font-medium">
+          Fractional Investment Quantity
+        </span>
         <span className="font-mono text-emerald-400 font-semibold">
           {percentageOfTotal}% of Asset
         </span>
@@ -72,7 +79,9 @@ export const ShareFractionSlider: React.FC<ShareFractionSliderProps> = ({
 
         <div className="text-right">
           <span className="text-xs text-slate-400">Total: </span>
-          <span className="font-mono text-sm font-bold text-emerald-300">${totalCostUsd}</span>
+          <span className="font-mono text-sm font-bold text-emerald-300">
+            ${totalCostUsd}
+          </span>
         </div>
       </div>
     </div>

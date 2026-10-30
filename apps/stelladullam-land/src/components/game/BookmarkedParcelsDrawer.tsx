@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface BookmarkedParcel {
   id: number;
@@ -18,22 +18,28 @@ export interface BookmarkedParcelsDrawerProps {
   className?: string;
 }
 
-export const BookmarkedParcelsDrawer: React.FC<BookmarkedParcelsDrawerProps> = ({
+export const BookmarkedParcelsDrawer: React.FC<
+  BookmarkedParcelsDrawerProps
+> = ({
   isOpen,
   onClose,
   bookmarks,
   onSelectParcel,
   onRemoveBookmark,
-  className = '',
+  className = "",
 }) => {
   if (!isOpen) return null;
 
   return (
-    <div className={`fixed inset-y-0 right-0 z-50 w-80 bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col p-4 animate-slide-left ${className}`}>
+    <div
+      className={`fixed inset-y-0 right-0 z-50 w-80 bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col p-4 animate-slide-left ${className}`}
+    >
       <div className="flex items-center justify-between pb-3 border-b border-slate-800">
         <div className="flex items-center gap-2">
           <span className="text-lg">⭐</span>
-          <h3 className="font-bold text-white text-sm">Saved Parcels ({bookmarks.length})</h3>
+          <h3 className="font-bold text-white text-sm">
+            Saved Parcels ({bookmarks.length})
+          </h3>
         </div>
         <button
           onClick={onClose}
@@ -46,7 +52,9 @@ export const BookmarkedParcelsDrawer: React.FC<BookmarkedParcelsDrawerProps> = (
       <div className="flex-1 overflow-y-auto py-3 space-y-2">
         {bookmarks.length === 0 ? (
           <div className="text-center py-12 text-slate-500 text-xs">
-            No saved parcels yet.<br />Click the star icon on any parcel to bookmark it!
+            No saved parcels yet.
+            <br />
+            Click the star icon on any parcel to bookmark it!
           </div>
         ) : (
           bookmarks.map((p) => (
@@ -55,9 +63,13 @@ export const BookmarkedParcelsDrawer: React.FC<BookmarkedParcelsDrawerProps> = (
               className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-3 flex items-center justify-between hover:border-slate-700 transition-all"
             >
               <div>
-                <h4 className="font-bold text-white text-xs">{p.name || `Parcel #${p.id}`}</h4>
+                <h4 className="font-bold text-white text-xs">
+                  {p.name || `Parcel #${p.id}`}
+                </h4>
                 <div className="flex items-center gap-2 text-[10px] font-mono text-slate-400 mt-0.5">
-                  <span>Coord: ({p.x}, {p.y})</span>
+                  <span>
+                    Coord: ({p.x}, {p.y})
+                  </span>
                   <span>•</span>
                   <span className="text-indigo-400">Lv.{p.level}</span>
                 </div>

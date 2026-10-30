@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface RentalSaturationBadgeProps {
   elapsedLedgers: number;
@@ -11,7 +11,7 @@ export const RentalSaturationBadge: React.FC<RentalSaturationBadgeProps> = ({
   elapsedLedgers,
   maxClaimIntervalLedgers = 172_800,
   onHarvestClick,
-  className = '',
+  className = "",
 }) => {
   const ratio = Math.min(1.0, elapsedLedgers / maxClaimIntervalLedgers);
   const percentage = ratio * 100;
@@ -19,21 +19,21 @@ export const RentalSaturationBadge: React.FC<RentalSaturationBadgeProps> = ({
   const getStatus = (pct: number) => {
     if (pct >= 90) {
       return {
-        label: 'Saturated (Yield Paused)',
-        style: 'bg-rose-500/20 border-rose-500/50 text-rose-300 animate-pulse',
+        label: "Saturated (Yield Paused)",
+        style: "bg-rose-500/20 border-rose-500/50 text-rose-300 animate-pulse",
         showAction: true,
       };
     }
     if (pct >= 70) {
       return {
-        label: 'Near Saturation',
-        style: 'bg-amber-500/20 border-amber-500/50 text-amber-300',
+        label: "Near Saturation",
+        style: "bg-amber-500/20 border-amber-500/50 text-amber-300",
         showAction: true,
       };
     }
     return {
-      label: 'Accumulating Yield',
-      style: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300',
+      label: "Accumulating Yield",
+      style: "bg-emerald-500/10 border-emerald-500/30 text-emerald-300",
       showAction: false,
     };
   };
@@ -47,7 +47,9 @@ export const RentalSaturationBadge: React.FC<RentalSaturationBadgeProps> = ({
     >
       <span className="text-[10px] select-none">⏳</span>
       <span>{status.label}</span>
-      <span className="text-[10px] opacity-75 font-sans">({percentage.toFixed(0)}%)</span>
+      <span className="text-[10px] opacity-75 font-sans">
+        ({percentage.toFixed(0)}%)
+      </span>
       {status.showAction && onHarvestClick && (
         <button
           type="button"

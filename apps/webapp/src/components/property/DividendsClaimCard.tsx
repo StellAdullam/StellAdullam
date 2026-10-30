@@ -1,7 +1,14 @@
 "use client";
 
 import React, { useState } from "react";
-import { Coins, CheckCircle, ExternalLink, Sparkles, TrendingUp, RefreshCw } from "lucide-react";
+import {
+  Coins,
+  CheckCircle,
+  ExternalLink,
+  Sparkles,
+  TrendingUp,
+  RefreshCw,
+} from "lucide-react";
 import { Button, Card, Badge } from "@/components/ui";
 
 export interface PropertyDividendInfo {
@@ -65,30 +72,46 @@ export function DividendsClaimCard({
           <div>
             <h3 className="text-base font-bold text-white flex items-center gap-2">
               Rental Dividends
-              <Badge variant="outline" className="border-emerald-500/30 text-emerald-400 text-[10px]">
+              <Badge
+                variant="outline"
+                className="border-emerald-500/30 text-emerald-400 text-[10px]"
+              >
                 USDC Streaming
               </Badge>
             </h3>
-            <p className="text-xs text-slate-400">Real estate tenant rental yields accrued on-chain</p>
+            <p className="text-xs text-slate-400">
+              Real estate tenant rental yields accrued on-chain
+            </p>
           </div>
         </div>
 
         <div className="text-right">
           <span className="text-xs text-slate-400">Claimable Revenue</span>
-          <p className="text-2xl font-black text-emerald-400">${totalClaimable.toFixed(2)}</p>
+          <p className="text-2xl font-black text-emerald-400">
+            ${totalClaimable.toFixed(2)}
+          </p>
         </div>
       </div>
 
       {/* Property Breakdown Table */}
       <div className="divide-y divide-slate-800 rounded-lg bg-slate-950/60 border border-slate-800 text-xs">
         {dividends.map((item) => (
-          <div key={item.propertyId} className="p-3 flex justify-between items-center">
+          <div
+            key={item.propertyId}
+            className="p-3 flex justify-between items-center"
+          >
             <div>
-              <p className="font-semibold text-slate-200">{item.propertyName}</p>
-              <p className="text-[11px] text-slate-400">{item.sharesOwned} Shares &bull; {item.monthlyApy}% APR</p>
+              <p className="font-semibold text-slate-200">
+                {item.propertyName}
+              </p>
+              <p className="text-[11px] text-slate-400">
+                {item.sharesOwned} Shares &bull; {item.monthlyApy}% APR
+              </p>
             </div>
             <div className="text-right">
-              <span className="font-mono text-emerald-300 font-semibold">+${item.accruedUsdc.toFixed(2)}</span>
+              <span className="font-mono text-emerald-300 font-semibold">
+                +${item.accruedUsdc.toFixed(2)}
+              </span>
             </div>
           </div>
         ))}

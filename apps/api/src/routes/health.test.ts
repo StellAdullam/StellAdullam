@@ -17,9 +17,7 @@ describe('System Health Monitoring Routes', () => {
   });
 
   it('GET /metrics returns Prometheus formatted exposition telemetry', async () => {
-    const response = await healthRoutes.handle(
-      new Request('http://localhost/metrics'),
-    );
+    const response = await healthRoutes.handle(new Request('http://localhost/metrics'));
 
     expect(response.status).toBe(200);
     expect(response.headers.get('content-type')).toContain('text/plain');

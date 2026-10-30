@@ -7,7 +7,11 @@
 /**
  * Safely divides two numbers. Returns fallback if denominator is 0, NaN, or infinite.
  */
-export function safeDivide(numerator: number, denominator: number, fallback: number = 0): number {
+export function safeDivide(
+  numerator: number,
+  denominator: number,
+  fallback: number = 0,
+): number {
   if (!denominator || !Number.isFinite(denominator) || denominator === 0) {
     return fallback;
   }
@@ -18,8 +22,12 @@ export function safeDivide(numerator: number, denominator: number, fallback: num
 /**
  * Safely divides two bigints. Returns fallback if denominator is 0n.
  */
-export function safeDivideBigInt(numerator: bigint, denominator: bigint, fallback: bigint = 0n): bigint {
-  if (denominator === 0n) {
+export function safeDivideBigInt(
+  numerator: bigint,
+  denominator: bigint,
+  fallback: bigint = BigInt(0),
+): bigint {
+  if (denominator === BigInt(0)) {
     return fallback;
   }
   return numerator / denominator;
@@ -28,7 +36,11 @@ export function safeDivideBigInt(numerator: bigint, denominator: bigint, fallbac
 /**
  * Computes a percentage (0 to 100). Returns fallback if total is 0.
  */
-export function safePercentage(part: number, total: number, fallback: number = 0): number {
+export function safePercentage(
+  part: number,
+  total: number,
+  fallback: number = 0,
+): number {
   return safeDivide(part * 100, total, fallback);
 }
 

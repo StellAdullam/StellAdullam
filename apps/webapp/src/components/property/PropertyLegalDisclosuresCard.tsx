@@ -1,5 +1,5 @@
-import React from 'react';
-import { ShieldCheck, FileText, Landmark, Globe } from 'lucide-react';
+import React from "react";
+import { ShieldCheck, FileText, Landmark, Globe } from "lucide-react";
 
 export interface PropertyLegalDisclosuresCardProps {
   spvEntityName?: string;
@@ -10,16 +10,20 @@ export interface PropertyLegalDisclosuresCardProps {
   className?: string;
 }
 
-export const PropertyLegalDisclosuresCard: React.FC<PropertyLegalDisclosuresCardProps> = ({
-  spvEntityName = 'StellAdullam Holdings SPV LLC',
-  registrationNumber = 'DE-LLC-7849102',
-  jurisdiction = 'Delaware, United States',
-  titleDeedCid = 'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi',
+export const PropertyLegalDisclosuresCard: React.FC<
+  PropertyLegalDisclosuresCardProps
+> = ({
+  spvEntityName = "StellAdullam Holdings SPV LLC",
+  registrationNumber = "DE-LLC-7849102",
+  jurisdiction = "Delaware, United States",
+  titleDeedCid = "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
   isKycMandatory = true,
-  className = '',
+  className = "",
 }) => {
   return (
-    <div className={`p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 ${className}`}>
+    <div
+      className={`p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3 ${className}`}
+    >
       <div className="flex items-center gap-2 text-xs font-semibold text-slate-300 border-b border-slate-800 pb-2">
         <Landmark className="w-4 h-4 text-emerald-400" />
         <span>Legal SPV & Real Estate Deed Disclosures</span>
@@ -27,12 +31,18 @@ export const PropertyLegalDisclosuresCard: React.FC<PropertyLegalDisclosuresCard
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
         <div>
-          <span className="text-slate-400 block text-[11px]">Special Purpose Vehicle (SPV)</span>
+          <span className="text-slate-400 block text-[11px]">
+            Special Purpose Vehicle (SPV)
+          </span>
           <span className="font-medium text-slate-200">{spvEntityName}</span>
         </div>
         <div>
-          <span className="text-slate-400 block text-[11px]">Jurisdiction Registration</span>
-          <span className="font-mono text-slate-200">{registrationNumber} ({jurisdiction})</span>
+          <span className="text-slate-400 block text-[11px]">
+            Jurisdiction Registration
+          </span>
+          <span className="font-mono text-slate-200">
+            {registrationNumber} ({jurisdiction})
+          </span>
         </div>
       </div>
 
@@ -40,7 +50,9 @@ export const PropertyLegalDisclosuresCard: React.FC<PropertyLegalDisclosuresCard
         <div className="flex items-center gap-1.5 text-slate-400 truncate max-w-full">
           <FileText className="w-3.5 h-3.5 text-slate-400 shrink-0" />
           <span className="shrink-0">Title Deed CID:</span>
-          <span className="font-mono text-slate-300 truncate">{titleDeedCid}</span>
+          <span className="font-mono text-slate-300 truncate">
+            {titleDeedCid}
+          </span>
         </div>
 
         {isKycMandatory && (

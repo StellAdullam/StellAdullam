@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-export type FiatCurrency = 'USD' | 'EUR' | 'GBP' | 'NGN';
+export type FiatCurrency = "USD" | "EUR" | "GBP" | "NGN";
 
 export interface CurrencyConverterPillProps {
   amountXlm: number;
@@ -9,22 +9,25 @@ export interface CurrencyConverterPillProps {
   className?: string;
 }
 
-export const DEFAULT_FIAT_RATES: Record<FiatCurrency, { rate: number; symbol: string }> = {
-  USD: { rate: 0.125, symbol: '$' },
-  EUR: { rate: 0.115, symbol: '€' },
-  GBP: { rate: 0.098, symbol: '£' },
-  NGN: { rate: 195.0, symbol: '₦' },
+export const DEFAULT_FIAT_RATES: Record<
+  FiatCurrency,
+  { rate: number; symbol: string }
+> = {
+  USD: { rate: 0.125, symbol: "$" },
+  EUR: { rate: 0.115, symbol: "€" },
+  GBP: { rate: 0.098, symbol: "£" },
+  NGN: { rate: 195.0, symbol: "₦" },
 };
 
 export const CurrencyConverterPill: React.FC<CurrencyConverterPillProps> = ({
   amountXlm,
   rates,
-  defaultCurrency = 'USD',
-  className = '',
+  defaultCurrency = "USD",
+  className = "",
 }) => {
   const [currency, setCurrency] = useState<FiatCurrency>(defaultCurrency);
 
-  const currencies: FiatCurrency[] = ['USD', 'EUR', 'GBP', 'NGN'];
+  const currencies: FiatCurrency[] = ["USD", "EUR", "GBP", "NGN"];
 
   const cycleCurrency = () => {
     const currentIndex = currencies.indexOf(currency);
@@ -46,9 +49,14 @@ export const CurrencyConverterPill: React.FC<CurrencyConverterPillProps> = ({
       <span className="text-slate-400">≈</span>
       <span className="font-bold text-white">
         {symbol}
-        {converted.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+        {converted.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
       </span>
-      <span className="text-[10px] text-indigo-400 font-sans uppercase font-bold">{currency}</span>
+      <span className="text-[10px] text-indigo-400 font-sans uppercase font-bold">
+        {currency}
+      </span>
     </button>
   );
 };

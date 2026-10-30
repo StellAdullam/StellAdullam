@@ -1,7 +1,11 @@
 /**
  * Clamps a percentage value strictly within the range [min, max] (default 0 to 100).
  */
-export function clampPercent(value: number, min: number = 0, max: number = 100): number {
+export function clampPercent(
+  value: number,
+  min: number = 0,
+  max: number = 100,
+): number {
   if (isNaN(value)) return min;
   return Math.max(min, Math.min(max, value));
 }

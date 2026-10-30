@@ -18,7 +18,7 @@ export interface PropertyShareOrderbookProps {
 
 const DEFAULT_ASKS: OrderbookEntry[] = [
   { priceUsd: 50.45, shares: 120, totalUsd: 6054 },
-  { priceUsd: 50.30, shares: 350, totalUsd: 17605 },
+  { priceUsd: 50.3, shares: 350, totalUsd: 17605 },
   { priceUsd: 50.15, shares: 80, totalUsd: 4012 },
 ];
 
@@ -44,7 +44,10 @@ export function PropertyShareOrderbook({
           <BarChart2 className="w-4 h-4 text-indigo-400" />
           Share Orderbook
         </h4>
-        <Badge variant="outline" className="text-[10px] border-slate-700 text-slate-400 font-mono">
+        <Badge
+          variant="outline"
+          className="text-[10px] border-slate-700 text-slate-400 font-mono"
+        >
           Spread: ${spread.toFixed(2)}
         </Badge>
       </div>
@@ -57,9 +60,13 @@ export function PropertyShareOrderbook({
             onClick={() => onSelectPrice && onSelectPrice(ask.priceUsd)}
             className="flex justify-between py-1 px-1.5 rounded hover:bg-slate-800/60 cursor-pointer text-[11px]"
           >
-            <span className="text-red-400 font-semibold">${ask.priceUsd.toFixed(2)}</span>
+            <span className="text-red-400 font-semibold">
+              ${ask.priceUsd.toFixed(2)}
+            </span>
             <span className="text-slate-300">{ask.shares} sh</span>
-            <span className="text-slate-500">${ask.totalUsd.toLocaleString()}</span>
+            <span className="text-slate-500">
+              ${ask.totalUsd.toLocaleString()}
+            </span>
           </div>
         ))}
       </div>
@@ -67,7 +74,9 @@ export function PropertyShareOrderbook({
       {/* Mid Market Price Divider */}
       <div className="py-1 px-2 rounded bg-slate-950 border border-slate-800 flex justify-between items-center text-xs font-bold">
         <span className="text-slate-400">Mid Market:</span>
-        <span className="text-white font-mono">${((bestBid + bestAsk) / 2).toFixed(2)} USD</span>
+        <span className="text-white font-mono">
+          ${((bestBid + bestAsk) / 2).toFixed(2)} USD
+        </span>
       </div>
 
       {/* Bids (Buy Orders - Green) */}
@@ -78,9 +87,13 @@ export function PropertyShareOrderbook({
             onClick={() => onSelectPrice && onSelectPrice(bid.priceUsd)}
             className="flex justify-between py-1 px-1.5 rounded hover:bg-slate-800/60 cursor-pointer text-[11px]"
           >
-            <span className="text-emerald-400 font-semibold">${bid.priceUsd.toFixed(2)}</span>
+            <span className="text-emerald-400 font-semibold">
+              ${bid.priceUsd.toFixed(2)}
+            </span>
             <span className="text-slate-300">{bid.shares} sh</span>
-            <span className="text-slate-500">${bid.totalUsd.toLocaleString()}</span>
+            <span className="text-slate-500">
+              ${bid.totalUsd.toLocaleString()}
+            </span>
           </div>
         ))}
       </div>

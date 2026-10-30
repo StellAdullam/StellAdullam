@@ -1,5 +1,5 @@
-import React from 'react';
-import { Radio, CheckCircle } from 'lucide-react';
+import React from "react";
+import { Radio, CheckCircle } from "lucide-react";
 
 export interface LiveLedgerFeedPillProps {
   currentLedgerSequence: number;
@@ -12,7 +12,7 @@ export const LiveLedgerFeedPill: React.FC<LiveLedgerFeedPillProps> = ({
   currentLedgerSequence,
   recentTransactionsCount = 0,
   isSyncing = false,
-  className = '',
+  className = "",
 }) => {
   return (
     <div
@@ -22,7 +22,9 @@ export const LiveLedgerFeedPill: React.FC<LiveLedgerFeedPillProps> = ({
       <div className="flex items-center gap-1.5">
         <Radio
           className={`w-3.5 h-3.5 ${
-            isSyncing ? 'text-amber-400 animate-spin' : 'text-emerald-400 animate-pulse'
+            isSyncing
+              ? "text-amber-400 animate-spin"
+              : "text-emerald-400 animate-pulse"
           }`}
         />
         <span className="text-slate-400 font-medium">Stellar Ledger</span>

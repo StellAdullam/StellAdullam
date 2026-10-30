@@ -1,5 +1,5 @@
-import { Elysia } from "elysia";
-import { ApiError } from "../errors/ApiError";
+import { Elysia } from 'elysia';
+import { ApiError } from '../errors/ApiError';
 
 interface IdempotentRecord {
   status: number;
@@ -31,21 +31,20 @@ setInterval(() => {
  * - Returns previously cached response on duplicate subsequent calls.
  */
 export const idempotency = (ttlMs: number = DEFAULT_TTL_MS) =>
-  new Elysia({ name: "idempotency" })
+  new Elysia({ name: 'idempotency' })
     .onRequest(({ request, set }) => {
-      if (!["POST", "PUT", "PATCH"].includes(request.method)) {
+      if (!['POST', 'PUT', 'PATCH'].includes(request.method)) {
         return;
       }
 
       const key =
-        request.headers.get("idempotency-key") ||
-        request.headers.get("x-idempotency-key");
+        request.headers.get('idempotency-key') || request.headers.get('x-idempotency-key');
 
       if (!key) return;
 
       if (inFlightRequests.has(key)) {
         throw ApiError.conflict(
-          "A request with this idempotency key is currently being processed. Please retry shortly.",
+          'A request with this idempotency key is currently being processed. Please retry shortly.',
         );
       }
 
@@ -59,14 +58,13 @@ export const idempotency = (ttlMs: number = DEFAULT_TTL_MS) =>
     })
     .onAfterHandle(({ request, response, set }) => {
       const key =
-        request.headers.get("idempotency-key") ||
-        request.headers.get("x-idempotency-key");
+        request.headers.get('idempotency-key') || request.headers.get('x-idempotency-key');
 
       if (!key) return;
 
       inFlightRequests.delete(key);
 
-      const status = typeof set.status === "number" ? set.status : 200;
+      const status = typeof set.status === 'number' ? set.status : 200;
       if (status >= 200 && status < 300) {
         idempotencyStore.set(key, {
           status,
@@ -78,8 +76,7 @@ export const idempotency = (ttlMs: number = DEFAULT_TTL_MS) =>
     })
     .onError(({ request }) => {
       const key =
-        request.headers.get("idempotency-key") ||
-        request.headers.get("x-idempotency-key");
+        request.headers.get('idempotency-key') || request.headers.get('x-idempotency-key');
 
       if (key) {
         inFlightRequests.delete(key);

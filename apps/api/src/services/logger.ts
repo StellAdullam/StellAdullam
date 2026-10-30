@@ -88,26 +88,39 @@ export class LoggerService {
     }
   }
 
-  debug(message: string, context?: LogContext): void {
-    this.log('debug', message, context);
-  }
-
-  info(message: string, context?: LogContext): void {
-    this.log('info', message, context);
-  }
-
-  warn(message: string, context?: LogContext): void {
-    this.log('warn', message, context);
-  }
-
-  error(message: string, errorOrContext?: unknown | LogContext, context?: LogContext): void {
-    // Handle both signatures:
-    // error(message, error, context) - legacy
-    // error(message, context) - new with error in context
-    if (errorOrContext instanceof Error || (errorOrContext && typeof errorOrContext !== 'object')) {
-      this.log('error', message, context, errorOrContext);
+  debug(arg1: string | LogContext, arg2?: LogContext | string): void {
+    if (typeof arg1 === 'string') {
+      this.log('debug', arg1, arg2 as LogContext);
     } else {
-      this.log('error', message, errorOrContext as LogContext);
+      this.log('debug', typeof arg2 === 'string' ? arg2 : '', arg1);
+    }
+  }
+
+  info(arg1: string | LogContext, arg2?: LogContext | string): void {
+    if (typeof arg1 === 'string') {
+      this.log('info', arg1, arg2 as LogContext);
+    } else {
+      this.log('info', typeof arg2 === 'string' ? arg2 : '', arg1);
+    }
+  }
+
+  warn(arg1: string | LogContext, arg2?: LogContext | string): void {
+    if (typeof arg1 === 'string') {
+      this.log('warn', arg1, arg2 as LogContext);
+    } else {
+      this.log('warn', typeof arg2 === 'string' ? arg2 : '', arg1);
+    }
+  }
+
+  error(arg1: string | LogContext, arg2?: unknown | LogContext | string, arg3?: LogContext): void {
+    if (typeof arg1 === 'string') {
+      if (arg2 instanceof Error || (arg2 && typeof arg2 !== 'object')) {
+        this.log('error', arg1, arg3, arg2);
+      } else {
+        this.log('error', arg1, arg2 as LogContext);
+      }
+    } else {
+      this.log('error', typeof arg2 === 'string' ? arg2 : '', arg1);
     }
   }
 

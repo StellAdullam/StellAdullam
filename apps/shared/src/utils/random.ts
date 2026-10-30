@@ -3,7 +3,8 @@
  * Powered by standard WebCrypto API (crypto.getRandomValues).
  */
 
-const DEFAULT_ALPHABET = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+const DEFAULT_ALPHABET =
+  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
 export function secureRandomString(
   length: number = 32,
@@ -12,7 +13,7 @@ export function secureRandomString(
   const bytes = new Uint8Array(length);
   crypto.getRandomValues(bytes);
 
-  let result = '';
+  let result = "";
   const alphabetLength = alphabet.length;
 
   for (let i = 0; i < length; i++) {
@@ -22,6 +23,6 @@ export function secureRandomString(
   return result;
 }
 
-export function generateNonce(prefix = 'nonce_'): string {
+export function generateNonce(prefix = "nonce_"): string {
   return `${prefix}${secureRandomString(24)}`;
 }

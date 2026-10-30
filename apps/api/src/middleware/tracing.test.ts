@@ -17,11 +17,9 @@ describe('Request Tracing Middleware', () => {
   });
 
   it('preserves and propagates incoming x-request-id header', async () => {
-    const app = new Elysia()
-      .use(requestTracing)
-      .get('/test', (ctx: any) => {
-        return { id: ctx.requestId ?? ctx.set.headers['x-request-id'] };
-      });
+    const app = new Elysia().use(requestTracing).get('/test', (ctx: any) => {
+      return { id: ctx.requestId ?? ctx.set.headers['x-request-id'] };
+    });
 
     const customId = 'soroban-tx-trace-abcdef123';
     const res = await app.handle(

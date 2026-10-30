@@ -1,16 +1,24 @@
-export const STROOPS_PER_XLM = 10_000_000n;
+export const STROOPS_PER_XLM = BigInt("10000000");
 export const DEFAULT_BASE_FEE_STROOPS = 100; // Standard Stellar base fee (0.00001 XLM)
 
 /**
  * Converts a raw Stroop amount (10^-7 XLM) into human-readable XLM decimal string.
  */
 export function stroopsToXlm(stroops: number | bigint | string): string {
-  const val = typeof stroops === 'bigint' ? stroops : BigInt(Math.floor(Number(stroops) || 0));
+  const val =
+    typeof stroops === "bigint"
+      ? stroops
+      : BigInt(Math.floor(Number(stroops) || 0));
   const integerPart = val / STROOPS_PER_XLM;
   const remainder = val % STROOPS_PER_XLM;
-  const fractionalPart = remainder.toString().padStart(7, '0').replace(/0+$/, '');
+  const fractionalPart = remainder
+    .toString()
+    .padStart(7, "0")
+    .replace(/0+$/, "");
 
-  return fractionalPart.length > 0 ? `${integerPart}.${fractionalPart}` : `${integerPart}`;
+  return fractionalPart.length > 0
+    ? `${integerPart}.${fractionalPart}`
+    : `${integerPart}`;
 }
 
 /**
@@ -18,8 +26,8 @@ export function stroopsToXlm(stroops: number | bigint | string): string {
  */
 export function xlmToStroops(xlm: number | string): bigint {
   const str = String(xlm).trim();
-  const [intPart, fracPart = ''] = str.split('.');
-  const normalizedFrac = fracPart.slice(0, 7).padEnd(7, '0');
+  const [intPart, fracPart = ""] = str.split(".");
+  const normalizedFrac = fracPart.slice(0, 7).padEnd(7, "0");
   const combined = `${intPart}${normalizedFrac}`;
   return BigInt(combined);
 }

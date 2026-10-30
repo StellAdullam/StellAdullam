@@ -23,7 +23,7 @@ export function LendingBorrowSlider({
   const safeBorrow = (collateralValueUsd * (maxLtvPercent * 0.75)) / 100;
 
   const [borrowAmount, setBorrowAmount] = useState<number>(
-    Math.min(initialBorrowUsd, maxBorrow)
+    Math.min(initialBorrowUsd, maxBorrow),
   );
 
   const handleSliderChange = (val: number) => {
@@ -39,16 +39,24 @@ export function LendingBorrowSlider({
   };
 
   // Calculations
-  const currentLtv = collateralValueUsd > 0 ? (borrowAmount / collateralValueUsd) * 100 : 0;
+  const currentLtv =
+    collateralValueUsd > 0 ? (borrowAmount / collateralValueUsd) * 100 : 0;
   const healthFactor =
     borrowAmount > 0
-      ? (collateralValueUsd * (liquidationThresholdPercent / 100)) / borrowAmount
+      ? (collateralValueUsd * (liquidationThresholdPercent / 100)) /
+        borrowAmount
       : 99.0;
 
   // Max collateral drop before liquidation
   const liquidationBuffer =
     borrowAmount > 0
-      ? Math.max(0, 100 - (borrowAmount / (collateralValueUsd * (liquidationThresholdPercent / 100))) * 100)
+      ? Math.max(
+          0,
+          100 -
+            (borrowAmount /
+              (collateralValueUsd * (liquidationThresholdPercent / 100))) *
+              100,
+        )
       : 100;
 
   let riskColor = "text-emerald-400";
@@ -77,7 +85,8 @@ export function LendingBorrowSlider({
             Borrow Amount
           </span>
           <p className="text-2xl font-bold text-white mt-0.5">
-            ${borrowAmount.toLocaleString()} <span className="text-sm font-normal text-slate-400">USDC</span>
+            ${borrowAmount.toLocaleString()}{" "}
+            <span className="text-sm font-normal text-slate-400">USDC</span>
           </p>
         </div>
         <div className="text-right">
@@ -122,7 +131,9 @@ export function LendingBorrowSlider({
       </div>
 
       {/* Risk Metrics Card */}
-      <div className={`p-3 rounded-lg border flex items-center justify-between text-xs ${riskBg}`}>
+      <div
+        className={`p-3 rounded-lg border flex items-center justify-between text-xs ${riskBg}`}
+      >
         <div className="flex items-center gap-2">
           <RiskIcon className={`w-4 h-4 ${riskColor}`} />
           <span className={`font-semibold ${riskColor}`}>{riskText}</span>
@@ -130,7 +141,9 @@ export function LendingBorrowSlider({
         <div className="flex gap-4 text-slate-300">
           <div>
             <span className="text-slate-400">LTV: </span>
-            <span className="font-semibold text-white">{currentLtv.toFixed(1)}%</span>
+            <span className="font-semibold text-white">
+              {currentLtv.toFixed(1)}%
+            </span>
           </div>
           <div>
             <span className="text-slate-400">Health: </span>
@@ -140,7 +153,9 @@ export function LendingBorrowSlider({
           </div>
           <div>
             <span className="text-slate-400">Price Drop Buffer: </span>
-            <span className="font-semibold text-emerald-400">{liquidationBuffer.toFixed(0)}%</span>
+            <span className="font-semibold text-emerald-400">
+              {liquidationBuffer.toFixed(0)}%
+            </span>
           </div>
         </div>
       </div>

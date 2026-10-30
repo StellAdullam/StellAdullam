@@ -4,11 +4,11 @@
  */
 
 export function deepClone<T>(item: T): T {
-  if (item === null || typeof item !== 'object') {
+  if (item === null || typeof item !== "object") {
     return item;
   }
 
-  if (typeof structuredClone === 'function') {
+  if (typeof structuredClone === "function") {
     try {
       return structuredClone(item);
     } catch {
@@ -17,19 +17,19 @@ export function deepClone<T>(item: T): T {
   }
 
   if (item instanceof Date) {
-    return new Date(item.getTime()) as any;
+    return new Date(item.getTime()) as unknown as T;
   }
 
   if (item instanceof RegExp) {
-    return new RegExp(item.source, item.flags) as any;
+    return new RegExp(item.source, item.flags) as unknown as T;
   }
 
   if (Array.isArray(item)) {
-    return item.map((element) => deepClone(element)) as any;
+    return item.map((element) => deepClone(element)) as unknown as T;
   }
 
-  const copy = {} as Record<string, any>;
-  for (const [key, value] of Object.entries(item)) {
+  const copy: Record<string, unknown> = {};
+  for (const [key, value] of Object.entries(item as Record<string, unknown>)) {
     copy[key] = deepClone(value);
   }
 

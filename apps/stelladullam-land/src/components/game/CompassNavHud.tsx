@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface CompassNavHudProps {
   onPan?: (dx: number, dy: number) => void;
@@ -7,7 +7,7 @@ export interface CompassNavHudProps {
 
 export const CompassNavHud: React.FC<CompassNavHudProps> = ({
   onPan,
-  className = '',
+  className = "",
 }) => {
   return (
     <div

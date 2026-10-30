@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Sparkles, MapPin, TrendingUp, X } from 'lucide-react';
+import React from "react";
+import { Sparkles, MapPin, TrendingUp, X } from "lucide-react";
 
 export interface DistrictBonusBannerProps {
   clusterBonus: number; // e.g. 1.15 for +15%
@@ -34,7 +34,8 @@ export function DistrictBonusBanner({
             </span>
           </div>
           <p className="text-xs text-slate-300 mt-0.5">
-            Your {contiguousPlotsCount} contiguous land plots form a recognized district, boosting hourly rental generation!
+            Your {contiguousPlotsCount} contiguous land plots form a recognized
+            district, boosting hourly rental generation!
           </p>
         </div>
       </div>

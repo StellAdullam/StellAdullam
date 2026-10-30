@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Trophy, Medal, Building2, Crown, X, ArrowUpRight } from 'lucide-react';
+import React from "react";
+import { Trophy, Medal, Building2, Crown, X, ArrowUpRight } from "lucide-react";
 
 export interface LeaderboardEntry {
   rank: number;
@@ -22,40 +22,40 @@ export interface LeaderboardDrawerProps {
 const DEFAULT_LEADERBOARD: LeaderboardEntry[] = [
   {
     rank: 1,
-    address: 'GDZX...99QA',
-    displayName: 'StellarBaron',
+    address: "GDZX...99QA",
+    displayName: "StellarBaron",
     propertiesOwned: 18,
     highestTier: 4,
     estimatedNetWorthLand: 45_200,
   },
   {
     rank: 2,
-    address: 'GBTY...12KW',
-    displayName: 'SorobanTycoon',
+    address: "GBTY...12KW",
+    displayName: "SorobanTycoon",
     propertiesOwned: 12,
     highestTier: 4,
     estimatedNetWorthLand: 31_800,
   },
   {
     rank: 3,
-    address: 'GCPL...88TR',
-    displayName: 'AdullamArchitect',
+    address: "GCPL...88TR",
+    displayName: "AdullamArchitect",
     propertiesOwned: 9,
     highestTier: 3,
     estimatedNetWorthLand: 22_400,
   },
   {
     rank: 4,
-    address: 'GAKJ...44MP',
-    displayName: 'LumensLandlord',
+    address: "GAKJ...44MP",
+    displayName: "LumensLandlord",
     propertiesOwned: 6,
     highestTier: 2,
     estimatedNetWorthLand: 14_900,
   },
   {
     rank: 5,
-    address: 'GFMN...77PL',
-    displayName: 'CryptoCadastre',
+    address: "GFMN...77PL",
+    displayName: "CryptoCadastre",
     propertiesOwned: 4,
     highestTier: 2,
     estimatedNetWorthLand: 8_750,
@@ -80,8 +80,12 @@ export function LeaderboardDrawer({
               <Trophy className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-white">City Hall Leaderboard</h3>
-              <p className="text-xs text-slate-400">Top property moguls across 400 tiles</p>
+              <h3 className="text-base font-bold text-white">
+                City Hall Leaderboard
+              </h3>
+              <p className="text-xs text-slate-400">
+                Top property moguls across 400 tiles
+              </p>
             </div>
           </div>
           <button
@@ -99,20 +103,20 @@ export function LeaderboardDrawer({
             const isTop3 = player.rank <= 3;
             const rankBadgeColor =
               player.rank === 1
-                ? 'bg-amber-400 text-slate-950 font-black'
+                ? "bg-amber-400 text-slate-950 font-black"
                 : player.rank === 2
-                ? 'bg-slate-300 text-slate-950 font-bold'
-                : player.rank === 3
-                ? 'bg-amber-700 text-white font-bold'
-                : 'bg-slate-800 text-slate-400 font-medium';
+                  ? "bg-slate-300 text-slate-950 font-bold"
+                  : player.rank === 3
+                    ? "bg-amber-700 text-white font-bold"
+                    : "bg-slate-800 text-slate-400 font-medium";
 
             return (
               <div
                 key={player.address}
                 className={`p-3.5 rounded-xl border flex items-center justify-between transition-all ${
                   isTop3
-                    ? 'bg-slate-950/80 border-slate-800 hover:border-amber-500/40'
-                    : 'bg-slate-950/40 border-slate-850 hover:border-slate-700'
+                    ? "bg-slate-950/80 border-slate-800 hover:border-amber-500/40"
+                    : "bg-slate-950/40 border-slate-850 hover:border-slate-700"
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -124,9 +128,13 @@ export function LeaderboardDrawer({
                   <div>
                     <p className="text-sm font-semibold text-white flex items-center gap-1.5">
                       {player.displayName}
-                      {player.rank === 1 && <Crown className="w-3.5 h-3.5 text-amber-400" />}
+                      {player.rank === 1 && (
+                        <Crown className="w-3.5 h-3.5 text-amber-400" />
+                      )}
                     </p>
-                    <p className="text-[11px] text-slate-400 font-mono">{player.address}</p>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      {player.address}
+                    </p>
                   </div>
                 </div>
 
@@ -135,7 +143,8 @@ export function LeaderboardDrawer({
                     {player.estimatedNetWorthLand.toLocaleString()} LAND
                   </p>
                   <p className="text-[10px] text-slate-400">
-                    {player.propertiesOwned} Plots &bull; Tier {player.highestTier} Max
+                    {player.propertiesOwned} Plots &bull; Tier{" "}
+                    {player.highestTier} Max
                   </p>
                 </div>
               </div>

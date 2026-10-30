@@ -70,3 +70,4 @@ stellar contract invoke \
 1. [ ] Check frontend `DividendsClaimCard` displays updated claimable revenue.
 2. [ ] Test canary claim transaction with testnet wallet.
 3. [ ] Send automated email / notification alerts to token holders via `NotificationWorker`.
+

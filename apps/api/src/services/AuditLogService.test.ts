@@ -10,7 +10,7 @@ describe('AuditLogService', () => {
     const entry = AuditLogService.logAction(
       'GBBD47IF6LWK7P7MDEVSCWR7DPUWV3NY3DTQEVFL4NAT4AQH3ZLLFLA5',
       'EMERGENCY_PAUSE',
-      { reason: 'Oracle deviation detected' }
+      { reason: 'Oracle deviation detected' },
     );
 
     expect(entry.id).toContain('audit-');

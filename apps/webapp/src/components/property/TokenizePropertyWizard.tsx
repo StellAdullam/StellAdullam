@@ -79,9 +79,12 @@ export function TokenizePropertyWizard({
         <div className="w-16 h-16 rounded-full bg-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h3 className="text-2xl font-bold text-white">Tokenization Proposal Submitted</h3>
+        <h3 className="text-2xl font-bold text-white">
+          Tokenization Proposal Submitted
+        </h3>
         <p className="text-sm text-slate-300">
-          Your property &ldquo;{formData.title}&rdquo; has been registered for on-chain appraisal verification and Soroban share minting.
+          Your property &ldquo;{formData.title}&rdquo; has been registered for
+          on-chain appraisal verification and Soroban share minting.
         </p>
         <div className="pt-4">
           <Button onClick={onCancel} variant="outline">
@@ -102,7 +105,8 @@ export function TokenizePropertyWizard({
             Tokenize Real Estate Property
           </h2>
           <p className="text-xs text-slate-400 mt-1">
-            Fractionalize institutional real-world real estate on Stellar Soroban
+            Fractionalize institutional real-world real estate on Stellar
+            Soroban
           </p>
         </div>
         <div className="flex gap-2">
@@ -113,8 +117,8 @@ export function TokenizePropertyWizard({
                 step === i
                   ? "bg-indigo-600 text-white ring-2 ring-indigo-400/50"
                   : step > i
-                  ? "bg-emerald-600 text-white"
-                  : "bg-slate-800 text-slate-400"
+                    ? "bg-emerald-600 text-white"
+                    : "bg-slate-800 text-slate-400"
               }`}
             >
               {i}
@@ -130,33 +134,46 @@ export function TokenizePropertyWizard({
             Step 1: Property Description & Details
           </h3>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Property Title</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Property Title
+            </label>
             <input
               type="text"
               placeholder="e.g. Marina Bay Horizon Penthouse"
               value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Physical Location / Address</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Physical Location / Address
+            </label>
             <input
               type="text"
               placeholder="e.g. 10 Marina Blvd, Tower 2, Singapore"
               value={formData.location}
-              onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Property Type</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Property Type
+            </label>
             <select
               value={formData.propertyType}
               onChange={(e) =>
                 setFormData({
                   ...formData,
-                  propertyType: e.target.value as "residential" | "commercial" | "industrial",
+                  propertyType: e.target.value as
+                    | "residential"
+                    | "commercial"
+                    | "industrial",
                 })
               }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
@@ -167,12 +184,16 @@ export function TokenizePropertyWizard({
             </select>
           </div>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Asset Description</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Asset Description
+            </label>
             <textarea
               rows={3}
               placeholder="Provide a detailed overview of the asset and tenant lease profiles..."
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
@@ -187,48 +208,70 @@ export function TokenizePropertyWizard({
           </h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Appraised Valuation (USD)</label>
+              <label className="block text-xs text-slate-300 mb-1">
+                Appraised Valuation (USD)
+              </label>
               <input
                 type="number"
                 min="1000"
                 value={formData.valuationUsd}
                 onChange={(e) =>
-                  setFormData({ ...formData, valuationUsd: Number(e.target.value) || 0 })
+                  setFormData({
+                    ...formData,
+                    valuationUsd: Number(e.target.value) || 0,
+                  })
                 }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
             <div>
-              <label className="block text-xs text-slate-300 mb-1">Total Fractional Shares</label>
+              <label className="block text-xs text-slate-300 mb-1">
+                Total Fractional Shares
+              </label>
               <input
                 type="number"
                 min="10"
                 value={formData.totalShares}
                 onChange={(e) =>
-                  setFormData({ ...formData, totalShares: Number(e.target.value) || 1 })
+                  setFormData({
+                    ...formData,
+                    totalShares: Number(e.target.value) || 1,
+                  })
                 }
                 className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
               />
             </div>
           </div>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Projected Annual Rental Yield (APR %)</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Projected Annual Rental Yield (APR %)
+            </label>
             <input
               type="number"
               step="0.1"
               value={formData.expectedYieldApr}
               onChange={(e) =>
-                setFormData({ ...formData, expectedYieldApr: Number(e.target.value) || 0 })
+                setFormData({
+                  ...formData,
+                  expectedYieldApr: Number(e.target.value) || 0,
+                })
               }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div className="p-4 rounded-lg bg-slate-950 border border-slate-800 flex justify-between items-center">
             <div>
-              <p className="text-xs text-slate-400">Calculated Fractional Share Price</p>
-              <p className="text-lg font-bold text-indigo-400">${sharePrice.toFixed(2)} USD</p>
+              <p className="text-xs text-slate-400">
+                Calculated Fractional Share Price
+              </p>
+              <p className="text-lg font-bold text-indigo-400">
+                ${sharePrice.toFixed(2)} USD
+              </p>
             </div>
-            <Badge variant="outline" className="border-indigo-500/30 text-indigo-300">
+            <Badge
+              variant="outline"
+              className="border-indigo-500/30 text-indigo-300"
+            >
               7 Decimal Precision
             </Badge>
           </div>
@@ -242,29 +285,41 @@ export function TokenizePropertyWizard({
             Step 3: Deed Verification & Legal Registry
           </h3>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">Land Registry Parcel ID</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              Land Registry Parcel ID
+            </label>
             <input
               type="text"
               placeholder="e.g. CADASTRE-SG-2026-9981-A"
               value={formData.parcelNumber}
-              onChange={(e) => setFormData({ ...formData, parcelNumber: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, parcelNumber: e.target.value })
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div>
-            <label className="block text-xs text-slate-300 mb-1">IPFS Deed Document CID (SHA-256)</label>
+            <label className="block text-xs text-slate-300 mb-1">
+              IPFS Deed Document CID (SHA-256)
+            </label>
             <input
               type="text"
               placeholder="bafybeic5...qmy"
               value={formData.deedIpfsCid}
-              onChange={(e) => setFormData({ ...formData, deedIpfsCid: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, deedIpfsCid: e.target.value })
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-indigo-500"
             />
           </div>
           <div className="border-2 border-dashed border-slate-700 rounded-lg p-6 text-center hover:border-indigo-500 transition-colors cursor-pointer bg-slate-950/40">
             <Upload className="w-8 h-8 text-slate-400 mx-auto mb-2" />
-            <p className="text-sm text-slate-200 font-medium">Upload Certified Title Deed (PDF)</p>
-            <p className="text-xs text-slate-400 mt-1">Automatic IPFS pinning and cryptographic CID generation</p>
+            <p className="text-sm text-slate-200 font-medium">
+              Upload Certified Title Deed (PDF)
+            </p>
+            <p className="text-xs text-slate-400 mt-1">
+              Automatic IPFS pinning and cryptographic CID generation
+            </p>
           </div>
         </div>
       )}
@@ -278,23 +333,33 @@ export function TokenizePropertyWizard({
           <div className="p-4 rounded-lg bg-slate-950 border border-slate-800 space-y-2 text-xs">
             <div className="flex justify-between py-1 border-b border-slate-900">
               <span className="text-slate-400">Title:</span>
-              <span className="font-semibold text-white">{formData.title || "Untitled Property"}</span>
+              <span className="font-semibold text-white">
+                {formData.title || "Untitled Property"}
+              </span>
             </div>
             <div className="flex justify-between py-1 border-b border-slate-900">
               <span className="text-slate-400">Location:</span>
-              <span className="font-semibold text-white">{formData.location || "Unspecified"}</span>
+              <span className="font-semibold text-white">
+                {formData.location || "Unspecified"}
+              </span>
             </div>
             <div className="flex justify-between py-1 border-b border-slate-900">
               <span className="text-slate-400">Total Valuation:</span>
-              <span className="font-semibold text-white">${formData.valuationUsd.toLocaleString()} USD</span>
+              <span className="font-semibold text-white">
+                ${formData.valuationUsd.toLocaleString()} USD
+              </span>
             </div>
             <div className="flex justify-between py-1 border-b border-slate-900">
               <span className="text-slate-400">Fractional Shares:</span>
-              <span className="font-semibold text-white">{formData.totalShares.toLocaleString()}</span>
+              <span className="font-semibold text-white">
+                {formData.totalShares.toLocaleString()}
+              </span>
             </div>
             <div className="flex justify-between py-1 border-b border-slate-900">
               <span className="text-slate-400">Expected Yield:</span>
-              <span className="font-semibold text-emerald-400">{formData.expectedYieldApr}% APR</span>
+              <span className="font-semibold text-emerald-400">
+                {formData.expectedYieldApr}% APR
+              </span>
             </div>
             <div className="flex justify-between py-1">
               <span className="text-slate-400">Estimated Soroban Gas Fee:</span>
@@ -304,7 +369,8 @@ export function TokenizePropertyWizard({
           <div className="flex items-center gap-2 p-3 bg-indigo-950/20 border border-indigo-500/30 rounded-lg text-xs text-indigo-200">
             <ShieldCheck className="w-5 h-5 text-indigo-400 shrink-0" />
             <span>
-              All fractional share contracts are SEP-41 compliant and automatically integrated into StellAdullam DeFi lending pools.
+              All fractional share contracts are SEP-41 compliant and
+              automatically integrated into StellAdullam DeFi lending pools.
             </span>
           </div>
         </div>
@@ -313,7 +379,11 @@ export function TokenizePropertyWizard({
       {/* Footer Navigation Buttons */}
       <div className="flex justify-between items-center pt-6 border-t border-slate-800 mt-6">
         {step > 1 ? (
-          <Button variant="outline" onClick={handleBack} disabled={isSubmitting}>
+          <Button
+            variant="outline"
+            onClick={handleBack}
+            disabled={isSubmitting}
+          >
             <ArrowLeft className="w-4 h-4 mr-1" />
             Back
           </Button>
@@ -324,7 +394,10 @@ export function TokenizePropertyWizard({
         )}
 
         {step < 4 ? (
-          <Button onClick={handleNext} className="bg-indigo-600 hover:bg-indigo-500 text-white">
+          <Button
+            onClick={handleNext}
+            className="bg-indigo-600 hover:bg-indigo-500 text-white"
+          >
             Next
             <ArrowRight className="w-4 h-4 ml-1" />
           </Button>

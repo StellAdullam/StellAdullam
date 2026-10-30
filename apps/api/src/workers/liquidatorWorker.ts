@@ -74,7 +74,7 @@ export class LiquidatorWorker {
     for (const h of healths) {
       if (h.healthFactor < 1.0 && !this.inFlightLiquidations.has(h.positionId)) {
         // Standard liquidation bonus (10% collateral bonus for liquidators)
-        const bonusRate = 0.10;
+        const bonusRate = 0.1;
         const seizable = h.borrowValue * (1 + bonusRate);
         const estimatedProfit = h.borrowValue * bonusRate;
 

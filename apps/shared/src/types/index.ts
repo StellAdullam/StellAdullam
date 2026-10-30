@@ -120,3 +120,4 @@ export {
   IMPROVEMENT_MULTIPLIER,
   IMPROVEMENT_UPGRADE_COST,
 } from "./game";
+export type { TileState } from "./game";

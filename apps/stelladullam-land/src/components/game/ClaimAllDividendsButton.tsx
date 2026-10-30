@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface ClaimAllDividendsButtonProps {
   totalUnharvestedLand: number;
@@ -6,11 +6,9 @@ export interface ClaimAllDividendsButtonProps {
   onClaimAll: () => Promise<void>;
 }
 
-export const ClaimAllDividendsButton: React.FC<ClaimAllDividendsButtonProps> = ({
-  totalUnharvestedLand,
-  ownedPropertiesCount,
-  onClaimAll,
-}) => {
+export const ClaimAllDividendsButton: React.FC<
+  ClaimAllDividendsButtonProps
+> = ({ totalUnharvestedLand, ownedPropertiesCount, onClaimAll }) => {
   const [claiming, setClaiming] = useState(false);
 
   if (ownedPropertiesCount === 0 || totalUnharvestedLand <= 0) {
@@ -38,7 +36,7 @@ export const ClaimAllDividendsButton: React.FC<ClaimAllDividendsButtonProps> = (
       <span className="text-sm">🌾</span>
       <span>
         {claiming
-          ? 'Harvesting...'
+          ? "Harvesting..."
           : `Claim ${Math.floor(totalUnharvestedLand)} LAND (${ownedPropertiesCount} Plots)`}
       </span>
     </button>

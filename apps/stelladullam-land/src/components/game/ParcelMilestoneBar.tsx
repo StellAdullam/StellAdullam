@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface ParcelMilestoneBarProps {
   currentLevel: number; // 0=Vacant, 1=Residential, 2=Commercial, 3=Skyscraper
@@ -6,7 +6,7 @@ export interface ParcelMilestoneBarProps {
   accruedRentLand: number;
 }
 
-const LEVEL_NAMES = ['Vacant Lot', 'Residential', 'Commercial', 'Skyscraper'];
+const LEVEL_NAMES = ["Vacant Lot", "Residential", "Commercial", "Skyscraper"];
 const UPGRADE_COSTS = [200, 600, 1800, 0]; // LAND required to advance to next level
 
 export const ParcelMilestoneBar: React.FC<ParcelMilestoneBarProps> = ({
@@ -28,7 +28,9 @@ export const ParcelMilestoneBar: React.FC<ParcelMilestoneBarProps> = ({
           Tier: {LEVEL_NAMES[currentLevel]}
         </span>
         <span className="text-[11px] text-slate-400">
-          {isMax ? 'Maximum Tier Reached' : `Next: ${LEVEL_NAMES[currentLevel + 1]}`}
+          {isMax
+            ? "Maximum Tier Reached"
+            : `Next: ${LEVEL_NAMES[currentLevel + 1]}`}
         </span>
       </div>
 
@@ -36,10 +38,10 @@ export const ParcelMilestoneBar: React.FC<ParcelMilestoneBarProps> = ({
         <div
           className={`h-full transition-all duration-500 rounded-full ${
             isMax
-              ? 'bg-gradient-to-r from-amber-400 to-amber-500'
+              ? "bg-gradient-to-r from-amber-400 to-amber-500"
               : progressPercent >= 100
-              ? 'bg-gradient-to-r from-emerald-500 to-teal-400'
-              : 'bg-gradient-to-r from-indigo-500 to-cyan-400'
+                ? "bg-gradient-to-r from-emerald-500 to-teal-400"
+                : "bg-gradient-to-r from-indigo-500 to-cyan-400"
           }`}
           style={{ width: `${progressPercent}%` }}
         />

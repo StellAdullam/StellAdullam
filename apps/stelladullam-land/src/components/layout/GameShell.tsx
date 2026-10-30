@@ -136,7 +136,9 @@ export function GameShell({
 
           {walletAddress && (
             <div className="pt-2 border-t border-slate-900 flex justify-between items-center px-4 py-2">
-              <span className="text-xs text-slate-400 font-medium">Balance</span>
+              <span className="text-xs text-slate-400 font-medium">
+                Balance
+              </span>
               <span className="text-xs font-mono font-bold text-land-gold flex items-center gap-1">
                 <Coins size={12} />
                 {landBalance} LAND

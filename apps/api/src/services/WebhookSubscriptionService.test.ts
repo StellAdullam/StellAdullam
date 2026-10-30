@@ -7,7 +7,10 @@ describe('WebhookSubscriptionService', () => {
   });
 
   it('registers a new webhook subscription with generated secret', () => {
-    const sub = WebhookSubscriptionService.register('https://api.example.com/webhook', ['liquidation', 'dividend']);
+    const sub = WebhookSubscriptionService.register('https://api.example.com/webhook', [
+      'liquidation',
+      'dividend',
+    ]);
 
     expect(sub.id).toStartWith('sub_');
     expect(sub.url).toBe('https://api.example.com/webhook');

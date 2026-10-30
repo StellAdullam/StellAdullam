@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Search, SlidersHorizontal, RotateCcw } from 'lucide-react';
+import React from "react";
+import { Search, SlidersHorizontal, RotateCcw } from "lucide-react";
 
 export interface MarketplaceFilterState {
   searchQuery: string;
-  selectedTier: number | 'all';
-  sortBy: 'price_asc' | 'price_desc' | 'newest';
+  selectedTier: number | "all";
+  sortBy: "price_asc" | "price_desc" | "newest";
 }
 
 export interface MarketplaceFilterBarProps {
@@ -20,13 +20,13 @@ export function MarketplaceFilterBar({
   onChange,
   onReset,
 }: MarketplaceFilterBarProps) {
-  const tiers: { label: string; value: number | 'all' }[] = [
-    { label: 'All', value: 'all' },
-    { label: 'Lots (T0)', value: 0 },
-    { label: 'Villas (T1)', value: 1 },
-    { label: 'Apartments (T2)', value: 2 },
-    { label: 'Commercial (T3)', value: 3 },
-    { label: 'Skyscrapers (T4)', value: 4 },
+  const tiers: { label: string; value: number | "all" }[] = [
+    { label: "All", value: "all" },
+    { label: "Lots (T0)", value: 0 },
+    { label: "Villas (T1)", value: 1 },
+    { label: "Apartments (T2)", value: 2 },
+    { label: "Commercial (T3)", value: 3 },
+    { label: "Skyscrapers (T4)", value: 4 },
   ];
 
   return (
@@ -39,7 +39,9 @@ export function MarketplaceFilterBar({
             type="text"
             placeholder="Search tile or district..."
             value={filters.searchQuery}
-            onChange={(e) => onChange({ ...filters, searchQuery: e.target.value })}
+            onChange={(e) =>
+              onChange({ ...filters, searchQuery: e.target.value })
+            }
             className="w-full bg-slate-950 border border-slate-800 rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
           />
         </div>
@@ -51,7 +53,7 @@ export function MarketplaceFilterBar({
             onChange={(e) =>
               onChange({
                 ...filters,
-                sortBy: e.target.value as 'price_asc' | 'price_desc' | 'newest',
+                sortBy: e.target.value as "price_asc" | "price_desc" | "newest",
               })
             }
             className="bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500"
@@ -80,8 +82,8 @@ export function MarketplaceFilterBar({
             onClick={() => onChange({ ...filters, selectedTier: t.value })}
             className={`px-2.5 py-1 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
               filters.selectedTier === t.value
-                ? 'bg-indigo-600 text-white'
-                : 'bg-slate-950 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700'
+                ? "bg-indigo-600 text-white"
+                : "bg-slate-950 border border-slate-800 text-slate-400 hover:text-white hover:border-slate-700"
             }`}
           >
             {t.label}

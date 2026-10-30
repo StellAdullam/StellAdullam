@@ -147,7 +147,7 @@ export const portfolioRoutes = new Elysia({ prefix: '/api/v1/portfolio' })
           realEstateValue,
           collateralDeposits,
           liquidTokens,
-          claimableDividends
+          claimableDividends,
         );
 
         return {

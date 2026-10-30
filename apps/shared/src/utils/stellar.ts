@@ -68,7 +68,7 @@ export class StellarService {
 
   async getAccountBalance(address: string): Promise<string> {
     try {
-      this.validateAddress(address);
+      this.assertValidAddress(address);
       const account = await this.server.accounts().accountId(address).call();
       const nativeBalance = account.balances.find(
         (b: { asset_type: string; balance?: string }) =>
@@ -131,7 +131,7 @@ export class StellarService {
     sourceAccount: string,
   ): Promise<string> {
     try {
-      this.validateAddress(sourceAccount);
+      this.assertValidAddress(sourceAccount);
 
       const contract = new Contract(contractId);
       const accountRecord = await this.server
@@ -165,7 +165,7 @@ export class StellarService {
     signer: WalletSigner | Keypair,
   ): Promise<string> {
     try {
-      this.validateAddress(source);
+      this.assertValidAddress(source);
 
       const accountRecord = await this.server
         .accounts()
@@ -290,8 +290,14 @@ export type StellarAddress = string & { readonly __brand: unique symbol };
 /**
  * Validates whether a string is a valid Stellar Ed25519 public key (starts with 'G' and passes CRC checksum).
  */
-export function isValidStellarPublicKey(value: unknown): value is StellarAddress {
-  if (typeof value !== "string" || value.length !== 56 || !value.startsWith("G")) {
+export function isValidStellarPublicKey(
+  value: unknown,
+): value is StellarAddress {
+  if (
+    typeof value !== "string" ||
+    value.length !== 56 ||
+    !value.startsWith("G")
+  ) {
     return false;
   }
   return StrKey.isValidEd25519PublicKey(value);
@@ -300,8 +306,13 @@ export function isValidStellarPublicKey(value: unknown): value is StellarAddress
 /**
  * Validates and casts an address to StellarAddress, throwing if invalid.
  */
-export function assertStellarAddress(value: string, fieldName = "address"): asserts value is StellarAddress {
+export function assertStellarAddress(
+  value: string,
+  fieldName = "address",
+): asserts value is StellarAddress {
   if (!isValidStellarPublicKey(value)) {
-    throw new Error(`Invalid Stellar address format for ${fieldName}: ${value}`);
+    throw new Error(
+      `Invalid Stellar address format for ${fieldName}: ${value}`,
+    );
   }
 }

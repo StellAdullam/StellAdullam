@@ -140,7 +140,9 @@
   white-space: pre;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.12s ease-out, transform 0.12s ease-out;
+  transition:
+    opacity 0.12s ease-out,
+    transform 0.12s ease-out;
   z-index: 100;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   min-width: 140px;

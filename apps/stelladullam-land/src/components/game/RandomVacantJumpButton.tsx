@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface RandomVacantJumpButtonProps {
   gridSize?: number;
@@ -11,7 +11,7 @@ export const RandomVacantJumpButton: React.FC<RandomVacantJumpButtonProps> = ({
   gridSize = 20,
   occupiedCoordinates = new Set<string>(),
   onJumpTo,
-  className = '',
+  className = "",
 }) => {
   const [isSearching, setIsSearching] = useState(false);
 
@@ -35,7 +35,7 @@ export const RandomVacantJumpButton: React.FC<RandomVacantJumpButtonProps> = ({
     }
 
     if (vacant.length === 0) {
-      alert('All parcels in this district are currently claimed!');
+      alert("All parcels in this district are currently claimed!");
       setIsSearching(false);
       return;
     }
@@ -58,7 +58,7 @@ export const RandomVacantJumpButton: React.FC<RandomVacantJumpButtonProps> = ({
       title="Jump camera to a random vacant parcel available to claim"
     >
       <span className="text-sm">🎲</span>
-      <span>{isSearching ? 'Scanning Grid...' : 'Find Vacant Land'}</span>
+      <span>{isSearching ? "Scanning Grid..." : "Find Vacant Land"}</span>
     </button>
   );
 };

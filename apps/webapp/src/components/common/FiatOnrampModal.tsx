@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { X, ExternalLink, ArrowRight, DollarSign, ShieldCheck } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  X,
+  ExternalLink,
+  ArrowRight,
+  DollarSign,
+  ShieldCheck,
+} from "lucide-react";
 
 export interface SupportedAnchorOption {
   code: string;
@@ -9,9 +15,24 @@ export interface SupportedAnchorOption {
 }
 
 const DEFAULT_ANCHORS: SupportedAnchorOption[] = [
-  { code: 'USDC', currency: 'US Dollar (USD)', feeBps: 20, sep24Url: 'https://anchor.stelladullam.io/sep24/deposit' },
-  { code: 'EURC', currency: 'Euro (EUR)', feeBps: 25, sep24Url: 'https://anchor.stelladullam.io/sep24/deposit/eur' },
-  { code: 'NGNT', currency: 'Nigerian Naira (NGN)', feeBps: 50, sep24Url: 'https://anchor.stelladullam.io/sep24/deposit/ngn' },
+  {
+    code: "USDC",
+    currency: "US Dollar (USD)",
+    feeBps: 20,
+    sep24Url: "https://anchor.stelladullam.io/sep24/deposit",
+  },
+  {
+    code: "EURC",
+    currency: "Euro (EUR)",
+    feeBps: 25,
+    sep24Url: "https://anchor.stelladullam.io/sep24/deposit/eur",
+  },
+  {
+    code: "NGNT",
+    currency: "Nigerian Naira (NGN)",
+    feeBps: 50,
+    sep24Url: "https://anchor.stelladullam.io/sep24/deposit/ngn",
+  },
 ];
 
 export interface FiatOnrampModalProps {
@@ -25,22 +46,23 @@ export const FiatOnrampModal: React.FC<FiatOnrampModalProps> = ({
   onClose,
   stellarAddress,
 }) => {
-  const [selectedAsset, setSelectedAsset] = useState<string>('USDC');
+  const [selectedAsset, setSelectedAsset] = useState<string>("USDC");
   const [depositAmount, setDepositAmount] = useState<number>(100);
 
   if (!isOpen) return null;
 
-  const currentAnchor = DEFAULT_ANCHORS.find((a) => a.code === selectedAsset) || DEFAULT_ANCHORS[0];
+  const currentAnchor =
+    DEFAULT_ANCHORS.find((a) => a.code === selectedAsset) || DEFAULT_ANCHORS[0];
   const feeAmount = (depositAmount * currentAnchor.feeBps) / 10000;
   const netReceived = Math.max(0, depositAmount - feeAmount);
 
   const handleLaunchSep24 = () => {
     const targetUrl = new URL(currentAnchor.sep24Url);
     if (stellarAddress) {
-      targetUrl.searchParams.set('account', stellarAddress);
+      targetUrl.searchParams.set("account", stellarAddress);
     }
-    targetUrl.searchParams.set('amount', depositAmount.toString());
-    window.open(targetUrl.toString(), '_blank', 'noopener,noreferrer');
+    targetUrl.searchParams.set("amount", depositAmount.toString());
+    window.open(targetUrl.toString(), "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -56,7 +78,10 @@ export const FiatOnrampModal: React.FC<FiatOnrampModalProps> = ({
             <div className="p-1.5 rounded-lg bg-emerald-500/20 text-emerald-400">
               <DollarSign className="w-5 h-5" />
             </div>
-            <h3 id="fiat-onramp-modal-title" className="font-semibold text-base">
+            <h3
+              id="fiat-onramp-modal-title"
+              className="font-semibold text-base"
+            >
               Fiat On-Ramp (SEP-24)
             </h3>
           </div>
@@ -82,8 +107,8 @@ export const FiatOnrampModal: React.FC<FiatOnrampModalProps> = ({
                   onClick={() => setSelectedAsset(anchor.code)}
                   className={`px-3 py-2 text-xs font-semibold rounded-lg border transition-all ${
                     selectedAsset === anchor.code
-                      ? 'border-emerald-500 bg-emerald-950/40 text-emerald-300'
-                      : 'border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700'
+                      ? "border-emerald-500 bg-emerald-950/40 text-emerald-300"
+                      : "border-slate-800 bg-slate-950 text-slate-400 hover:border-slate-700"
                   }`}
                 >
                   {anchor.code}
@@ -101,15 +126,21 @@ export const FiatOnrampModal: React.FC<FiatOnrampModalProps> = ({
               min="10"
               max="50000"
               value={depositAmount}
-              onChange={(e) => setDepositAmount(Math.max(0, Number(e.target.value)))}
+              onChange={(e) =>
+                setDepositAmount(Math.max(0, Number(e.target.value)))
+              }
               className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-emerald-500"
             />
           </div>
 
           <div className="bg-slate-950 border border-slate-800/80 rounded-xl p-3 text-xs space-y-2">
             <div className="flex justify-between text-slate-400">
-              <span>Anchor Est. Fee ({(currentAnchor.feeBps / 100).toFixed(2)}%)</span>
-              <span className="font-mono text-slate-200">${feeAmount.toFixed(2)}</span>
+              <span>
+                Anchor Est. Fee ({(currentAnchor.feeBps / 100).toFixed(2)}%)
+              </span>
+              <span className="font-mono text-slate-200">
+                ${feeAmount.toFixed(2)}
+              </span>
             </div>
             <div className="flex justify-between font-medium text-slate-200 border-t border-slate-800 pt-2">
               <span>Estimated Net Received</span>
@@ -121,7 +152,10 @@ export const FiatOnrampModal: React.FC<FiatOnrampModalProps> = ({
 
           <div className="flex items-center gap-2 text-slate-400 text-xs">
             <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-            <span>Regulated Stellar SEP-24 Anchor integration with direct bank transfer.</span>
+            <span>
+              Regulated Stellar SEP-24 Anchor integration with direct bank
+              transfer.
+            </span>
           </div>
         </div>
 

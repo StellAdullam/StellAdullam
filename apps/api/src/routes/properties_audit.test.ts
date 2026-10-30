@@ -3,9 +3,7 @@ import { propertyRoutes } from './properties';
 
 describe('Property Valuation Audit Routes', () => {
   it('GET /properties/:id/audit returns valuation appraisal audit analysis', async () => {
-    const res = await propertyRoutes.handle(
-      new Request('http://localhost/properties/1/audit')
-    );
+    const res = await propertyRoutes.handle(new Request('http://localhost/properties/1/audit'));
 
     expect(res.status).toBe(200);
     const body = (await res.json()) as any;

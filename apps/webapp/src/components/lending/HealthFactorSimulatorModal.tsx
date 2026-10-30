@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface HealthFactorSimulatorModalProps {
   isOpen: boolean;
@@ -8,7 +8,9 @@ export interface HealthFactorSimulatorModalProps {
   liquidationThresholdPct?: number; // e.g. 80%
 }
 
-export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProps> = ({
+export const HealthFactorSimulatorModal: React.FC<
+  HealthFactorSimulatorModalProps
+> = ({
   isOpen,
   onClose,
   collateralValueXlm,
@@ -24,25 +26,52 @@ export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProp
 
   // Base calculations
   const baseHealthFactor =
-    currentDebtXlm > 0 ? (collateralValueXlm * thresholdRatio) / currentDebtXlm : 999;
+    currentDebtXlm > 0
+      ? (collateralValueXlm * thresholdRatio) / currentDebtXlm
+      : 999;
 
   // Simulated calculations
   const simCollateral = collateralValueXlm * (1 + priceChangePct / 100);
   const simDebt = currentDebtXlm + additionalBorrowXlm;
-  const simHealthFactor = simDebt > 0 ? (simCollateral * thresholdRatio) / simDebt : 999;
+  const simHealthFactor =
+    simDebt > 0 ? (simCollateral * thresholdRatio) / simDebt : 999;
 
   // Liquidation price drops
   const liquidationCollateralThreshold = currentDebtXlm / thresholdRatio;
   const dropToLiquidationPct =
     collateralValueXlm > 0
-      ? Math.max(0, ((collateralValueXlm - liquidationCollateralThreshold) / collateralValueXlm) * 100)
+      ? Math.max(
+          0,
+          ((collateralValueXlm - liquidationCollateralThreshold) /
+            collateralValueXlm) *
+            100,
+        )
       : 0;
 
   const getRiskStatus = (hf: number) => {
-    if (hf >= 1.8) return { label: 'Safe', color: 'text-emerald-400', bg: 'bg-emerald-950/40 border-emerald-500/40' };
-    if (hf >= 1.2) return { label: 'Moderate Risk', color: 'text-amber-400', bg: 'bg-amber-950/40 border-amber-500/40' };
-    if (hf >= 1.0) return { label: 'High Risk (Near Liquidation)', color: 'text-rose-400', bg: 'bg-rose-950/40 border-rose-500/40' };
-    return { label: 'Liquidatable!', color: 'text-red-500 font-bold animate-pulse', bg: 'bg-red-950/60 border-red-500' };
+    if (hf >= 1.8)
+      return {
+        label: "Safe",
+        color: "text-emerald-400",
+        bg: "bg-emerald-950/40 border-emerald-500/40",
+      };
+    if (hf >= 1.2)
+      return {
+        label: "Moderate Risk",
+        color: "text-amber-400",
+        bg: "bg-amber-950/40 border-amber-500/40",
+      };
+    if (hf >= 1.0)
+      return {
+        label: "High Risk (Near Liquidation)",
+        color: "text-rose-400",
+        bg: "bg-rose-950/40 border-rose-500/40",
+      };
+    return {
+      label: "Liquidatable!",
+      color: "text-red-500 font-bold animate-pulse",
+      bg: "bg-red-950/60 border-red-500",
+    };
   };
 
   const status = getRiskStatus(simHealthFactor);
@@ -70,19 +99,25 @@ export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProp
         {/* Current vs Simulated Comparison */}
         <div className="grid grid-cols-2 gap-4">
           <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800/80">
-            <span className="text-xs text-slate-400 font-sans block mb-1">Current Health Factor</span>
+            <span className="text-xs text-slate-400 font-sans block mb-1">
+              Current Health Factor
+            </span>
             <span className="text-2xl font-mono font-bold text-white">
-              {baseHealthFactor > 10 ? '> 10.0' : baseHealthFactor.toFixed(2)}
+              {baseHealthFactor > 10 ? "> 10.0" : baseHealthFactor.toFixed(2)}
             </span>
           </div>
 
           <div className={`p-4 rounded-xl border ${status.bg}`}>
-            <span className="text-xs text-slate-300 font-sans block mb-1">Simulated Health Factor</span>
+            <span className="text-xs text-slate-300 font-sans block mb-1">
+              Simulated Health Factor
+            </span>
             <div className="flex items-baseline gap-2">
               <span className={`text-2xl font-mono font-bold ${status.color}`}>
-                {simHealthFactor > 10 ? '> 10.0' : simHealthFactor.toFixed(2)}
+                {simHealthFactor > 10 ? "> 10.0" : simHealthFactor.toFixed(2)}
               </span>
-              <span className="text-xs font-sans text-slate-300">({status.label})</span>
+              <span className="text-xs font-sans text-slate-300">
+                ({status.label})
+              </span>
             </div>
           </div>
         </div>
@@ -90,9 +125,19 @@ export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProp
         {/* Price Volatility Slider */}
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-mono">
-            <span className="text-slate-300">Collateral Market Price Shock</span>
-            <span className={priceChangePct < 0 ? 'text-rose-400 font-bold' : 'text-slate-200'}>
-              {priceChangePct > 0 ? `+${priceChangePct}%` : `${priceChangePct}%`}
+            <span className="text-slate-300">
+              Collateral Market Price Shock
+            </span>
+            <span
+              className={
+                priceChangePct < 0
+                  ? "text-rose-400 font-bold"
+                  : "text-slate-200"
+              }
+            >
+              {priceChangePct > 0
+                ? `+${priceChangePct}%`
+                : `${priceChangePct}%`}
             </span>
           </div>
           <input
@@ -115,7 +160,9 @@ export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProp
         <div className="space-y-2">
           <div className="flex justify-between text-xs font-mono">
             <span className="text-slate-300">Additional Borrow Amount</span>
-            <span className="text-indigo-400 font-bold">+{additionalBorrowXlm} XLM</span>
+            <span className="text-indigo-400 font-bold">
+              +{additionalBorrowXlm} XLM
+            </span>
           </div>
           <input
             type="range"
@@ -130,8 +177,12 @@ export const HealthFactorSimulatorModal: React.FC<HealthFactorSimulatorModalProp
 
         {/* Safety buffer metric */}
         <div className="bg-slate-950/40 p-3 rounded-xl border border-slate-800/60 flex justify-between items-center text-xs">
-          <span className="text-slate-400">Collateral price drop buffer until liquidation:</span>
-          <span className="font-mono font-bold text-amber-300">-{dropToLiquidationPct.toFixed(1)}%</span>
+          <span className="text-slate-400">
+            Collateral price drop buffer until liquidation:
+          </span>
+          <span className="font-mono font-bold text-amber-300">
+            -{dropToLiquidationPct.toFixed(1)}%
+          </span>
         </div>
 
         <button

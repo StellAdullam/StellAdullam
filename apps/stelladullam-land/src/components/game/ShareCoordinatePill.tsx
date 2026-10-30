@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface ShareCoordinatePillProps {
   x: number;
@@ -14,7 +14,10 @@ export const ShareCoordinatePill: React.FC<ShareCoordinatePillProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://stelladullam.io';
+    const origin =
+      typeof window !== "undefined"
+        ? window.location.origin
+        : "https://stelladullam.io";
     const link = `${origin}/land?x=${x}&y=${y}&id=${propertyId}`;
 
     try {
@@ -36,10 +39,20 @@ export const ShareCoordinatePill: React.FC<ShareCoordinatePillProps> = ({
       title="Copy direct share link to parcel"
       aria-label="Share parcel location"
     >
-      <svg className="w-3.5 h-3.5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+      <svg
+        className="w-3.5 h-3.5 text-cyan-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+        />
       </svg>
-      <span>{copied ? 'Link Copied!' : `Share (${x}, ${y})`}</span>
+      <span>{copied ? "Link Copied!" : `Share (${x}, ${y})`}</span>
     </button>
   );
 };

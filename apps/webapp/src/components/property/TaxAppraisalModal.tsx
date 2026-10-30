@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface TaxAppraisalModalProps {
   isOpen: boolean;
@@ -36,27 +36,55 @@ export const TaxAppraisalModal: React.FC<TaxAppraisalModalProps> = ({
           className="absolute top-4 right-4 text-slate-400 hover:text-slate-200 transition-colors"
           aria-label="Close modal"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
 
         <div className="flex items-center gap-3 mb-5">
           <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              />
             </svg>
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">Municipal Tax Assessment</h2>
-            <p className="text-xs text-slate-400">Tax Year {taxYear} Official Cadastral Evaluation</p>
+            <h2 className="text-lg font-bold text-white">
+              Municipal Tax Assessment
+            </h2>
+            <p className="text-xs text-slate-400">
+              Tax Year {taxYear} Official Cadastral Evaluation
+            </p>
           </div>
         </div>
 
         <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/50 mb-5">
           <div className="text-xs text-slate-400">Assessed Property</div>
-          <div className="text-sm font-semibold text-slate-200 mt-0.5">{propertyTitle}</div>
-          <div className="text-[11px] font-mono text-cyan-400 mt-0.5">Cadastral ID: {parcelId}</div>
+          <div className="text-sm font-semibold text-slate-200 mt-0.5">
+            {propertyTitle}
+          </div>
+          <div className="text-[11px] font-mono text-cyan-400 mt-0.5">
+            Cadastral ID: {parcelId}
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-5">
@@ -73,7 +101,10 @@ export const TaxAppraisalModal: React.FC<TaxAppraisalModalProps> = ({
           <div className="p-3 rounded-xl bg-slate-800/40 border border-slate-700/40">
             <div className="text-xs text-slate-400">Annual Tax Liability</div>
             <div className="text-base font-bold text-amber-400 mt-0.5">
-              ${annualTaxUsd.toLocaleString(undefined, { minimumFractionDigits: 2 })}
+              $
+              {annualTaxUsd.toLocaleString(undefined, {
+                minimumFractionDigits: 2,
+              })}
             </div>
             <div className="text-[11px] text-slate-400">
               ~${monthlyTaxUsd.toFixed(2)}/mo escrow
@@ -88,15 +119,25 @@ export const TaxAppraisalModal: React.FC<TaxAppraisalModalProps> = ({
           </div>
           <div className="flex justify-between">
             <span className="text-slate-400">County General Fund (0.65%)</span>
-            <span className="font-mono">${(assessedValueUsd * 0.0065).toFixed(2)}</span>
+            <span className="font-mono">
+              ${(assessedValueUsd * 0.0065).toFixed(2)}
+            </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-slate-400">Local District Schools (0.45%)</span>
-            <span className="font-mono">${(assessedValueUsd * 0.0045).toFixed(2)}</span>
+            <span className="text-slate-400">
+              Local District Schools (0.45%)
+            </span>
+            <span className="font-mono">
+              ${(assessedValueUsd * 0.0045).toFixed(2)}
+            </span>
           </div>
           <div className="flex justify-between">
-            <span className="text-slate-400">Smart Grid & Infrastructure (0.15%)</span>
-            <span className="font-mono">${(assessedValueUsd * 0.0015).toFixed(2)}</span>
+            <span className="text-slate-400">
+              Smart Grid & Infrastructure (0.15%)
+            </span>
+            <span className="font-mono">
+              ${(assessedValueUsd * 0.0015).toFixed(2)}
+            </span>
           </div>
         </div>
 

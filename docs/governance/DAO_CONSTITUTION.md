@@ -72,3 +72,4 @@ Amendments to this Constitution require a supermajority vote:
 - Minimum quorum: **10% of total circulating voting power**.
 - Approval threshold: **66.7% affirmative votes**.
 - Mandatory review period: **14 days**.
+

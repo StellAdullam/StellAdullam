@@ -28,7 +28,7 @@ export function ClipboardCopyButton({
   const displayText =
     truncate && text.length > 12
       ? `${text.slice(0, 6)}...${text.slice(-4)}`
-      : label ?? text;
+      : (label ?? text);
 
   return (
     <button

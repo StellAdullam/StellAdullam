@@ -4,9 +4,7 @@ import { ipfsRoutes } from './ipfs';
 describe('IPFS Resolution Routes', () => {
   it('GET /api/v1/ipfs/:cid resolves document metadata and gateways', async () => {
     const cid = 'bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi';
-    const response = await ipfsRoutes.handle(
-      new Request(`http://localhost/api/v1/ipfs/${cid}`),
-    );
+    const response = await ipfsRoutes.handle(new Request(`http://localhost/api/v1/ipfs/${cid}`));
 
     expect(response.status).toBe(200);
     const body = (await response.json()) as any;
@@ -29,9 +27,7 @@ describe('IPFS Resolution Routes', () => {
   });
 
   it('GET /api/v1/ipfs/gateways returns live gateway latency health statuses', async () => {
-    const response = await ipfsRoutes.handle(
-      new Request('http://localhost/api/v1/ipfs/gateways'),
-    );
+    const response = await ipfsRoutes.handle(new Request('http://localhost/api/v1/ipfs/gateways'));
 
     expect(response.status).toBe(200);
     const body = (await response.json()) as any;

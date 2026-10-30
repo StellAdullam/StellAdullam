@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface CoordinateDistanceWidgetProps {
   fromCoords: [number, number];
@@ -6,11 +6,9 @@ export interface CoordinateDistanceWidgetProps {
   className?: string;
 }
 
-export const CoordinateDistanceWidget: React.FC<CoordinateDistanceWidgetProps> = ({
-  fromCoords,
-  toCoords,
-  className = '',
-}) => {
+export const CoordinateDistanceWidget: React.FC<
+  CoordinateDistanceWidgetProps
+> = ({ fromCoords, toCoords, className = "" }) => {
   const [x1, y1] = fromCoords;
   const [x2, y2] = toCoords;
 
@@ -28,8 +26,12 @@ export const CoordinateDistanceWidget: React.FC<CoordinateDistanceWidgetProps> =
       <span className="text-slate-400">📏</span>
       <div className="flex items-center gap-1.5 text-slate-300">
         <span>Dist:</span>
-        <span className="font-bold text-white">{euclideanDistance.toFixed(1)} blocks</span>
-        <span className="text-[10px] text-slate-500">({manhattanDistance} grid steps)</span>
+        <span className="font-bold text-white">
+          {euclideanDistance.toFixed(1)} blocks
+        </span>
+        <span className="text-[10px] text-slate-500">
+          ({manhattanDistance} grid steps)
+        </span>
       </div>
     </div>
   );

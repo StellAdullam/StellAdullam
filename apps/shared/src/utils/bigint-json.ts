@@ -7,7 +7,7 @@ export function stringifyWithBigInt(value: unknown, indent?: number): string {
   return JSON.stringify(
     value,
     (_key, val) => {
-      if (typeof val === 'bigint') {
+      if (typeof val === "bigint") {
         return val.toString();
       }
       return val;
@@ -19,7 +19,7 @@ export function stringifyWithBigInt(value: unknown, indent?: number): string {
 export function parseWithBigInt<T = unknown>(json: string): T {
   return JSON.parse(json, (_key, val) => {
     // If string consists only of digits and is larger than safe integer, parse as BigInt
-    if (typeof val === 'string' && /^-?\d+$/.test(val)) {
+    if (typeof val === "string" && /^-?\d+$/.test(val)) {
       const num = Number(val);
       if (num > Number.MAX_SAFE_INTEGER || num < Number.MIN_SAFE_INTEGER) {
         return BigInt(val);

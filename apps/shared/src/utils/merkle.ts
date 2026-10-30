@@ -1,10 +1,10 @@
-import { createHash } from 'crypto';
+import { createHash } from "crypto";
 
 /**
  * Computes SHA-256 hash of a string or buffer and returns hex representation.
  */
 export function sha256(data: string | Buffer): string {
-  return createHash('sha256').update(data).digest('hex');
+  return createHash("sha256").update(data).digest("hex");
 }
 
 /**
@@ -23,9 +23,11 @@ export class MerkleTree {
 
   constructor(leaves: string[]) {
     if (leaves.length === 0) {
-      throw new Error('Cannot construct Merkle tree with zero leaves');
+      throw new Error("Cannot construct Merkle tree with zero leaves");
     }
-    this.leaves = leaves.map((leaf) => (leaf.length === 64 ? leaf : sha256(leaf)));
+    this.leaves = leaves.map((leaf) =>
+      leaf.length === 64 ? leaf : sha256(leaf),
+    );
     this.layers = [this.leaves];
     this.buildTree();
   }
@@ -63,7 +65,7 @@ export class MerkleTree {
     let index = this.layers[0].indexOf(hashedLeaf);
 
     if (index === -1) {
-      throw new Error('Leaf not found in Merkle tree');
+      throw new Error("Leaf not found in Merkle tree");
     }
 
     const proof: string[] = [];

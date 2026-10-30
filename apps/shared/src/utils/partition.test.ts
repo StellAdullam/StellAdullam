@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'bun:test';
-import { partition } from './partition';
+import { describe, expect, it } from "bun:test";
+import { partition } from "./partition";
 
-describe('partition utilities', () => {
-  it('splits numbers into even and odd arrays', () => {
+describe("partition utilities", () => {
+  it("splits numbers into even and odd arrays", () => {
     const numbers = [1, 2, 3, 4, 5, 6];
     const [evens, odds] = partition(numbers, (n) => n % 2 === 0);
 
@@ -10,7 +10,7 @@ describe('partition utilities', () => {
     expect(odds).toEqual([1, 3, 5]);
   });
 
-  it('partitions properties by verification status', () => {
+  it("partitions properties by verification status", () => {
     const properties = [
       { id: 1, verified: true },
       { id: 2, verified: false },
@@ -22,7 +22,7 @@ describe('partition utilities', () => {
     expect(unverified.map((p) => p.id)).toEqual([2]);
   });
 
-  it('handles empty input arrays', () => {
+  it("handles empty input arrays", () => {
     const [a, b] = partition([], () => true);
     expect(a).toEqual([]);
     expect(b).toEqual([]);

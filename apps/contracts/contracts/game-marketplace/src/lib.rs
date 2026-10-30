@@ -254,18 +254,12 @@ impl GameMarketplace {
 
     /// Return the connected Property NFT contract address.
     pub fn get_nft_contract(env: Env) -> Address {
-        env.storage()
-            .instance()
-            .get(&DataKey::NftContract)
-            .unwrap()
+        env.storage().instance().get(&DataKey::NftContract).unwrap()
     }
 
     /// Return the connected LAND payment token contract address.
     pub fn get_land_token(env: Env) -> Address {
-        env.storage()
-            .instance()
-            .get(&DataKey::LandToken)
-            .unwrap()
+        env.storage().instance().get(&DataKey::LandToken).unwrap()
     }
 
     /// Return the total count of currently active marketplace listings.

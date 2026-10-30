@@ -72,61 +72,58 @@ const broadcaster = new LedgerBroadcaster();
 
 // GET /api/ledger/stream — SSE stream, emits { sequence, timestamp } on each new ledger
 export const ledgerRoutes = new Elysia({ prefix: '/api/ledger' })
-  .get(
-    '/stream',
-    ({ set, request }) => {
-      set.headers['Content-Type'] = 'text/event-stream';
-      set.headers['Cache-Control'] = 'no-cache';
-      set.headers['X-Accel-Buffering'] = 'no';
+  .get('/stream', ({ set, request }) => {
+    set.headers['Content-Type'] = 'text/event-stream';
+    set.headers['Cache-Control'] = 'no-cache';
+    set.headers['X-Accel-Buffering'] = 'no';
 
-      const signal = (request as Request & { signal?: AbortSignal }).signal;
+    const signal = (request as Request & { signal?: AbortSignal }).signal;
 
-      return new ReadableStream({
-        start(controller) {
-          let closed = false;
+    return new ReadableStream({
+      start(controller) {
+        let closed = false;
 
-          const close = () => {
-            if (closed) return;
-            closed = true;
-            unsubscribe();
-            try {
-              controller.close();
-            } catch {
-              /* already closed */
-            }
-          };
+        const close = () => {
+          if (closed) return;
+          closed = true;
+          unsubscribe();
+          try {
+            controller.close();
+          } catch {
+            /* already closed */
+          }
+        };
 
-          const unsubscribe = broadcaster.subscribe((evt: LedgerEvent) => {
-            if (closed) return;
-            try {
-              controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify(evt)}\n\n`));
-            } catch {
-              close();
-            }
-          });
+        const unsubscribe = broadcaster.subscribe((evt: LedgerEvent) => {
+          if (closed) return;
+          try {
+            controller.enqueue(new TextEncoder().encode(`data: ${JSON.stringify(evt)}\n\n`));
+          } catch {
+            close();
+          }
+        });
 
-          // 25 s heartbeat keeps proxy connections alive
-          const heartbeatId = setInterval(() => {
-            if (closed) {
-              clearInterval(heartbeatId);
-              return;
-            }
-            try {
-              controller.enqueue(new TextEncoder().encode(': heartbeat\n\n'));
-            } catch {
-              clearInterval(heartbeatId);
-              close();
-            }
-          }, 25_000);
-
-          signal?.addEventListener('abort', () => {
+        // 25 s heartbeat keeps proxy connections alive
+        const heartbeatId = setInterval(() => {
+          if (closed) {
+            clearInterval(heartbeatId);
+            return;
+          }
+          try {
+            controller.enqueue(new TextEncoder().encode(': heartbeat\n\n'));
+          } catch {
             clearInterval(heartbeatId);
             close();
-          });
-        },
-      });
-    },
-  )
+          }
+        }, 25_000);
+
+        signal?.addEventListener('abort', () => {
+          clearInterval(heartbeatId);
+          close();
+        });
+      },
+    });
+  })
   .get('/status', async () => {
     return await StellarNetworkService.getNetworkStatus();
   })

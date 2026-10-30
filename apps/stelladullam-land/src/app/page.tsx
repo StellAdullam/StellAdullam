@@ -72,8 +72,8 @@ export default function LandHomePage() {
             </div>
             <h3 className="text-base font-bold text-white">Starter Faucet</h3>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Every new wallet can claim 1,000 free testnet LAND directly from the
-              smart contract faucet to fund their first parcel purchase.
+              Every new wallet can claim 1,000 free testnet LAND directly from
+              the smart contract faucet to fund their first parcel purchase.
             </p>
           </div>
 
@@ -81,7 +81,9 @@ export default function LandHomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10 border border-cyan-500/20 text-cyan-400">
               <Building2 size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">400 Virtual Parcels</h3>
+            <h3 className="text-base font-bold text-white">
+              400 Virtual Parcels
+            </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Each tile on the 20×20 grid is an individual NFT. Upgrade parcels
               from Vacant to Residential, Commercial, and Skyscraper tiers.
@@ -92,7 +94,9 @@ export default function LandHomePage() {
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
               <TrendingUp size={22} />
             </div>
-            <h3 className="text-base font-bold text-white">Passive Rental Yield</h3>
+            <h3 className="text-base font-bold text-white">
+              Passive Rental Yield
+            </h3>
             <p className="text-xs text-slate-400 leading-relaxed">
               Properties continuously accrue LAND income every 8-minute epoch.
               Sweep your earnings anytime with a single click.

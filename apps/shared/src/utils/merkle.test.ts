@@ -1,13 +1,13 @@
-import { describe, expect, it } from 'vitest';
-import { MerkleTree, sha256 } from './merkle';
+import { describe, expect, it } from "vitest";
+import { MerkleTree, sha256 } from "./merkle";
 
-describe('MerkleTree', () => {
-  it('builds tree and generates valid verification proofs', () => {
+describe("MerkleTree", () => {
+  it("builds tree and generates valid verification proofs", () => {
     const claims = [
-      'GABC1:100_USDC',
-      'GDEF2:250_USDC',
-      'GGHI3:500_USDC',
-      'GJKL4:75_USDC',
+      "GABC1:100_USDC",
+      "GDEF2:250_USDC",
+      "GGHI3:500_USDC",
+      "GJKL4:75_USDC",
     ];
 
     const tree = new MerkleTree(claims);
@@ -24,12 +24,12 @@ describe('MerkleTree', () => {
     expect(isValid).toBe(true);
 
     // Tampered claim should fail
-    const isTamperedValid = MerkleTree.verify('GABC1:999_USDC', proof, root);
+    const isTamperedValid = MerkleTree.verify("GABC1:999_USDC", proof, root);
     expect(isTamperedValid).toBe(false);
   });
 
-  it('handles trees with odd number of leaves correctly', () => {
-    const claims = ['claim_1', 'claim_2', 'claim_3'];
+  it("handles trees with odd number of leaves correctly", () => {
+    const claims = ["claim_1", "claim_2", "claim_3"];
     const tree = new MerkleTree(claims);
     const root = tree.getRoot();
 

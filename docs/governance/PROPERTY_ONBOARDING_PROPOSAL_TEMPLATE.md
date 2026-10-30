@@ -65,3 +65,4 @@ Provide a 2–3 paragraph summary of the real estate asset, its geographic locat
 - **Voting Quorum Required:** 15% of staked LAND voting power  
 - **Supermajority Threshold:** 66.7% affirmative votes  
 - **Timelock Delay:** 48 hours post-vote before smart contract tokenization deployment  
+

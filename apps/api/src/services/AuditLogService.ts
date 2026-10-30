@@ -2,7 +2,13 @@ export interface AuditEntry {
   id: string;
   timestamp: number;
   actor: string;
-  action: 'EMERGENCY_PAUSE' | 'EMERGENCY_UNPAUSE' | 'UPDATE_PARAMETER' | 'GRANT_ROLE' | 'REVOKE_ROLE' | 'LIQUIDATION_EXECUTE';
+  action:
+    | 'EMERGENCY_PAUSE'
+    | 'EMERGENCY_UNPAUSE'
+    | 'UPDATE_PARAMETER'
+    | 'GRANT_ROLE'
+    | 'REVOKE_ROLE'
+    | 'LIQUIDATION_EXECUTE';
   details: Record<string, any>;
 }
 
@@ -16,7 +22,7 @@ export class AuditLogService {
   public static logAction(
     actor: string,
     action: AuditEntry['action'],
-    details: Record<string, any> = {}
+    details: Record<string, any> = {},
   ): AuditEntry {
     const entry: AuditEntry = {
       id: `audit-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,

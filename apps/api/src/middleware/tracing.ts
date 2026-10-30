@@ -8,8 +8,7 @@ import { randomUUID } from 'node:crypto';
 export const requestTracing = new Elysia({ name: 'middleware:tracing' })
   .onRequest(({ request, set }) => {
     const incomingId = request.headers.get('x-request-id');
-    const requestId =
-      incomingId && incomingId.trim().length > 0 ? incomingId.trim() : randomUUID();
+    const requestId = incomingId && incomingId.trim().length > 0 ? incomingId.trim() : randomUUID();
     set.headers['x-request-id'] = requestId;
   })
   .derive(({ request, set }) => {

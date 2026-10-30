@@ -1,8 +1,8 @@
-import { describe, expect, it } from 'vitest';
-import { mapConcurrent } from './promise-limiter';
+import { describe, expect, it } from "vitest";
+import { mapConcurrent } from "./promise-limiter";
 
-describe('mapConcurrent Concurrency Limiter', () => {
-  it('processes all tasks and preserves result index order', async () => {
+describe("mapConcurrent Concurrency Limiter", () => {
+  it("processes all tasks and preserves result index order", async () => {
     const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const results = await mapConcurrent(
       input,
@@ -15,7 +15,7 @@ describe('mapConcurrent Concurrency Limiter', () => {
     expect(results).toEqual([2, 4, 6, 8, 10, 12, 14, 16, 18, 20]);
   });
 
-  it('bounds active concurrent executions to limit', async () => {
+  it("bounds active concurrent executions to limit", async () => {
     let active = 0;
     let maxObservedActive = 0;
 

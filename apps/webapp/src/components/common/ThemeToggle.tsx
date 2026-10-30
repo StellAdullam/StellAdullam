@@ -8,8 +8,15 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const stored = localStorage.getItem("stelladullam_theme") as "dark" | "light" | null;
-    const initial = stored ?? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const stored = localStorage.getItem("stelladullam_theme") as
+      | "dark"
+      | "light"
+      | null;
+    const initial =
+      stored ??
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light");
     setTheme(initial);
     if (initial === "dark") {
       document.documentElement.classList.add("dark");

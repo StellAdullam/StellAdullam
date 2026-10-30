@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-export type ActivityTier = 'pioneer' | 'governor' | 'genesis';
+export type ActivityTier = "pioneer" | "governor" | "genesis";
 
 export interface AccountTierBadgeProps {
   accountAgeDays?: number;
@@ -11,30 +11,30 @@ export interface AccountTierBadgeProps {
 export const AccountTierBadge: React.FC<AccountTierBadgeProps> = ({
   accountAgeDays = 45,
   totalTransactions = 12,
-  className = '',
+  className = "",
 }) => {
   const getTier = (days: number, txCount: number) => {
     if (days >= 180 || txCount >= 100) {
       return {
-        tier: 'genesis',
-        label: 'Genesis Whale',
-        icon: '👑',
-        style: 'bg-amber-500/10 border-amber-500/40 text-amber-300',
+        tier: "genesis",
+        label: "Genesis Whale",
+        icon: "👑",
+        style: "bg-amber-500/10 border-amber-500/40 text-amber-300",
       };
     }
     if (days >= 30 || txCount >= 20) {
       return {
-        tier: 'governor',
-        label: 'Protocol Governor',
-        icon: '🛡️',
-        style: 'bg-indigo-500/10 border-indigo-500/40 text-indigo-300',
+        tier: "governor",
+        label: "Protocol Governor",
+        icon: "🛡️",
+        style: "bg-indigo-500/10 border-indigo-500/40 text-indigo-300",
       };
     }
     return {
-      tier: 'pioneer',
-      label: 'Early Pioneer',
-      icon: '🌱',
-      style: 'bg-emerald-500/10 border-emerald-500/40 text-emerald-300',
+      tier: "pioneer",
+      label: "Early Pioneer",
+      icon: "🌱",
+      style: "bg-emerald-500/10 border-emerald-500/40 text-emerald-300",
     };
   };
 
@@ -47,7 +47,9 @@ export const AccountTierBadge: React.FC<AccountTierBadgeProps> = ({
     >
       <span className="text-sm select-none">{config.icon}</span>
       <span className="font-semibold">{config.label}</span>
-      <span className="text-[10px] opacity-75 font-sans hidden sm:inline">({accountAgeDays}d)</span>
+      <span className="text-[10px] opacity-75 font-sans hidden sm:inline">
+        ({accountAgeDays}d)
+      </span>
     </div>
   );
 };

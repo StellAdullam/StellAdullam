@@ -5,7 +5,7 @@
 
 export function groupBy<T, K extends string | number>(
   items: T[],
-  keyFn: (item: T, index: number) => K
+  keyFn: (item: T, index: number) => K,
 ): Record<K, T[]> {
   const result = {} as Record<K, T[]>;
 

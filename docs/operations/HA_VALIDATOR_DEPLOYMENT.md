@@ -90,3 +90,4 @@ spec:
    If the local node sequence lags > 3 ledgers behind the public network consensus, Prometheus alerts trigger automatic traffic shedding via ingress weight reassignment.
 3. **Database Maintenance**:
    Automated hourly checkpoint validation with daily history archive sweeps to AWS S3 / Cloudflare R2 bucket (`s3://stelladullam-ledger-history-cold`).
+

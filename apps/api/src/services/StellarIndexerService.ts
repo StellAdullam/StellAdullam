@@ -22,7 +22,9 @@ export class StellarIndexerService {
   private handlers: Map<string, EventHandler[]> = new Map();
   private timer: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(rpcUrl: string = process.env.STELLAR_RPC_URL ?? 'https://soroban-testnet.stellar.org') {
+  constructor(
+    rpcUrl: string = process.env.STELLAR_RPC_URL ?? 'https://soroban-testnet.stellar.org',
+  ) {
     this.rpcServer = new rpc.Server(rpcUrl, { allowHttp: rpcUrl.startsWith('http://') });
   }
 
@@ -112,7 +114,7 @@ export class StellarIndexerService {
       for (const ev of response.events) {
         const parsed: IndexerParsedEvent = {
           id: ev.id,
-          contractId: ev.contractId,
+          contractId: ev.contractId ? ev.contractId.toString() : '',
           topic: ev.topic.map((t) => t.toXDR('base64')),
           ledger: ev.ledger,
           ledgerClosedAt: ev.ledgerClosedAt,
@@ -135,14 +137,20 @@ export class StellarIndexerService {
               try {
                 await h(parsed);
               } catch (dispatchErr) {
-                logger.error({ err: dispatchErr, eventId: ev.id }, 'Error dispatching indexer event');
+                logger.error(
+                  { err: dispatchErr, eventId: ev.id },
+                  'Error dispatching indexer event',
+                );
               }
             }
           }
         }
       }
     } catch (error) {
-      logger.warn({ error, ledger: this.lastIndexedLedger }, 'Soroban RPC getEvents query failed, will retry');
+      logger.warn(
+        { error, ledger: this.lastIndexedLedger },
+        'Soroban RPC getEvents query failed, will retry',
+      );
     }
 
     return parsedEvents;

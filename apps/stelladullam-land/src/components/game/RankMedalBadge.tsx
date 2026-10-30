@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export interface RankMedalBadgeProps {
   rank: number; // 1, 2, 3, etc.

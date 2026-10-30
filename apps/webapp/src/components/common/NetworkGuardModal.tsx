@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useState } from "react";
-import { AlertTriangle, ExternalLink, Globe, ShieldAlert, X } from "lucide-react";
+import {
+  AlertTriangle,
+  ExternalLink,
+  Globe,
+  ShieldAlert,
+  X,
+} from "lucide-react";
 import { Button, Card } from "@/components/ui";
 
 export interface NetworkGuardModalProps {
@@ -18,7 +24,7 @@ export function NetworkGuardModal({
   onDismiss,
 }: NetworkGuardModalProps) {
   const [isOpen, setIsOpen] = useState(
-    currentNetwork.toUpperCase() !== expectedNetwork.toUpperCase()
+    currentNetwork.toUpperCase() !== expectedNetwork.toUpperCase(),
   );
 
   if (!isOpen) return null;
@@ -52,15 +58,25 @@ export function NetworkGuardModal({
         </div>
 
         <p className="text-sm text-slate-300 leading-relaxed mb-4">
-          StellAdullam is currently operating on the <strong>Stellar {expectedNetwork}</strong>. Your connected wallet is set to{" "}
-          <span className="text-red-400 font-semibold">{currentNetwork.toUpperCase()}</span>. To interact with smart contracts and prevent real funds from being used, please switch your wallet network.
+          StellAdullam is currently operating on the{" "}
+          <strong>Stellar {expectedNetwork}</strong>. Your connected wallet is
+          set to{" "}
+          <span className="text-red-400 font-semibold">
+            {currentNetwork.toUpperCase()}
+          </span>
+          . To interact with smart contracts and prevent real funds from being
+          used, please switch your wallet network.
         </p>
 
         <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 space-y-1 mb-5">
-          <p className="font-semibold text-slate-300">How to switch in Freighter / xBull:</p>
+          <p className="font-semibold text-slate-300">
+            How to switch in Freighter / xBull:
+          </p>
           <p>1. Open your browser wallet extension</p>
           <p>2. Click Settings &rarr; Network</p>
-          <p>3. Select <strong>Stellar Testnet</strong></p>
+          <p>
+            3. Select <strong>Stellar Testnet</strong>
+          </p>
         </div>
 
         <div className="flex gap-3">

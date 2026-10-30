@@ -339,7 +339,8 @@ export default function DashboardPage() {
   const isConnected = wallet.isConnected;
   const [landBalance, setLandBalance] = useState(4_250);
   const [currentLedger, setCurrentLedger] = useState(0);
-  const [properties, setProperties] = useState<DashboardProperty[]>(MOCK_PROPERTIES);
+  const [properties, setProperties] =
+    useState<DashboardProperty[]>(MOCK_PROPERTIES);
 
   useEffect(() => {
     if (dashboardData.properties && dashboardData.properties.length > 0) {

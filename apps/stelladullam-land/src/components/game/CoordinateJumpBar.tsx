@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 export interface CoordinateJumpBarProps {
   onJumpToCoordinate: (x: number, y: number) => void;
@@ -9,21 +9,28 @@ export const CoordinateJumpBar: React.FC<CoordinateJumpBarProps> = ({
   onJumpToCoordinate,
   maxCoordinate = 19,
 }) => {
-  const [xInput, setXInput] = useState<string>('');
-  const [yInput, setYInput] = useState<string>('');
-  const [idInput, setIdInput] = useState<string>('');
-  const [mode, setMode] = useState<'coord' | 'id'>('coord');
+  const [xInput, setXInput] = useState<string>("");
+  const [yInput, setYInput] = useState<string>("");
+  const [idInput, setIdInput] = useState<string>("");
+  const [mode, setMode] = useState<"coord" | "id">("coord");
   const [error, setError] = useState<string | null>(null);
 
   const handleJump = (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
-    if (mode === 'coord') {
+    if (mode === "coord") {
       const x = parseInt(xInput, 10);
       const y = parseInt(yInput, 10);
 
-      if (isNaN(x) || isNaN(y) || x < 0 || x > maxCoordinate || y < 0 || y > maxCoordinate) {
+      if (
+        isNaN(x) ||
+        isNaN(y) ||
+        x < 0 ||
+        x > maxCoordinate ||
+        y < 0 ||
+        y > maxCoordinate
+      ) {
         setError(`Coordinates must be between 0 and ${maxCoordinate}`);
         return;
       }
@@ -57,25 +64,29 @@ export const CoordinateJumpBar: React.FC<CoordinateJumpBarProps> = ({
         <div className="flex rounded-lg bg-slate-800 p-0.5 border border-slate-700">
           <button
             type="button"
-            onClick={() => setMode('coord')}
+            onClick={() => setMode("coord")}
             className={`px-2 py-1 rounded text-[11px] font-medium transition-colors ${
-              mode === 'coord' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              mode === "coord"
+                ? "bg-indigo-600 text-white"
+                : "text-slate-400 hover:text-slate-200"
             }`}
           >
             (X, Y)
           </button>
           <button
             type="button"
-            onClick={() => setMode('id')}
+            onClick={() => setMode("id")}
             className={`px-2 py-1 rounded text-[11px] font-medium transition-colors ${
-              mode === 'id' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+              mode === "id"
+                ? "bg-indigo-600 text-white"
+                : "text-slate-400 hover:text-slate-200"
             }`}
           >
             Parcel #
           </button>
         </div>
 
-        {mode === 'coord' ? (
+        {mode === "coord" ? (
           <div className="flex items-center gap-1">
             <input
               type="number"

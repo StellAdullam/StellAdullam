@@ -18,7 +18,10 @@ export const healthRoutes = new Elysia({ prefix: '' })
 
     try {
       const rpcStart = Date.now();
-      const res = await fetch(`${rpcUrl}/health`, { method: 'GET', signal: AbortSignal.timeout(3000) });
+      const res = await fetch(`${rpcUrl}/health`, {
+        method: 'GET',
+        signal: AbortSignal.timeout(3000),
+      });
       stellarRpcProbe = {
         healthy: res.ok || res.status === 404, // 200 or 404 indicates endpoint is answering
         latencyMs: Date.now() - rpcStart,

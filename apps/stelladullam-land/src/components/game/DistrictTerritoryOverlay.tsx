@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { Layers, Sparkles, Shield } from 'lucide-react';
-import { calculateClusterBonus } from '@stelladullam/shared';
+import React from "react";
+import { Layers, Sparkles, Shield } from "lucide-react";
+import { calculateClusterBonus } from "@stelladullam/shared";
 
 export interface DistrictTerritoryOverlayProps {
   ownedTileIndices: number[];
@@ -24,8 +24,8 @@ export function DistrictTerritoryOverlay({
         onClick={onToggle}
         className={`px-3 py-1.5 rounded-lg text-xs font-medium border flex items-center gap-1.5 transition-all shadow-md ${
           isActive
-            ? 'bg-indigo-600/90 border-indigo-400 text-white shadow-indigo-500/20'
-            : 'bg-slate-950/80 border-slate-800 text-slate-300 hover:text-white'
+            ? "bg-indigo-600/90 border-indigo-400 text-white shadow-indigo-500/20"
+            : "bg-slate-950/80 border-slate-800 text-slate-300 hover:text-white"
         }`}
         title="Toggle District Territorial Control Overlay"
       >

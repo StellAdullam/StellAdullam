@@ -1,8 +1,15 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { ZoomIn, ZoomOut, Maximize2, Volume2, VolumeX, Compass } from 'lucide-react';
-import { soundEffects } from './audio/SoundEffects';
+import React, { useState } from "react";
+import {
+  ZoomIn,
+  ZoomOut,
+  Maximize2,
+  Volume2,
+  VolumeX,
+  Compass,
+} from "lucide-react";
+import { soundEffects } from "./audio/SoundEffects";
 
 export interface MapZoomControlsProps {
   zoom: number; // e.g. 1.0
@@ -107,10 +114,14 @@ export function MapZoomControls({
         <button
           onClick={handleToggleMute}
           className="p-1.5 hover:bg-slate-800 text-slate-300 hover:text-white rounded transition-colors"
-          title={isMuted ? 'Unmute Audio' : 'Mute Audio'}
+          title={isMuted ? "Unmute Audio" : "Mute Audio"}
           aria-label="Toggle Sound"
         >
-          {isMuted ? <VolumeX className="w-4 h-4 text-slate-500" /> : <Volume2 className="w-4 h-4 text-indigo-400" />}
+          {isMuted ? (
+            <VolumeX className="w-4 h-4 text-slate-500" />
+          ) : (
+            <Volume2 className="w-4 h-4 text-indigo-400" />
+          )}
         </button>
       </div>
     </div>

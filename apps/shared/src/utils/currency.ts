@@ -1,4 +1,4 @@
-export type SupportedCurrency = 'USD' | 'EUR' | 'GBP' | 'XLM';
+export type SupportedCurrency = "USD" | "EUR" | "GBP" | "XLM";
 
 export const FX_RATES_TO_USD: Record<SupportedCurrency, number> = {
   USD: 1.0,
@@ -12,15 +12,15 @@ export const FX_RATES_TO_USD: Record<SupportedCurrency, number> = {
  */
 export function formatCurrencyAmount(
   amount: number,
-  currency: SupportedCurrency = 'USD',
-  locale: string = 'en-US',
+  currency: SupportedCurrency = "USD",
+  locale: string = "en-US",
 ): string {
-  if (currency === 'XLM') {
+  if (currency === "XLM") {
     return `${amount.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 4 })} XLM`;
   }
 
   return new Intl.NumberFormat(locale, {
-    style: 'currency',
+    style: "currency",
     currency,
     minimumFractionDigits: 0,
     maximumFractionDigits: 2,
@@ -35,7 +35,7 @@ export function convertUsdToCurrency(
   targetCurrency: SupportedCurrency,
 ): number {
   const rate = FX_RATES_TO_USD[targetCurrency] || 1.0;
-  if (targetCurrency === 'XLM') {
+  if (targetCurrency === "XLM") {
     return Number((amountUsd / rate).toFixed(2));
   }
   return Number((amountUsd / rate).toFixed(2));

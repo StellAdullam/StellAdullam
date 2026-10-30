@@ -163,3 +163,4 @@ const client = new DefiLendingContractClient({
 const healthFactor = await client.getHealthFactor(userAddress, 'POOL_USDC');
 console.log('User Health Factor:', healthFactor);
 ```
+

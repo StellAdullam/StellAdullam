@@ -2,7 +2,14 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Eye, Image as ImageIcon, Sparkles, Box } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Image as ImageIcon,
+  Sparkles,
+  Box,
+} from "lucide-react";
 import { Badge, Button } from "@/components/ui";
 
 export interface PropertyMediaItem {
@@ -66,17 +73,25 @@ export function Property3DCarousel({
           {/* Fallback image / display placeholder */}
           <div className="text-center p-6 text-slate-500">
             <Box className="w-12 h-12 mx-auto mb-2 text-indigo-400/60" />
-            <p className="text-sm font-semibold text-slate-300">{activeMedia.title}</p>
+            <p className="text-sm font-semibold text-slate-300">
+              {activeMedia.title}
+            </p>
             <p className="text-xs text-slate-500 mt-0.5">{propertyName}</p>
           </div>
 
           {/* Top Overlays */}
           <div className="absolute top-4 left-4 z-20 flex gap-2">
-            <Badge variant="outline" className="bg-black/60 backdrop-blur-sm border-slate-700 text-white text-xs">
+            <Badge
+              variant="outline"
+              className="bg-black/60 backdrop-blur-sm border-slate-700 text-white text-xs"
+            >
               {activeIndex + 1} / {media.length}
             </Badge>
             {activeMedia.is3d && (
-              <Badge variant="outline" className="bg-indigo-950/80 border-indigo-500 text-indigo-300 text-xs flex items-center gap-1">
+              <Badge
+                variant="outline"
+                className="bg-indigo-950/80 border-indigo-500 text-indigo-300 text-xs flex items-center gap-1"
+              >
                 <Sparkles className="w-3 h-3 text-indigo-400" />
                 3D Gaussian Splat
               </Badge>

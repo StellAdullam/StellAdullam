@@ -24,22 +24,28 @@ export function PortfolioHistoryChart({
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Generate deterministic points if history not passed
-  const points: HistoricalPoint[] = history ?? Array.from({ length: 30 }, (_, i) => {
-    const day = 29 - i;
-    const date = new Date(Date.now() - day * 86400000).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
+  const points: HistoricalPoint[] =
+    history ??
+    Array.from({ length: 30 }, (_, i) => {
+      const day = 29 - i;
+      const date = new Date(Date.now() - day * 86400000).toLocaleDateString(
+        "en-US",
+        {
+          month: "short",
+          day: "numeric",
+        },
+      );
+      const base = currentNetWorth * 0.88;
+      const progress = (i / 29) * (currentNetWorth - base);
+      const wave = Math.sin(i * 0.6) * 4500;
+      const net = Math.round(base + progress + wave);
+      const debt = Math.round(net * 0.28);
+      const equity = net + debt;
+      return { date, equityUsd: equity, debtUsd: debt, netWorthUsd: net };
     });
-    const base = currentNetWorth * 0.88;
-    const progress = (i / 29) * (currentNetWorth - base);
-    const wave = Math.sin(i * 0.6) * 4500;
-    const net = Math.round(base + progress + wave);
-    const debt = Math.round(net * 0.28);
-    const equity = net + debt;
-    return { date, equityUsd: equity, debtUsd: debt, netWorthUsd: net };
-  });
 
-  const activePoint = hoveredIndex !== null ? points[hoveredIndex] : points[points.length - 1];
+  const activePoint =
+    hoveredIndex !== null ? points[hoveredIndex] : points[points.length - 1];
 
   // SVG dimensions
   const width = 600;
@@ -49,12 +55,19 @@ export function PortfolioHistoryChart({
   const minVal = Math.min(...points.map((p) => p.netWorthUsd)) * 0.95;
   const maxVal = Math.max(...points.map((p) => p.netWorthUsd)) * 1.05;
 
-  const getX = (idx: number) => padding + (idx / (points.length - 1)) * (width - padding * 2);
-  const getY = (val: number) => height - padding - ((val - minVal) / (maxVal - minVal || 1)) * (height - padding * 2);
+  const getX = (idx: number) =>
+    padding + (idx / (points.length - 1)) * (width - padding * 2);
+  const getY = (val: number) =>
+    height -
+    padding -
+    ((val - minVal) / (maxVal - minVal || 1)) * (height - padding * 2);
 
   // Path generation
   const linePath = points
-    .map((p, idx) => `${idx === 0 ? "M" : "L"} ${getX(idx)} ${getY(p.netWorthUsd)}`)
+    .map(
+      (p, idx) =>
+        `${idx === 0 ? "M" : "L"} ${getX(idx)} ${getY(p.netWorthUsd)}`,
+    )
     .join(" ");
 
   const areaPath = `${linePath} L ${getX(points.length - 1)} ${height} L ${getX(0)} ${height} Z`;
@@ -76,7 +89,9 @@ export function PortfolioHistoryChart({
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-0.5">
-            {activePoint.date} &bull; Collateral: ${activePoint.equityUsd.toLocaleString()} &bull; Debt: ${activePoint.debtUsd.toLocaleString()}
+            {activePoint.date} &bull; Collateral: $
+            {activePoint.equityUsd.toLocaleString()} &bull; Debt: $
+            {activePoint.debtUsd.toLocaleString()}
           </p>
         </div>
 
@@ -134,7 +149,7 @@ export function PortfolioHistoryChart({
           {points.map((_, idx) => (
             <rect
               key={idx}
-              x={getX(idx) - (width / points.length) / 2}
+              x={getX(idx) - width / points.length / 2}
               y={0}
               width={width / points.length}
               height={height}

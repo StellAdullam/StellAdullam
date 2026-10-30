@@ -45,7 +45,9 @@ export function HealthFactorGauge({
   const circumference = Math.PI * radius; // half circle length
 
   // Clamp health factor between 0.5 and 2.5 for meter display
-  const clampedHf = isInfinity ? 2.5 : Math.min(Math.max(healthFactor, 0.5), 2.5);
+  const clampedHf = isInfinity
+    ? 2.5
+    : Math.min(Math.max(healthFactor, 0.5), 2.5);
   // percentage: 0.5 HF -> 0%, 2.5 HF -> 100%
   const progressPercent = (clampedHf - 0.5) / 2.0;
   const strokeDashoffset = circumference * (1 - progressPercent);
@@ -77,7 +79,9 @@ export function HealthFactorGauge({
             strokeDasharray={circumference}
             strokeDashoffset={strokeDashoffset}
             strokeLinecap="round"
-            style={{ transition: "stroke-dashoffset 0.6s ease, stroke 0.3s ease" }}
+            style={{
+              transition: "stroke-dashoffset 0.6s ease, stroke 0.3s ease",
+            }}
           />
         </svg>
 

@@ -6,8 +6,8 @@
 
 function splitWords(str: string): string[] {
   return str
-    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
-    .replace(/[^a-zA-Z0-9]+/g, ' ')
+    .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
+    .replace(/[^a-zA-Z0-9]+/g, " ")
     .trim()
     .split(/\s+/)
     .filter(Boolean);
@@ -18,7 +18,7 @@ function splitWords(str: string): string[] {
  */
 export function toCamelCase(str: string): string {
   const words = splitWords(str);
-  if (words.length === 0) return '';
+  if (words.length === 0) return "";
 
   return words
     .map((word, idx) => {
@@ -26,7 +26,7 @@ export function toCamelCase(str: string): string {
       if (idx === 0) return lower;
       return lower.charAt(0).toUpperCase() + lower.slice(1);
     })
-    .join('');
+    .join("");
 }
 
 /**
@@ -34,7 +34,7 @@ export function toCamelCase(str: string): string {
  */
 export function toSnakeCase(str: string): string {
   const words = splitWords(str);
-  return words.map((w) => w.toLowerCase()).join('_');
+  return words.map((w) => w.toLowerCase()).join("_");
 }
 
 /**
@@ -42,7 +42,7 @@ export function toSnakeCase(str: string): string {
  */
 export function toKebabCase(str: string): string {
   const words = splitWords(str);
-  return words.map((w) => w.toLowerCase()).join('-');
+  return words.map((w) => w.toLowerCase()).join("-");
 }
 
 /**
@@ -55,5 +55,5 @@ export function toPascalCase(str: string): string {
       const lower = w.toLowerCase();
       return lower.charAt(0).toUpperCase() + lower.slice(1);
     })
-    .join('');
+    .join("");
 }

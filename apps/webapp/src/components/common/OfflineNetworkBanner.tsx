@@ -46,12 +46,17 @@ export function OfflineNetworkBanner() {
       {isOffline ? (
         <>
           <WifiOff className="w-4 h-4" />
-          <span>You are currently offline. Stellar transactions and live price updates are paused.</span>
+          <span>
+            You are currently offline. Stellar transactions and live price
+            updates are paused.
+          </span>
         </>
       ) : (
         <>
           <Wifi className="w-4 h-4" />
-          <span>Connection restored. Synchronizing with Stellar network...</span>
+          <span>
+            Connection restored. Synchronizing with Stellar network...
+          </span>
         </>
       )}
     </div>

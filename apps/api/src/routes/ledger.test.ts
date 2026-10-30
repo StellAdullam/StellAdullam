@@ -3,9 +3,7 @@ import { ledgerRoutes } from './ledger';
 
 describe('Ledger Routes', () => {
   it('GET /api/ledger/status returns Stellar network and ledger telemetry', async () => {
-    const res = await ledgerRoutes.handle(
-      new Request('http://localhost/api/ledger/status')
-    );
+    const res = await ledgerRoutes.handle(new Request('http://localhost/api/ledger/status'));
 
     expect(res.status).toBe(200);
     const body = (await res.json()) as any;
@@ -18,9 +16,7 @@ describe('Ledger Routes', () => {
   });
 
   it('GET /api/ledger/fees returns dynamic gas fee tier recommendations', async () => {
-    const res = await ledgerRoutes.handle(
-      new Request('http://localhost/api/ledger/fees')
-    );
+    const res = await ledgerRoutes.handle(new Request('http://localhost/api/ledger/fees'));
 
     expect(res.status).toBe(200);
     const body = (await res.json()) as any;

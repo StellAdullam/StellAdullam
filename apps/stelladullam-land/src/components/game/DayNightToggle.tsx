@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-export type TimeOfDay = 'day' | 'sunset' | 'night';
+export type TimeOfDay = "day" | "sunset" | "night";
 
 export interface DayNightToggleProps {
   initialTime?: TimeOfDay;
@@ -9,16 +9,16 @@ export interface DayNightToggleProps {
 }
 
 export const DayNightToggle: React.FC<DayNightToggleProps> = ({
-  initialTime = 'day',
+  initialTime = "day",
   onTimeChange,
-  className = '',
+  className = "",
 }) => {
   const [time, setTime] = useState<TimeOfDay>(initialTime);
 
   const times: Array<{ id: TimeOfDay; icon: string; label: string }> = [
-    { id: 'day', icon: '☀️', label: 'Daylight' },
-    { id: 'sunset', icon: '🌅', label: 'Sunset' },
-    { id: 'night', icon: '🌙', label: 'Neon Night' },
+    { id: "day", icon: "☀️", label: "Daylight" },
+    { id: "sunset", icon: "🌅", label: "Sunset" },
+    { id: "night", icon: "🌙", label: "Neon Night" },
   ];
 
   const handleCycle = () => {

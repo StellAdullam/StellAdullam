@@ -21,10 +21,7 @@ export class ApyForecastService {
   /**
    * Calculates borrow APR in percentage for a given utilization fraction (0.0 to 1.0).
    */
-  public calculateBorrowApr(
-    utilization: number,
-    config: PoolForecastConfig = {},
-  ): number {
+  public calculateBorrowApr(utilization: number, config: PoolForecastConfig = {}): number {
     const base = (config.baseRateBps ?? 200) / 100;
     const optimal = (config.optimalUtilizationBps ?? 8000) / 10000;
     const slope1 = (config.slope1Bps ?? 400) / 100;
@@ -43,10 +40,7 @@ export class ApyForecastService {
   /**
    * Calculates supply/deposit APR in percentage: borrowApr * utilization * (1 - reserveFactor).
    */
-  public calculateDepositApr(
-    utilization: number,
-    config: PoolForecastConfig = {},
-  ): number {
+  public calculateDepositApr(utilization: number, config: PoolForecastConfig = {}): number {
     const borrowApr = this.calculateBorrowApr(utilization, config);
     const reserveFactor = (config.reserveFactorBps ?? 1000) / 10000;
     const u = Math.min(Math.max(utilization, 0), 1);

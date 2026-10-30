@@ -4,8 +4,8 @@
  */
 
 export const STELLAR_DECIMALS = 7;
-export const STROOP_SCALE = 10_000_000n; // 10^7
-export const E18_SCALE = 1_000_000_000_000_000_000n; // 10^18
+export const STROOP_SCALE = BigInt("10000000"); // 10^7
+export const E18_SCALE = BigInt("1000000000000000000"); // 10^18
 
 export class FixedPointMath {
   /**
@@ -42,7 +42,7 @@ export class FixedPointMath {
    * Multiplies two big integers and divides by a denominator without precision loss.
    */
   static mulDiv(a: bigint, b: bigint, denominator: bigint): bigint {
-    if (denominator === 0n) {
+    if (denominator === BigInt(0)) {
       throw new Error("Division by zero in FixedPointMath.mulDiv");
     }
     return (a * b) / denominator;

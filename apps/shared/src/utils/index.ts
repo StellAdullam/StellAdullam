@@ -14,7 +14,11 @@ export * from "./explorer";
 export * from "./grid";
 export * from "./merkle";
 export * from "./circuit-breaker";
-export * from "./fee";
+export {
+  calculateRecommendedFee,
+  estimateSorobanResourceFee,
+  DEFAULT_BASE_FEE_STROOPS,
+} from "./fee";
 export * from "./uuid";
 export * from "./event-topics";
 export * from "./type-guards";
@@ -63,4 +67,4 @@ export * from "./shallow-equal";
 export * from "./currency-symbols";
 export * from "./clamp-percent";
 export * from "./array-diff";
-export * from "./number-abbreviate";
+export { formatCompactNumber } from "./number-abbreviate";

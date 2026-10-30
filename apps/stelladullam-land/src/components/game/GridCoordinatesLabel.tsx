@@ -1,5 +1,5 @@
-import React from 'react';
-import { Crosshair } from 'lucide-react';
+import React from "react";
+import { Crosshair } from "lucide-react";
 
 export interface GridCoordinatesLabelProps {
   x: number;
@@ -12,7 +12,7 @@ export const GridCoordinatesLabel: React.FC<GridCoordinatesLabelProps> = ({
   x,
   y,
   isOccupied = false,
-  className = '',
+  className = "",
 }) => {
   return (
     <div
@@ -26,10 +26,10 @@ export const GridCoordinatesLabel: React.FC<GridCoordinatesLabelProps> = ({
       <span className="text-slate-600">|</span>
       <span
         className={`text-[11px] font-sans ${
-          isOccupied ? 'text-emerald-400 font-medium' : 'text-slate-400'
+          isOccupied ? "text-emerald-400 font-medium" : "text-slate-400"
         }`}
       >
-        {isOccupied ? 'Developed' : 'Vacant'}
+        {isOccupied ? "Developed" : "Vacant"}
       </span>
     </div>
   );

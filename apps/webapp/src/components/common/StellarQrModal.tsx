@@ -84,7 +84,9 @@ export function StellarQrModal({
         <div className="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs text-left space-y-1 mb-4">
           <div className="flex justify-between">
             <span className="text-slate-400">Amount:</span>
-            <span className="font-semibold text-white">{amount} {assetCode}</span>
+            <span className="font-semibold text-white">
+              {amount} {assetCode}
+            </span>
           </div>
           <div className="flex justify-between">
             <span className="text-slate-400">Destination:</span>

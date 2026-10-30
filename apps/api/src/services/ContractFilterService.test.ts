@@ -39,7 +39,11 @@ describe('ContractFilterService', () => {
 
   it('validates Soroban contract IDs correctly', () => {
     expect(ContractFilterService.isValidContractId(dummyContractId)).toBe(true);
-    expect(ContractFilterService.isValidContractId('GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVSGZ')).toBe(false);
+    expect(
+      ContractFilterService.isValidContractId(
+        'GA7QYNF7SOWQ3GLR2BGMZEHXAVIRZA4KVWLTJJFC7MGXUA74P7UJVSGZ',
+      ),
+    ).toBe(false);
     expect(ContractFilterService.isValidContractId('invalid')).toBe(false);
   });
 

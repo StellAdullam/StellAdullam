@@ -118,7 +118,8 @@ export function calculateUtilizationRate(
   if (totalSupply === BigInt(0)) {
     return BigInt(0);
   }
-  return (totalBorrows * PRECISION) / totalSupply;
+  const util = (totalBorrows * PRECISION) / totalSupply;
+  return util > PRECISION ? PRECISION : util;
 }
 
 /**

@@ -10,7 +10,7 @@ describe('PortfolioAllocationService', () => {
       5000, // Real estate: 50%
       3000, // DeFi deposit: 30%
       1500, // Liquid: 15%
-      500   // Dividends: 5%
+      500, // Dividends: 5%
     );
 
     expect(result.address).toBe(dummyAddress);
@@ -23,13 +23,7 @@ describe('PortfolioAllocationService', () => {
   });
 
   it('handles empty portfolio values gracefully without NaN', () => {
-    const result = PortfolioAllocationService.calculateAllocation(
-      dummyAddress,
-      0,
-      0,
-      0,
-      0
-    );
+    const result = PortfolioAllocationService.calculateAllocation(dummyAddress, 0, 0, 0, 0);
 
     expect(result.totalValueUsd).toBe(0);
     expect(result.diversificationScore).toBe(0);

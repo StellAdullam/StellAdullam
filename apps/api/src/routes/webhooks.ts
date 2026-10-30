@@ -63,7 +63,8 @@ export const webhookRoutes = new Elysia({ prefix: '/webhooks' })
       beforeHandle: [rateLimit()],
       detail: {
         summary: 'Register webhook subscriber',
-        description: 'Registers endpoint to receive signed notifications for on-chain and DeFi events',
+        description:
+          'Registers endpoint to receive signed notifications for on-chain and DeFi events',
         tags: ['Webhooks'],
       },
     },

@@ -1,5 +1,3 @@
-import { isValidStellarAddress } from '@stelladullam/shared';
-
 export interface UserAllowanceInfo {
   tokenAddress: string;
   spenderAddress: string;

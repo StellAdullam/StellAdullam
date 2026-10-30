@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2, ShieldCheck, FileText, ExternalLink } from "lucide-react";
+import {
+  CheckCircle2,
+  ShieldCheck,
+  FileText,
+  ExternalLink,
+} from "lucide-react";
 
 interface PropertyValuationBadgeProps {
   isVerified: boolean;
@@ -55,13 +60,21 @@ export function PropertyValuationBadge({
 
       <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-800/80 text-xs">
         <div>
-          <span className="text-slate-400 block text-[11px]">Appraised Valuation</span>
-          <span className="font-extrabold text-white text-sm font-mono">{formattedValue}</span>
+          <span className="text-slate-400 block text-[11px]">
+            Appraised Valuation
+          </span>
+          <span className="font-extrabold text-white text-sm font-mono">
+            {formattedValue}
+          </span>
         </div>
 
         <div>
-          <span className="text-slate-400 block text-[11px]">Valuation Entity</span>
-          <span className="font-medium text-slate-200 text-xs truncate block">{verifierName}</span>
+          <span className="text-slate-400 block text-[11px]">
+            Valuation Entity
+          </span>
+          <span className="font-medium text-slate-200 text-xs truncate block">
+            {verifierName}
+          </span>
         </div>
       </div>
 
