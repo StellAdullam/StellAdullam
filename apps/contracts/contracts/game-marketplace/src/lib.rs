@@ -288,6 +288,11 @@ impl GameMarketplace {
         env.storage().instance().has(&DataKey::Listing(property_id))
     }
 
+    /// Return the contract semantic version integer.
+    pub fn get_contract_version(_env: Env) -> u32 {
+        1
+    }
+
     /// Return a paginated slice of active listings.
     pub fn get_all_listings(env: Env, offset: u32, limit: u32) -> Vec<Listing> {
         let ids: Vec<u32> = env
