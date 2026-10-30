@@ -8,6 +8,7 @@ import { kycRoutes } from './routes/kyc';
 import { oracleRoutes } from './routes/oracle';
 import { riskMonitoringRoutes } from './routes/riskMonitoring';
 import { notificationRoutes } from './routes/notifications';
+import { healthRoutes } from './routes/health';
 import { errorHandler } from './middleware/errorHandler';
 import { cacheService } from './services/CacheService';
 import { NotificationService } from './services/NotificationService';
@@ -34,6 +35,7 @@ app
   .use(oracleRoutes)
   .use(riskMonitoringRoutes)
   .use(notificationRoutes)
+  .use(healthRoutes)
   .get('/health', async () => {
     const dbHealth = await checkDatabaseHealth();
 
