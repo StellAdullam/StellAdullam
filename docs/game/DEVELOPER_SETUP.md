@@ -278,6 +278,41 @@ StellAdullam/
 | `bun run format`                  | Auto-format code         |
 | `cd apps/contracts && cargo test` | Test contracts           |
 
+## Architecture & Data Flow
+
+StellAdullam Land is structured to allow zero-dependency local development via mock mode or full on-chain interaction via Stellar Testnet:
+
+```mermaid
+flowchart TD
+    User([Player Browser / Wallet]) <-->|Wallet Kit / WebXDR| Land[apps/stelladullam-land]
+    Land <-->|Typed Client| Shared[apps/shared]
+    Land <-->|simulate & submit| RPC[Soroban RPC Testnet]
+    RPC <--> Engine[GameEngine Contract]
+    RPC <--> NFT[GamePropertyNFT Contract]
+    RPC <--> LandToken[GameLandToken SEP-41]
+    RPC <--> Market[GameMarketplace Contract]
+```
+
+### Switching Between Mock Mode and Real Contracts
+
+StellAdullam Land includes a deterministic PRNG mock layer (`apps/stelladullam-land/src/lib/mockProperties.ts`) that mirrors testnet contract behavior without requiring a running node or funded wallet.
+
+| Setting | Variable in `.env.local` | Behavior |
+| :--- | :--- | :--- |
+| **Mock Mode** (Default) | `NEXT_PUBLIC_USE_MOCK=true` | Uses seeded pseudo-random 400-tile grid; simulations bypass wallet signatures. |
+| **Live Soroban Testnet** | `NEXT_PUBLIC_USE_MOCK=false` | Connects directly to `https://soroban-testnet.stellar.org` and deployed contract IDs in `apps/shared/contracts.testnet.json`. |
+
+#### How to Enable Live Contracts:
+1. In `apps/stelladullam-land/.env.local`:
+   ```bash
+   NEXT_PUBLIC_USE_MOCK=false
+   NEXT_PUBLIC_STELLAR_RPC_URL=https://soroban-testnet.stellar.org
+   NEXT_PUBLIC_PROPERTY_NFT_CONTRACT_ID=CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4
+   NEXT_PUBLIC_GAME_ENGINE_CONTRACT_ID=CBFOZBCYMIDIZLNHT6ANMBU6LSGC6REM6Z5M4ST35E5T5FDWWZAWZLTX
+   ```
+2. Restart the dev server: `bun run dev:land`
+3. Connect Freighter or Albedo set to **Testnet**.
+
 ## Troubleshooting
 
 ### "Cannot find module '@stelladullam/shared'"

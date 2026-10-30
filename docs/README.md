@@ -19,6 +19,13 @@ This platform combines two powerful concepts:
 
 - [System Architecture](./architecture/system-architecture.md)
 
+### 🎮 StellAdullam Land (Game)
+
+- [Player Guide](./game/PLAYER_GUIDE.md) - Comprehensive player handbook: wallet setup, faucet claim, earning rent, and building upgrades
+- [Game Rules](./game/GAME_RULES.md) - Core rules, tile grid mechanics, and income formulas
+- [Game Economy](./game/ECONOMY.md) - LAND tokenomics, emission rates, and burning sinks
+- [Game Developer Setup](./game/DEVELOPER_SETUP.md) - Local environment, data flow, and mock vs. testnet toggle
+
 ### 🚢 Deployment
 
 > Start here for any production or testnet launch.
