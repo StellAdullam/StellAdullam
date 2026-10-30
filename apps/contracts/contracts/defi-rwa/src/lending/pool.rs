@@ -33,9 +33,20 @@ pub struct LendingPool {
 }
 
 impl LendingPool {
+    /// Default maximum pool deposit cap (10,000,000 tokens in 7 decimals) to enforce risk boundaries.
+    pub const DEFAULT_MAX_POOL_DEPOSIT: i128 = 10_000_000 * 10_000_000;
+
     /// Verifies that a proposed borrow amount satisfies minimum position size guardrails.
     pub fn validate_borrow_amount(&self, amount: i128) -> bool {
         amount >= MIN_BORROW_AMOUNT
+    }
+
+    /// Validates whether adding proposed deposit would exceed pool capacity.
+    pub fn can_deposit(&self, current_deposits: i128, new_deposit: i128) -> bool {
+        current_deposits
+            .checked_add(new_deposit)
+            .map(|sum| sum <= Self::DEFAULT_MAX_POOL_DEPOSIT)
+            .unwrap_or(false)
     }
 }
 
