@@ -11,6 +11,7 @@ import { AnimatePresence } from "framer-motion";
 import "./CityMap.css";
 import { GameProperty } from "../../types/game.types";
 import { PropertyPanel } from "./PropertyPanel";
+import { PropertyTooltip, TooltipPosition } from "./PropertyTooltip";
 import { addressToHSL, addressToGlow } from "../../lib/colorHash";
 import {
   generateMockGrid,
@@ -99,8 +100,54 @@ export function CityMap() {
     generateMockGrid(),
   );
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [hoveredProperty, setHoveredProperty] = useState<GameProperty | null>(null);
+  const [tooltipPos, setTooltipPos] = useState<TooltipPosition | null>(null);
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const leaveTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const gridRef = useRef<HTMLDivElement | null>(null);
+
+  // ── Hover interaction with debounce/delay ────────────────────────────────
+  const handleGridMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const target = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-property-id]",
+      );
+      if (!target) {
+        if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+        leaveTimeoutRef.current = setTimeout(() => setIsTooltipVisible(false), 100);
+        return;
+      }
+
+      const propertyId = target.dataset.propertyId;
+      const prop = properties.find((p) => p.id === propertyId) ?? null;
+      const x = e.clientX;
+      const y = e.clientY;
+
+      if (leaveTimeoutRef.current) clearTimeout(leaveTimeoutRef.current);
+
+      if (hoveredProperty?.id !== propertyId) {
+        if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+        hoverTimeoutRef.current = setTimeout(() => {
+          setHoveredProperty(prop);
+          setTooltipPos({ x, y });
+          setIsTooltipVisible(true);
+        }, 300);
+      } else {
+        setTooltipPos({ x, y });
+      }
+    },
+    [properties, hoveredProperty],
+  );
+
+  const handleGridMouseLeave = useCallback(() => {
+    if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+    leaveTimeoutRef.current = setTimeout(() => {
+      setIsTooltipVisible(false);
+      setHoveredProperty(null);
+    }, 100);
+  }, []);
 
   // ── Derived ──────────────────────────────────────────────────────────────
   const selectedProperty = useMemo(
@@ -239,6 +286,8 @@ export function CityMap() {
           ref={gridRef}
           className="city-grid"
           onClick={handleGridClick}
+          onMouseMove={handleGridMouseMove}
+          onMouseLeave={handleGridMouseLeave}
           role="grid"
           aria-label="StellAdullam City property grid"
         >
@@ -304,6 +353,13 @@ export function CityMap() {
           })}
         </div>
       </div>
+
+      {/* ── Property Hover Card Tooltip ──────────────────────────────────── */}
+      <PropertyTooltip
+        property={hoveredProperty}
+        position={tooltipPos}
+        visible={isTooltipVisible}
+      />
 
       {/* ── Property Detail Panel ────────────────────────────────────────── */}
       <AnimatePresence>
