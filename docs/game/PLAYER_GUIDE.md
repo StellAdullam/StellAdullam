@@ -101,3 +101,4 @@ StellAdullam Land features an on-chain peer-to-peer property exchange:
 * **City Treasury**: The protocol contract that owns initial unminted property parcels.
 * **Freighter**: The official browser wallet extension developed by the Stellar Development Foundation.
 * **Stellar Testnet**: The public testing blockchain where transactions use free testnet XLM and zero real-world value.
+
