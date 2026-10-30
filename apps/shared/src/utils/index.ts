@@ -39,3 +39,4 @@ export * from "./clone";
 export * from "./color-interpolate";
 export * from "./clamp";
 export * from "./bytes";
+export * from "./time-ago";
