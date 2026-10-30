@@ -1,6 +1,7 @@
 import { Elysia, t } from 'elysia';
 import { isValidStellarAddress } from '@stelladullam/shared';
 import { GasSponsorshipService } from '../services/GasSponsorshipService';
+import { StellarAnchorService } from '../services/StellarAnchorService';
 
 export const funderRoutes = new Elysia({ prefix: '/api/v1/funder' })
   .post(
@@ -119,6 +120,50 @@ export const funderRoutes = new Elysia({ prefix: '/api/v1/funder' })
       body: t.Object({
         address: t.String(),
         innerTxXdr: t.String({ minLength: 10 }),
+      }),
+    },
+  )
+  .get('/anchors', () => {
+    return {
+      success: true,
+      data: {
+        anchors: StellarAnchorService.getSupportedAnchors(),
+      },
+    };
+  })
+  .post(
+    '/anchors/estimate',
+    ({ body: { amountUsd, assetCode }, set }) => {
+      const anchor = StellarAnchorService.getAnchorByCode(assetCode);
+      if (!anchor) {
+        set.status = 404;
+        return {
+          success: false,
+          error: {
+            code: 'ANCHOR_NOT_FOUND',
+            message: `Unsupported anchor asset code '${assetCode}'.`,
+          },
+        };
+      }
+
+      const calculation = StellarAnchorService.calculateNetDeposit(amountUsd, assetCode);
+      return {
+        success: true,
+        data: {
+          assetCode: anchor.code,
+          issuer: anchor.issuer,
+          fiatEquivalent: anchor.fiatEquivalent,
+          grossAmountUsd: amountUsd,
+          feeBps: anchor.depositFeeBps,
+          ...calculation,
+          sep24DepositUrl: anchor.sep24Url,
+        },
+      };
+    },
+    {
+      body: t.Object({
+        amountUsd: t.Number({ minimum: 1 }),
+        assetCode: t.String(),
       }),
     },
   );
