@@ -12,3 +12,4 @@ export * from './NetworkCongestionPill';
 export * from './BalancePrivacyToggle';
 export * from './PriorityFeeSelector';
 export * from './CurrencyConverterPill';
+export * from './KeyboardShortcutsModal';
