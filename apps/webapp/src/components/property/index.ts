@@ -14,3 +14,5 @@ export type { DividendsClaimCardProps, PropertyDividendInfo } from "./DividendsC
 export type { Property3DCarouselProps, PropertyMediaItem } from "./Property3DCarousel";
 export type { PropertyShareOrderbookProps, OrderbookEntry } from "./PropertyShareOrderbook";
 export type { TaxAppraisalModalProps } from "./TaxAppraisalModal";
+export { OrderConfirmationModal } from "./OrderConfirmationModal";
+export type { OrderConfirmationModalProps } from "./OrderConfirmationModal";
