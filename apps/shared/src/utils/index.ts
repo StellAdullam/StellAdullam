@@ -45,3 +45,4 @@ export * from "./unique";
 export * from "./truncate";
 export * from "./safe-math";
 export * from "./hex";
+export * from "./omit";
