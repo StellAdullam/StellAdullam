@@ -16,3 +16,4 @@ export * from './KeyboardShortcutsModal';
 export * from './LedgerCloseCountdownPill';
 export * from './CopyTransactionLinkButton';
 export * from './AccountTierBadge';
+export * from './KycVerificationBadge';
