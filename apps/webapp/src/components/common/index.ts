@@ -10,3 +10,4 @@ export * from './ExportCsvButton';
 export * from './AutoRefreshToggle';
 export * from './NetworkCongestionPill';
 export * from './BalancePrivacyToggle';
+export * from './PriorityFeeSelector';
