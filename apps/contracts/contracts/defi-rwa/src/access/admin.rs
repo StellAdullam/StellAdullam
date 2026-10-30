@@ -51,6 +51,7 @@ impl AdminControl {
     }
 
     pub fn transfer_admin_accept(env: &Env, new_admin: &Address) {
+        new_admin.require_auth();
         let pending: Option<Address> = env.storage().instance().get(&RoleKey::PendingAdmin);
 
         match pending {
