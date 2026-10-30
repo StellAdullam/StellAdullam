@@ -1,6 +1,7 @@
 import { Elysia } from 'elysia';
 import { rpc as SorobanRpc } from '@stellar/stellar-sdk';
 import { StellarNetworkService } from '../services/StellarNetworkService';
+import { GasPriceEstimationService } from '../services/GasPriceEstimationService';
 
 const SOROBAN_RPC_URL = process.env.SOROBAN_RPC_URL ?? 'https://soroban-testnet.stellar.org';
 
@@ -128,4 +129,8 @@ export const ledgerRoutes = new Elysia({ prefix: '/api/ledger' })
   )
   .get('/status', async () => {
     return await StellarNetworkService.getNetworkStatus();
+  })
+  .get('/fees', async () => {
+    const netStatus = await StellarNetworkService.getNetworkStatus();
+    return GasPriceEstimationService.estimateFees(netStatus.baseFeeStroops);
   });
