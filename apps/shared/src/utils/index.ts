@@ -35,3 +35,4 @@ export * from "./slug";
 export * from "./chunk";
 export * from "./stroop";
 export * from "./random";
+export * from "./clone";
