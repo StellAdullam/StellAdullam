@@ -9,3 +9,4 @@ export * from './GasEstimateBadge';
 export * from './ExportCsvButton';
 export * from './AutoRefreshToggle';
 export * from './NetworkCongestionPill';
+export * from './BalancePrivacyToggle';
