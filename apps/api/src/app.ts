@@ -15,7 +15,7 @@ import { exportRoutes } from './routes/export';
 import { simulationRoutes } from './routes/simulation';
 import { ipfsRoutes } from './routes/ipfs';
 import { errorHandler } from './middleware/errorHandler';
-import { requestLogger, requestTracing } from './middleware';
+import { requestLogger, requestTracing, securityHeaders } from './middleware';
 
 /**
  * Base Elysia app without swagger
@@ -25,6 +25,7 @@ const app = new Elysia()
   .use(requestTracing)
   .use(requestLogger)
   .use(cors())
+  .use(securityHeaders)
   .use(errorHandler)
   .use(authRoutes)
   .use(propertyRoutes)
