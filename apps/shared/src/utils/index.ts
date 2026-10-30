@@ -37,3 +37,4 @@ export * from "./stroop";
 export * from "./random";
 export * from "./clone";
 export * from "./color-interpolate";
+export * from "./clamp";
