@@ -43,3 +43,4 @@ export * from "./time-ago";
 export * from "./query-string";
 export * from "./unique";
 export * from "./truncate";
+export * from "./safe-math";
