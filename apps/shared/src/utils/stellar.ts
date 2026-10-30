@@ -281,3 +281,27 @@ export class StellarService {
 }
 
 export const stellarService = new StellarService();
+
+/**
+ * Nominal branded type ensuring an address has been validated as a Stellar public key (G...)
+ */
+export type StellarAddress = string & { readonly __brand: unique symbol };
+
+/**
+ * Validates whether a string is a valid Stellar Ed25519 public key (starts with 'G' and passes CRC checksum).
+ */
+export function isValidStellarPublicKey(value: unknown): value is StellarAddress {
+  if (typeof value !== "string" || value.length !== 56 || !value.startsWith("G")) {
+    return false;
+  }
+  return StrKey.isValidEd25519PublicKey(value);
+}
+
+/**
+ * Validates and casts an address to StellarAddress, throwing if invalid.
+ */
+export function assertStellarAddress(value: string, fieldName = "address"): asserts value is StellarAddress {
+  if (!isValidStellarPublicKey(value)) {
+    throw new Error(`Invalid Stellar address format for ${fieldName}: ${value}`);
+  }
+}
