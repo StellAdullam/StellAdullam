@@ -60,3 +60,4 @@ export * from "./mask-email";
 export * from "./shuffle";
 export * from "./title-case";
 export * from "./shallow-equal";
+export * from "./currency-symbols";
