@@ -48,15 +48,11 @@ jobs:
           brew install stellar-cli
           stellar --version
           
-      - name: Cache cargo registry
-        uses: actions/cache@v4
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-cargo-
+          workspaces: |
+            apps/contracts -> target
             
       - name: Check Rust formatting
         run: |
@@ -73,12 +69,14 @@ jobs:
           cd apps/contracts
           cargo build --target wasm32v1-none --release
           ls -la target/wasm32v1-none/release/
+          echo "=== Soroban WASM Artifact Size Audit ==="
           for file in target/wasm32v1-none/release/*.wasm; do
             if [ -f "$file" ]; then
-              size=$(stat -f%z "$file")
-              echo "Contract size: $size bytes"
+              size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file")
+              filename=$(basename "$file")
+              echo "Binary: $filename | Size: $size bytes | Limit: 1,048,576 bytes"
               if [ $size -gt 1048576 ]; then
-                echo "Error: Contract size exceeds 1MB limit"
+                echo "Error: Contract $filename size exceeds 1MB limit"
                 exit 1
               fi
             fi
