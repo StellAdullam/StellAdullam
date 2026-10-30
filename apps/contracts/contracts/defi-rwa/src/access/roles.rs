@@ -33,6 +33,9 @@ pub struct PendingRecoveryData {
 pub enum RoleKey {
     Admin,
     Paused,
+    PauseDeposits,
+    PauseBorrows,
+    PauseLiquidations,
     HasRole(Address, Role),
     RoleMembers(Role),
     PendingAdmin,
