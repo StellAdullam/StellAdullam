@@ -88,6 +88,11 @@ impl GamePropertyNft {
             .unwrap_or(0)
     }
 
+    /// Returns the maximum NFT supply cap (400 tiles for the 20x20 grid).
+    pub fn get_max_supply(_env: Env) -> u32 {
+        TOTAL_TILES
+    }
+
     /// Mint all 400 tiles to `treasury` logically.
     pub fn initialize(env: Env, treasury: Address, game_engine: Address) {
         let ownable = Ownable::new(symbol_short!("prop_nft"));
