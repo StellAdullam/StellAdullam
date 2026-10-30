@@ -51,3 +51,4 @@ export * from "./roman";
 export * from "./ordinal";
 export * from "./case";
 export * from "./partition";
+export * from "./duration";
