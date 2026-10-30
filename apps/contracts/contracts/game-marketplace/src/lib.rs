@@ -267,6 +267,11 @@ impl GameMarketplace {
         env.storage().instance().get(&DataKey::Listing(property_id))
     }
 
+    /// Checks whether a specific property is currently listed for sale on the marketplace.
+    pub fn is_listed(env: Env, property_id: u32) -> bool {
+        env.storage().instance().has(&DataKey::Listing(property_id))
+    }
+
     /// Return a paginated slice of active listings.
     pub fn get_all_listings(env: Env, offset: u32, limit: u32) -> Vec<Listing> {
         let ids: Vec<u32> = env
@@ -506,5 +511,14 @@ mod tests {
         s.nft.approve(&s.treasury, &s.marketplace_id, &9);
         s.marketplace.list(&s.treasury, &9, &100);
         assert_eq!(s.marketplace.get_listing_count(), 1);
+    }
+
+    #[test]
+    fn test_is_listed_query() {
+        let s = setup();
+        assert_eq!(s.marketplace.is_listed(&10), false);
+        s.nft.approve(&s.treasury, &s.marketplace_id, &10);
+        s.marketplace.list(&s.treasury, &10, &100);
+        assert_eq!(s.marketplace.is_listed(&10), true);
     }
 }
