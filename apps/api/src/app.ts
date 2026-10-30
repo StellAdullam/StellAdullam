@@ -13,6 +13,7 @@ import { analyticsRoutes } from './routes/analytics';
 import { funderRoutes } from './routes/funder';
 import { exportRoutes } from './routes/export';
 import { simulationRoutes } from './routes/simulation';
+import { ipfsRoutes } from './routes/ipfs';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware';
 
@@ -32,6 +33,7 @@ const app = new Elysia()
   .use(funderRoutes)
   .use(exportRoutes)
   .use(simulationRoutes)
+  .use(ipfsRoutes)
   .use(userRoutes)
   .use(kycRoutes)
   .use(webhookRoutes)

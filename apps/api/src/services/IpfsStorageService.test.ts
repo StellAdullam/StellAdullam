@@ -13,4 +13,16 @@ describe('IpfsStorageService', () => {
     expect(result.sizeBytes).toBe(mockFile.length);
     expect(result.gatewayUrl).toBe(`https://gateway.pinata.cloud/ipfs/${result.cid}`);
   });
+
+  it('resolves metadata and utilizes memory cache for repeated queries', async () => {
+    const service = new IpfsStorageService();
+    const cid = 'bafybeicz1234567890abcdef';
+
+    const first = await service.resolveMetadata(cid);
+    expect(first.cid).toBe(cid);
+    expect(first.verified).toBe(true);
+
+    const second = await service.resolveMetadata(cid);
+    expect(second).toBe(first); // exact cached reference
+  });
 });
