@@ -4,3 +4,4 @@ export * from './CollateralDepositModal';
 export * from './LoanRepaymentModal';
 export * from './PoolActionModal';
 export * from './LiquidationAlertBell';
+export * from './ApyForecastCalculator';
