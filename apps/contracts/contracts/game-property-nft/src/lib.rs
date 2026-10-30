@@ -65,6 +65,16 @@ impl GamePropertyNft {
         TOTAL_TILES
     }
 
+    /// Query the horizontal parcel dimension of the city grid matrix.
+    pub fn get_grid_width(_env: Env) -> u32 {
+        GRID_WIDTH
+    }
+
+    /// Query the vertical parcel dimension of the city grid matrix.
+    pub fn get_grid_height(_env: Env) -> u32 {
+        GRID_HEIGHT
+    }
+
     /// Mint all 400 tiles to `treasury` logically.
     pub fn initialize(env: Env, treasury: Address, game_engine: Address) {
         let ownable = Ownable::new(symbol_short!("prop_nft"));
