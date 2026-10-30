@@ -23,3 +23,4 @@ export * from "./debounce";
 export * from "./currency";
 export * from "./deep-merge";
 export * from "./env-detect";
+export * from "./promise-limiter";
