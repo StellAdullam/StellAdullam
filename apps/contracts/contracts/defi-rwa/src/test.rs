@@ -111,10 +111,11 @@ fn create_default_pool(setup: &TestSetup) -> String {
 }
 
 // Helper for direct storage tests that used PropertyTokenContract previously
-fn setup_internal() -> (Address, Env) {
+fn setup_internal() -> (Address, Env, Address) {
     let env = Env::default();
     let admin = Address::generate(&env);
-    (env.register(PropertyTokenContract, (&admin,)), env)
+    let contract_id = env.register(PropertyTokenContract, (&admin,));
+    (contract_id, env, admin)
 }
 
 // Store and retrieve LendingPool
@@ -827,24 +828,19 @@ fn test_withdraw_emits_event() {
 
 #[test]
 fn test_admin_initialization() {
-    let (contract_id, env) = setup_internal();
-    let admin = Address::generate(&env);
+    let (contract_id, env, admin) = setup_internal();
     env.as_contract(&contract_id, || {
-        use super::access::roles::{Role, RoleKey, RoleStorage};
-        env.storage().instance().set(&RoleKey::Admin, &admin);
-        RoleStorage::grant_role(&env, &admin, &Role::Admin);
         let expected_admin = AdminControl::get_admin(&env).unwrap();
         assert_eq!(admin, expected_admin);
+        assert!(AdminControl::is_admin(&env, &admin));
     });
 }
 
 #[test]
 #[should_panic(expected = "Caller not admin")]
 fn test_require_admin_fails() {
-    let (contract_id, env) = setup_internal();
-    let admin = Address::generate(&env);
+    let (contract_id, env, admin) = setup_internal();
     let other = Address::generate(&env);
-    // AdminControl::initialize(&env.as_contract(&contract_id, f), &admin);
     env.as_contract(&contract_id, || {
         AdminControl::require_admin(&env, &admin);
         AdminControl::require_admin(&env, &other);
@@ -853,14 +849,9 @@ fn test_require_admin_fails() {
 
 #[test]
 fn test_admin_transfer() {
-    let (contract_id, env) = setup_internal();
-    let admin = Address::generate(&env);
+    let (contract_id, env, admin) = setup_internal();
     let new_admin = Address::generate(&env);
     env.as_contract(&contract_id, || {
-        use super::access::roles::{Role, RoleKey, RoleStorage};
-        env.storage().instance().set(&RoleKey::Admin, &admin);
-        RoleStorage::grant_role(&env, &admin, &Role::Admin);
-
         // Start transfer
         AdminControl::transfer_admin_start(&env, &admin, &new_admin);
         assert_eq!(
@@ -877,12 +868,8 @@ fn test_admin_transfer() {
 
 #[test]
 fn test_pause_unpause() {
-    let (contract_id, env) = setup_internal();
-    let admin = Address::generate(&env);
+    let (contract_id, env, admin) = setup_internal();
     env.as_contract(&contract_id, || {
-        use super::access::roles::{Role, RoleKey, RoleStorage};
-        env.storage().instance().set(&RoleKey::Admin, &admin);
-        RoleStorage::grant_role(&env, &admin, &Role::Admin);
         assert!(!PauseControl::is_paused(&env));
         PauseControl::pause(&env, &admin);
         assert!(PauseControl::is_paused(&env));
@@ -3176,3 +3163,4 @@ fn test_property_index_grows_faster_with_higher_rate() {
         "Higher borrow rate should produce higher interest index"
     );
 }
+

@@ -134,6 +134,7 @@ impl PropertyTokenContract {
     // ─── Constructor ───────────────────────────
     pub fn __constructor(env: Env, admin: Address) {
         set_lending_admin(&env, &admin);
+        AdminControl::initialize(&env, &admin);
     }
 
     // ─── Share Management (Admin) ──────────────
@@ -644,3 +645,4 @@ impl PropertyTokenContract {
         RoleStorage::revoke_role(&env, &target, &Role::EmergencyGuard);
     }
 }
+
