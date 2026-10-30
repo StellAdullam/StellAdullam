@@ -8,3 +8,4 @@ export * from './ApyForecastCalculator';
 export * from './CollateralRatioBar';
 export * from './ProjectedHealthFactorPill';
 export * from './CollateralLockupModal';
+export * from './HealthFactorSimulatorModal';
