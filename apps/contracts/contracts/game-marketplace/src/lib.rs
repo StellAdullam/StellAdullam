@@ -33,6 +33,7 @@ pub struct Listing {
 enum DataKey {
     NftContract,
     LandToken,
+    Treasury,
     Listing(u32),
     AllListings,
     Guard,
@@ -186,8 +187,18 @@ impl GameMarketplace {
             .remove(&DataKey::Listing(property_id));
         Self::remove_from_all_listings(&env, property_id);
 
-        // Transfer LAND from buyer to seller.
-        land_client.transfer(&buyer, &listing.seller, &listing.price);
+        // Transfer LAND: route 1% protocol fee to treasury if configured, remainder to seller
+        let treasury: Option<Address> = env.storage().instance().get(&DataKey::Treasury);
+        if let Some(treasury_addr) = treasury {
+            let fee = (listing.price * 100) / 10_000; // 1% (100 bps)
+            let seller_proceeds = listing.price - fee;
+            if fee > 0 {
+                land_client.transfer(&buyer, &treasury_addr, &fee);
+            }
+            land_client.transfer(&buyer, &listing.seller, &seller_proceeds);
+        } else {
+            land_client.transfer(&buyer, &listing.seller, &listing.price);
+        }
 
         // Transfer NFT from escrow (this contract) to buyer.
         let marketplace = env.current_contract_address();
