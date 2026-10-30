@@ -20,3 +20,4 @@ export * from "./event-topics";
 export * from "./type-guards";
 export * from "./address";
 export * from "./debounce";
+export * from "./currency";
