@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { jwt } from '@elysiajs/jwt';
 import { validate, rateLimit } from '../middleware';
 import { AuthController } from '../controllers/AuthController';
+import { sessionService } from '../services/SessionService';
 
 const challengeSchema = z.object({
   stellarAddress: z
@@ -33,4 +34,25 @@ export const authRoutes = new Elysia({ prefix: '/auth' })
   .use(validate({ body: sessionSchema }))
   .post('/session', async (ctx) => AuthController.verifySession(ctx), {
     beforeHandle: [rateLimit()],
+  })
+
+  // POST /auth/refresh - Silent rotation of valid session tokens
+  .post('/refresh', async ({ request, set }) => {
+    const authHeader = request.headers.get('authorization');
+    const token = authHeader?.replace(/^Bearer\s+/i, '');
+    if (!token) {
+      set.status = 401;
+      return { success: false, error: 'Missing authorization token' };
+    }
+
+    const refreshed = sessionService.refreshSession(token);
+    if (!refreshed) {
+      set.status = 401;
+      return { success: false, error: 'Invalid or expired session token' };
+    }
+
+    return {
+      success: true,
+      data: refreshed,
+    };
   });
