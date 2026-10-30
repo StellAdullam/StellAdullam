@@ -61,3 +61,4 @@ export * from "./shuffle";
 export * from "./title-case";
 export * from "./shallow-equal";
 export * from "./currency-symbols";
+export * from "./clamp-percent";
