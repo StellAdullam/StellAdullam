@@ -17,6 +17,7 @@ An oracle incident manifests as one of four panics in the Soroban contract (Issu
 | `"Invalid price: price must be positive"` | `oracle.rs` - `get_price`          | Oracle returned a zero or negative raw price                   |
 | `"Price data is stale"`                   | `oracle.rs` - `get_price`          | Price timestamp exceeds the configured `max_age` threshold     |
 | `"Price below minimum threshold"`         | `oracle.rs` - `get_price`          | Normalized price is below the configured `min_price` floor     |
+| `"Price timestamp is in the future"`      | `oracle.rs` - `get_price`          | Oracle price timestamp exceeds ledger time by >60 seconds      |
 
 All five panics terminate every `borrow()` call. `deposit()`, `withdraw()`, and `repay()` are **not** affected - existing depositors and borrowers can still exit positions. Only new borrowing is blocked.
 
@@ -50,6 +51,7 @@ Read the error:
 - `"Invalid price: price must be positive"` → go to **Scenario C** (bad price feed)
 - `"Price data is stale"` → go to **Scenario B** (staleness)
 - `"Price below minimum threshold"` → go to **Scenario C** (price floor breach)
+- `"Price timestamp is in the future"` → go to **Scenario C** (clock drift / timestamp manipulation)
 - Any other error → oracle is not the root cause; check pool status and contract pause state
 
 ### 2. Check active guardrail configuration
