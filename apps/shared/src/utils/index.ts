@@ -13,3 +13,4 @@ export * from "./math";
 export * from "./explorer";
 export * from "./grid";
 export * from "./merkle";
+export * from "./circuit-breaker";
