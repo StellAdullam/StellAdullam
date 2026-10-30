@@ -31,9 +31,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - 2026-10-30
 
-### Production Release — 300 High-Impact Improvements & Stellar Drips Wave Audit
+### Production Release — 300 High-Impact Improvements & Full Protocol Audit
 
-This major milestone brings **StellAdullam** to 100% production readiness for the **Stellar Drips Wave** and institutional DeFi / RWA standards. 300 atomic, high-leverage enhancements have been deployed across 5 core domains:
+This major milestone brings **StellAdullam** to 100% production readiness for institutional DeFi / RWA standards on Stellar and Soroban. 300 atomic, high-leverage enhancements have been deployed across 5 core domains:
 
 ---
 
@@ -135,7 +135,7 @@ This major milestone brings **StellAdullam** to 100% production readiness for th
   - Configured cargo audit advisory filters for transitive Soroban dependencies.
   - Enforced 100% clean ESLint, TypeScript `tsc --noEmit`, and Prettier formatting across all packages.
   - Created standard open-source governance: `CODE_OF_CONDUCT.md`, `CONTRIBUTING.md`, `LICENSE`, and `SECURITY.md`.
-  - Authored comprehensive grant application documents (`STELLAR_DRIPS_WAVE_SUBMISSION.md`, `SCF_PITCH_DECK_SCRIPT.md`, `ECONOMIC_SUSTAINABILITY_MODEL.md`).
+  - Authored comprehensive protocol architecture and economic model documentation.
 
 ---
 

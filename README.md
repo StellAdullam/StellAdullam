@@ -10,7 +10,6 @@
 [![Contracts CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/contracts-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/contracts-ci.yml)
 [![Shared CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/shared-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/shared-ci.yml)
 [![Land CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/land-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/land-ci.yml)
-[![Stellar Drips Wave](https://img.shields.io/badge/Stellar-Drips_Wave_2026-blueviolet.svg)](docs/grants/STELLAR_DRIPS_WAVE_SUBMISSION.md)
 [![Soroban](https://img.shields.io/badge/Soroban-v25.3_Rust_WASM-orange.svg)](https://soroban.stellar.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Live Testnet](https://img.shields.io/badge/Network-Stellar_Testnet-success.svg)](https://stellar.expert/explorer/testnet)
@@ -18,18 +17,50 @@
 [![Vercel Land](https://img.shields.io/badge/Vercel-stelladullam--land.vercel.app-black?logo=vercel)](https://stelladullam-land.vercel.app)
 
 <p align="center">
+  <a href="#-live-deployments--smart-contracts">Live Contracts & Demos</a> •
   <a href="#overview">Overview</a> •
-  <a href="#live-deployments--demos">Live Demos</a> •
-  <a href="#live-smart-contracts-stellar-testnet">Smart Contracts</a> •
-  <a href="#stellar-drips-wave-grant-alignment">Drips Wave Alignment</a> •
+  <a href="#key-stellar-blockchain-advantages">Stellar Advantages</a> •
   <a href="#architecture">Architecture</a> •
   <a href="#features">Features</a> •
   <a href="#getting-started">Getting Started</a> •
+  <a href="#frontend-deployment">Frontend Deployment</a> •
   <a href="#changelog--300-improvements">Changelog</a> •
   <a href="#governance--security">Governance</a>
 </p>
 
 </div>
+
+---
+
+## ⚡ Live Deployments & Smart Contracts
+
+### 🌐 Live Production Frontend Applications
+
+Both applications are deployed to production on **Vercel** with full SSL, global CDN edge routing, and continuous integration:
+
+| Application | Live URL | Description | Status |
+| :--- | :--- | :--- | :---: |
+| **StellAdullam WebApp** | [https://stelladullam.vercel.app](https://stelladullam.vercel.app) | Institutional DeFi lending, RWA fractional tokenization, and investor dashboard | ![Production](https://img.shields.io/badge/Status-Live_Production-success) |
+| **StellAdullam Land** | [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app) | 20×20 GPU-accelerated spatial city canvas, tile trading, and micro-rental yields | ![Production](https://img.shields.io/badge/Status-Live_Production-success) |
+
+---
+
+### 📜 Live Smart Contracts (Stellar Testnet)
+
+All smart contracts are compiled to `wasm32v1-none`, deployed, and initialized on the **Stellar Testnet**:
+
+| Contract Name | Directory | Testnet Contract ID | Block Explorer Links | State |
+| :--- | :--- | :--- | :--- | :---: |
+| **`defi-rwa`** | `apps/contracts/contracts/defi-rwa` | [`CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV`](https://stellar.expert/explorer/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV) | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV) • [Stellar Lab](https://lab.stellar.org/r/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV) | Active / Initialized |
+| **`game-property-nft`** | `apps/contracts/contracts/game-property-nft` | [`CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK`](https://stellar.expert/explorer/testnet/contract/CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK) | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK) • [Stellar Lab](https://lab.stellar.org/r/testnet/contract/CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK) | Active / Initialized |
+| **`game-land-token`** | `apps/contracts/contracts/game-land-token` | [`CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2`](https://stellar.expert/explorer/testnet/contract/CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2) | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2) • [Stellar Lab](https://lab.stellar.org/r/testnet/contract/CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2) | Active / Initialized |
+| **`game-engine`** | `apps/contracts/contracts/game-engine` | [`CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC`](https://stellar.expert/explorer/testnet/contract/CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC) | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC) • [Stellar Lab](https://lab.stellar.org/r/testnet/contract/CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC) | Active / Initialized |
+| **`game-marketplace`** | `apps/contracts/contracts/game-marketplace` | [`CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V`](https://stellar.expert/explorer/testnet/contract/CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V) | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V) • [Stellar Lab](https://lab.stellar.org/r/testnet/contract/CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V) | Active / Initialized |
+
+#### Network & Identity Configuration
+- **Deployer / Protocol Treasury Account**: [`GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL`](https://stellar.expert/explorer/testnet/account/GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL)
+- **Soroban RPC Endpoint**: `https://soroban-testnet.stellar.org`
+- **Network Passphrase**: `Test SDF Network ; September 2015`
 
 ---
 
@@ -46,9 +77,9 @@ StellAdullam resolves both challenges simultaneously:
 
 ---
 
-## Stellar Drips Wave Grant Alignment
+## Key Stellar Blockchain Advantages
 
-StellAdullam was architected from day one to maximize and showcase the unique technical strengths of the **Stellar Network**:
+StellAdullam leverages the unique technical strengths of the **Stellar Network**:
 
 | Stellar Capability | How StellAdullam Leverages It | Impact |
 | :--- | :--- | :--- |
@@ -57,8 +88,6 @@ StellAdullam was architected from day one to maximize and showcase the unique te
 | **Soroban Smart Contracts (Rust + WASM)** | Formally structured, resource-budgeted smart contracts (`defi-rwa`, `game-engine`, `game-marketplace`). | Memory-safe, deterministic financial calculations and predictable resource fees. |
 | **SEP Compliance (SEP-0008, SEP-0041)** | Smart-contract enforceable KYC accreditation, transfer restrictions, and standard token interoperability. | Direct institutional regulatory compliance and cross-app composability. |
 | **Account Sponsorship & Fee Bumps** | Built-in `GasSponsorshipService` and `FeeBumpService` allowing the protocol to sponsor user transactions. | Frictionless Web2-to-Web3 onboarding without requiring users to hold initial XLM. |
-
-*Comprehensive documentation available in [docs/grants/STELLAR_DRIPS_WAVE_SUBMISSION.md](docs/grants/STELLAR_DRIPS_WAVE_SUBMISSION.md) and [docs/grants/ECONOMIC_SUSTAINABILITY_MODEL.md](docs/grants/ECONOMIC_SUSTAINABILITY_MODEL.md).*
 
 ---
 
@@ -104,50 +133,41 @@ flowchart TD
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Issuer as Property Issuer
-    participant WebApp as Webapp Portal
-    participant API as Backend Indexer
-    participant IPFS as IPFS Gateway
-    participant Soroban as Soroban (defi-rwa)
-    participant Stellar as Stellar Ledger
+    actor Issuer as Property Owner
+    participant App as StellAdullam WebApp
+    participant API as Protocol API & IPFS
+    participant Soroban as defi-rwa (Soroban)
+    participant Ledger as Stellar Ledger
 
-    Issuer->>WebApp: Submit Property Deed & Legal Appraisal
-    WebApp->>IPFS: Upload Documents (Deterministic CIDv1)
-    IPFS-->>WebApp: Returns multi-hash CID
-    WebApp->>API: Request KYC Accreditation Verification
-    API-->>WebApp: Signed Accreditation Voucher
-    Issuer->>WebApp: Confirm Minting Transaction (Freighter/Privy)
-    WebApp->>Soroban: invoke `tokenize_property(deed_cid, total_shares, valuation)`
-    Soroban->>Stellar: Mint SEP-0041 Compliant Shares
-    Stellar-->>API: Emit `TokenizeProperty` Ledger Event
-    API->>API: Ingest & Index New RWA Pool
-    API-->>WebApp: Real-Time SSE Stream Update
+    Issuer->>App: Submit Deed, Valuation & Legal Filings
+    App->>API: Upload KYC & Documents
+    API->>API: Generate SHA-256 Multi-Hash & Pin to IPFS
+    API-->>App: Return Canonical CID
+    App->>Soroban: tokenize_property(deed_cid, valuation, share_supply)
+    Soroban->>Soroban: Enforce Whitelist & Store Asset State
+    Soroban->>Ledger: Mint SEP-0041 Fungible Share Tokens
+    Ledger-->>Issuer: Fractional Shares Allocated to Wallet
 ```
 
-#### 2. Collateralized Borrowing & Dynamic Health Factor
+#### 2. Collateralized Borrowing & Liquidation Keepers
 ```mermaid
 sequenceDiagram
     autonumber
-    actor Borrower as Institutional Borrower
-    participant WebApp as Lending Dashboard
-    participant Soroban as Soroban (defi-rwa)
-    participant Oracle as Signed Price Oracle
-    participant Keeper as Autonomous Liquidator Worker
+    actor Borrower as Token Holder
+    participant Pool as defi-rwa Lending Pool
+    participant Oracle as Reflector / Band Oracle
+    participant Keeper as Liquidator Bot (API)
 
-    Borrower->>WebApp: Select Collateral Amount & Desired Loan (USDC)
-    WebApp->>WebApp: Simulate Health Factor & APY (Client SDK)
-    Borrower->>Soroban: invoke `deposit_collateral(shares_amount)`
-    Soroban->>Soroban: Lock shares in escrow & compute max borrow allowance
-    Borrower->>Soroban: invoke `borrow(amount_usdc)`
-    Soroban->>Borrower: Transfer loan principal from liquidity pool
-    loop Ledger Close (~5 seconds)
-        Keeper->>Oracle: Query Verified Appraisal Freshness
-        Keeper->>Soroban: Evaluate Borrower Health Factors
-        alt Health Factor < 1.0
-            Keeper->>Soroban: invoke `liquidate_position(borrower_id)`
-            Soroban->>Keeper: Distribute 5% liquidation bounty & settle debt
-        end
-    end
+    Borrower->>Pool: deposit_collateral(property_id, share_count)
+    Pool->>Oracle: Fetch Real-Time Valuation
+    Oracle-->>Pool: Asset Value Certified
+    Borrower->>Pool: borrow(amount_usdc)
+    Pool->>Borrower: Transfer Liquid Stablecoins
+    Note over Pool,Keeper: Market Downturn: Collateral Value Drops
+    Keeper->>Pool: check_health_factor(borrower)
+    Pool-->>Keeper: Health Factor < 1.0 (Liquidation Alert)
+    Keeper->>Pool: liquidate(borrower, debt_to_cover)
+    Pool->>Keeper: Seize Collateral Shares + 5% Liquidator Bonus
 ```
 
 ---
@@ -171,35 +191,6 @@ sequenceDiagram
 - **Micro-Rental Yield Engine**: Parcels continuously generate LAND tokens based on district density and architectural upgrade tier.
 - **Built-in Atomic Marketplace**: Non-custodial escrow order book for trading land deeds and property NFTs with sub-second execution.
 - **Spatial HUD & Spatial Sound**: Web Audio API synthesized soundscapes, compass coordinate jumping, density heatmaps, and day/night ambient city cycles.
-
----
-
-## Live Deployments & Demos
-
-Both applications are deployed and running live on **Vercel** with full SSL and global edge routing:
-
-| Application | Live URL | Description | Status |
-| :--- | :--- | :--- | :---: |
-| **StellAdullam WebApp** | [https://stelladullam.vercel.app](https://stelladullam.vercel.app) | Institutional DeFi lending, RWA tokenization, and investor dashboard | ![Ready](https://img.shields.io/badge/Status-Live_Production-success) |
-| **StellAdullam Land** | [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app) | 20×20 GPU-accelerated spatial city canvas, tile trading, and micro-rental yields | ![Ready](https://img.shields.io/badge/Status-Live_Production-success) |
-
----
-
-## Live Smart Contracts (Stellar Testnet)
-
-All core protocol and game engine contracts are compiled to `wasm32v1-none`, deployed, and initialized on the **Stellar Testnet**:
-
-| Contract Name | Directory | Testnet Contract ID | Explorer Link | Initialized |
-| :--- | :--- | :--- | :--- | :---: |
-| `defi-rwa` | `apps/contracts/contracts/defi-rwa` | `CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV) | Yes |
-| `game-property-nft`| `apps/contracts/contracts/game-property-nft`| `CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK) | Yes |
-| `game-land-token` | `apps/contracts/contracts/game-land-token` | `CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2) | Yes |
-| `game-engine` | `apps/contracts/contracts/game-engine` | `CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC) | Yes |
-| `game-marketplace`| `apps/contracts/contracts/game-marketplace`| `CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V) | Yes |
-
-- **Deployer / Protocol Treasury Account**: [`GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL`](https://stellar.expert/explorer/testnet/account/GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL)
-- **Soroban RPC Endpoint**: `https://soroban-testnet.stellar.org`
-- **Network Passphrase**: `Test SDF Network ; September 2015`
 
 ---
 
@@ -284,7 +275,7 @@ bun run dev
 
 ## Changelog & 300 Improvements
 
-In preparation for the Stellar Drips Wave submission, the StellAdullam repository underwent a comprehensive, brutal audit and executed **300 production-ready atomic improvements** across 5 batches of 60 items each:
+For the production release of StellAdullam, the protocol implemented **300 production-ready atomic improvements** across 5 core domains:
 
 - **Smart Contracts (60 Actions)**: Added continuous dividend distribution, bad-debt socialized backstops, reentrancy guards, storage footprint optimization, and dynamic interest curve math.
 - **Backend & Indexer (60 Actions)**: Implemented autonomous liquidation worker, IPFS CIDv1 validation, SQL sanitization, sliding-window rate limiters, Horizon RPC failover, and transaction fee sponsorship.

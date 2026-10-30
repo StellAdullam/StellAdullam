@@ -40,6 +40,6 @@
 
 ---
 
-## Related Issues / Hackathon Tracks
+## Related Issues
 
-<!-- Fixes #123 / Closes #456 / Stellar Drips Wave Track -->
+<!-- Fixes #123 / Closes #456 -->
