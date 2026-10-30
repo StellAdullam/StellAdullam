@@ -218,6 +218,13 @@ impl GameEngine {
             .get(&StorageKey::Treasury)
             .unwrap()
     }
+
+    pub fn get_token_contract(env: Env) -> Address {
+        env.storage()
+            .instance()
+            .get(&StorageKey::TokenContract)
+            .unwrap()
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -605,5 +612,11 @@ mod tests {
     fn test_get_treasury_matches_initialized() {
         let test = setup_test();
         assert_eq!(test.engine_client.get_treasury(), test.treasury);
+    }
+
+    #[test]
+    fn test_get_token_contract_matches_initialized() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_token_contract(), test.token_client.address);
     }
 }
