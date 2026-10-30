@@ -28,3 +28,5 @@ export { TradeVolumeBadge } from "./TradeVolumeBadge";
 export type { TradeVolumeBadgeProps } from "./TradeVolumeBadge";
 export { RoiCalculatorModal } from "./RoiCalculatorModal";
 export type { RoiCalculatorModalProps } from "./RoiCalculatorModal";
+export { ShareFractionSlider } from "./ShareFractionSlider";
+export type { ShareFractionSliderProps } from "./ShareFractionSlider";
