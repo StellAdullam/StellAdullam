@@ -26,3 +26,5 @@ export { RentalSaturationBadge } from "./RentalSaturationBadge";
 export type { RentalSaturationBadgeProps } from "./RentalSaturationBadge";
 export { TradeVolumeBadge } from "./TradeVolumeBadge";
 export type { TradeVolumeBadgeProps } from "./TradeVolumeBadge";
+export { RoiCalculatorModal } from "./RoiCalculatorModal";
+export type { RoiCalculatorModalProps } from "./RoiCalculatorModal";
