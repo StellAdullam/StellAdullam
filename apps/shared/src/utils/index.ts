@@ -56,3 +56,4 @@ export * from "./percentage-change";
 export * from "./group-by";
 export * from "./round";
 export * from "./parse-boolean";
+export * from "./mask-email";
