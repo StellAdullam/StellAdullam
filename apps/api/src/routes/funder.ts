@@ -1,5 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { isValidStellarAddress } from '@stelladullam/shared';
+import { GasSponsorshipService } from '../services/GasSponsorshipService';
 
 export const funderRoutes = new Elysia({ prefix: '/api/v1/funder' })
   .post(
@@ -58,12 +59,12 @@ export const funderRoutes = new Elysia({ prefix: '/api/v1/funder' })
         };
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : 'Unknown network error';
-        set.status = 502;
+        set.status = 500;
         return {
           success: false,
           error: {
-            code: 'FRIENDBOT_UNREACHABLE',
-            message: `Failed to contact Stellar Friendbot: ${message}`,
+            code: 'FUNDING_FAILED',
+            message,
           },
         };
       }
@@ -71,6 +72,53 @@ export const funderRoutes = new Elysia({ prefix: '/api/v1/funder' })
     {
       body: t.Object({
         address: t.String(),
+      }),
+    },
+  )
+  .post(
+    '/sponsor',
+    ({ body: { address, innerTxXdr }, set }) => {
+      if (!isValidStellarAddress(address)) {
+        set.status = 400;
+        return {
+          success: false,
+          error: {
+            code: 'INVALID_ADDRESS',
+            message: `The provided address '${address}' is not a valid Stellar public key.`,
+          },
+        };
+      }
+
+      const eligibility = GasSponsorshipService.checkEligibility(address);
+      if (!eligibility.eligible) {
+        set.status = 429;
+        return {
+          success: false,
+          error: {
+            code: 'QUOTA_EXCEEDED',
+            message: eligibility.reason || 'Daily gas sponsorship quota exceeded.',
+          },
+        };
+      }
+
+      GasSponsorshipService.recordSponsorship(address);
+
+      return {
+        success: true,
+        data: {
+          address,
+          sponsored: true,
+          sponsoredFeeStroops: 200,
+          remainingDailyQuota: eligibility.remainingDailyQuota - 1,
+          innerTxXdr,
+          message: 'Transaction successfully approved for protocol fee-bump sponsorship.',
+        },
+      };
+    },
+    {
+      body: t.Object({
+        address: t.String(),
+        innerTxXdr: t.String({ minLength: 10 }),
       }),
     },
   );
