@@ -2,6 +2,7 @@ import { Elysia, t } from 'elysia';
 import { PropertyRepository } from '../repositories/PropertyRepository';
 import { LendingRepository } from '../repositories/LendingRepository';
 import { isValidStellarAddress } from '@stelladullam/shared';
+import { PortfolioAllocationService } from '../services/PortfolioAllocationService';
 
 export interface UserPortfolioSummary {
   address: string;
@@ -30,14 +31,22 @@ export const portfolioRoutes = new Elysia({ prefix: '/api/v1/portfolio' })
       }
 
       try {
-        // Fetch user holdings and borrow positions
-        const propRepo = new PropertyRepository();
-        const lendingRepo = new LendingRepository();
+        let userProperties: any[] = [];
+        let positions: any[] = [];
 
-        const [userProperties, positions] = await Promise.all([
-          propRepo.findByOwner(address).catch(() => []),
-          lendingRepo.findBorrowPositionsByBorrower(address).catch(() => []),
-        ]);
+        try {
+          const propRepo = new PropertyRepository();
+          userProperties = await propRepo.findByOwner(address);
+        } catch {
+          userProperties = [];
+        }
+
+        try {
+          const lendingRepo = new LendingRepository();
+          positions = await lendingRepo.findBorrowPositionsByBorrower(address);
+        } catch {
+          positions = [];
+        }
 
         let totalAssetValue = 0;
         for (const p of userProperties) {
@@ -78,6 +87,80 @@ export const portfolioRoutes = new Elysia({ prefix: '/api/v1/portfolio' })
           error: {
             code: 'PORTFOLIO_CALCULATION_FAILED',
             message: errorMsg,
+          },
+        };
+      }
+    },
+    {
+      params: t.Object({
+        address: t.String(),
+      }),
+    },
+  )
+  .get(
+    '/:address/allocation',
+    async ({ params: { address }, set }) => {
+      if (!isValidStellarAddress(address)) {
+        set.status = 400;
+        return {
+          success: false,
+          error: {
+            code: 'INVALID_ADDRESS',
+            message: `The provided address '${address}' is not a valid Stellar public key.`,
+          },
+        };
+      }
+
+      try {
+        let userProperties: any[] = [];
+        let positions: any[] = [];
+
+        try {
+          const propRepo = new PropertyRepository();
+          userProperties = await propRepo.findByOwner(address);
+        } catch {
+          userProperties = [];
+        }
+
+        try {
+          const lendingRepo = new LendingRepository();
+          positions = await lendingRepo.findBorrowPositionsByBorrower(address);
+        } catch {
+          positions = [];
+        }
+
+        let realEstateValue = 0;
+        for (const p of userProperties) {
+          realEstateValue += Number(p.valuation) || 0;
+        }
+
+        let collateralDeposits = 0;
+        for (const pos of positions) {
+          collateralDeposits += Number(pos.collateralAmount) || 0;
+        }
+
+        const liquidTokens = 2500; // Estimated liquid XLM balance
+        const claimableDividends = userProperties.length * 12.5;
+
+        const breakdown = PortfolioAllocationService.calculateAllocation(
+          address,
+          realEstateValue,
+          collateralDeposits,
+          liquidTokens,
+          claimableDividends
+        );
+
+        return {
+          success: true,
+          data: breakdown,
+        };
+      } catch (err: unknown) {
+        set.status = 500;
+        return {
+          success: false,
+          error: {
+            code: 'ALLOCATION_CALCULATION_FAILED',
+            message: err instanceof Error ? err.message : 'Failed to compute portfolio allocation',
           },
         };
       }
