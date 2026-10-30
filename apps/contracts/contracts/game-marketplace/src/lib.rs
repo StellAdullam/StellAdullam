@@ -252,6 +252,16 @@ impl GameMarketplace {
         100
     }
 
+    /// Return the total count of currently active marketplace listings.
+    pub fn get_listing_count(env: Env) -> u32 {
+        let ids: Vec<u32> = env
+            .storage()
+            .instance()
+            .get(&DataKey::AllListings)
+            .unwrap_or_else(|| Vec::new(&env));
+        ids.len()
+    }
+
     /// Return a single listing.
     pub fn get_listing(env: Env, property_id: u32) -> Option<Listing> {
         env.storage().instance().get(&DataKey::Listing(property_id))
@@ -487,5 +497,14 @@ mod tests {
     fn test_get_fee_bps_returns_100() {
         let s = setup();
         assert_eq!(s.marketplace.get_fee_bps(), 100);
+    }
+
+    #[test]
+    fn test_get_listing_count() {
+        let s = setup();
+        assert_eq!(s.marketplace.get_listing_count(), 0);
+        s.nft.approve(&s.treasury, &s.marketplace_id, &9);
+        s.marketplace.list(&s.treasury, &9, &100);
+        assert_eq!(s.marketplace.get_listing_count(), 1);
     }
 }
