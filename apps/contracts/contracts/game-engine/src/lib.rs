@@ -211,6 +211,13 @@ impl GameEngine {
             _ => 0,
         }
     }
+
+    pub fn get_treasury(env: Env) -> Address {
+        env.storage()
+            .instance()
+            .get(&StorageKey::Treasury)
+            .unwrap()
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -592,5 +599,11 @@ mod tests {
         assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_COMMERCIAL), IMPROVEMENT_COST_COMMERCIAL);
         assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_SKYSCRAPER), IMPROVEMENT_COST_SKYSCRAPER);
         assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_VACANT), 0);
+    }
+
+    #[test]
+    fn test_get_treasury_matches_initialized() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_treasury(), test.treasury);
     }
 }
