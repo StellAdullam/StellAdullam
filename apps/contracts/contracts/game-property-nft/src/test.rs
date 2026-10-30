@@ -164,4 +164,12 @@ fn test_total_supply_returns_400() {
     let (_env, _treasury, _game_engine, client) = initialized();
     assert_eq!(client.total_supply(), 400);
 }
+#[test]
+fn test_validate_coordinates() {
+    let (_env, _treasury, _game_engine, client) = initialized();
+    assert_eq!(client.validate_coordinates(&0, &0), true);
+    assert_eq!(client.validate_coordinates(&19, &19), true);
+    assert_eq!(client.validate_coordinates(&20, &5), false);
+    assert_eq!(client.validate_coordinates(&5, &20), false);
+}
 

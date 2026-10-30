@@ -39,6 +39,11 @@ pub struct GamePropertyNft;
 
 #[contractimpl]
 impl GamePropertyNft {
+    /// Check whether given (x, y) coordinates fall within valid 20x20 grid bounds.
+    pub fn validate_coordinates(_env: Env, x: u32, y: u32) -> bool {
+        x < GRID_WIDTH && y < GRID_HEIGHT
+    }
+
     /// Pack 2D grid coordinates (x, y) into a 1D property ID (0 to 399).
     pub fn coord_to_id(_env: Env, x: u32, y: u32) -> u32 {
         if x >= GRID_WIDTH || y >= GRID_HEIGHT {
