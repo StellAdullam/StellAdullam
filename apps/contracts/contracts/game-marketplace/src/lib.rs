@@ -237,6 +237,16 @@ impl GameMarketplace {
         nft_client.transfer(&marketplace, &seller, &property_id);
     }
 
+    /// Cancel multiple listings and return NFTs to the seller in a single transaction.
+    pub fn cancel_batch(env: Env, seller: Address, property_ids: Vec<u32>) {
+        seller.require_auth();
+
+        for i in 0..property_ids.len() {
+            let pid = property_ids.get(i).unwrap();
+            Self::cancel(env.clone(), seller.clone(), pid);
+        }
+    }
+
     /// Return a single listing.
     pub fn get_listing(env: Env, property_id: u32) -> Option<Listing> {
         env.storage().instance().get(&DataKey::Listing(property_id))
@@ -447,5 +457,24 @@ mod tests {
 
         let result = s.marketplace.try_list(&s.treasury, &6, &200);
         assert_eq!(result, Err(Ok(MarketError::AlreadyListed.into())));
+    }
+
+    #[test]
+    fn test_cancel_batch_succeeds() {
+        let s = setup();
+        s.nft.approve(&s.treasury, &s.marketplace_id, &7);
+        s.nft.approve(&s.treasury, &s.marketplace_id, &8);
+        s.marketplace.list(&s.treasury, &7, &100);
+        s.marketplace.list(&s.treasury, &8, &200);
+
+        let mut ids = Vec::new(&s.env);
+        ids.push_back(7);
+        ids.push_back(8);
+
+        s.marketplace.cancel_batch(&s.treasury, &ids);
+        assert!(s.marketplace.get_listing(&7).is_none());
+        assert!(s.marketplace.get_listing(&8).is_none());
+        assert_eq!(s.nft.get_owner(&7), s.treasury);
+        assert_eq!(s.nft.get_owner(&8), s.treasury);
     }
 }
