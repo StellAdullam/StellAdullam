@@ -55,3 +55,4 @@ export * from "./duration";
 export * from "./percentage-change";
 export * from "./group-by";
 export * from "./round";
+export * from "./parse-boolean";
