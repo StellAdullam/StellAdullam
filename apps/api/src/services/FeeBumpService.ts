@@ -20,7 +20,7 @@ export class FeeBumpService {
    * Wraps an existing inner transaction in a FeeBumpTransaction signed by the feeSource.
    */
   public buildFeeBump(
-    innerTxXdr: string,
+    innerTxXdr: string | Transaction,
     options?: FeeBumpOptions,
   ): { feeBumpXdr: string; totalFeeStroops: number } {
     const feeSourceSecret = options?.feeSourceSecret ?? process.env.STELLAR_ADMIN_SECRET;
@@ -30,7 +30,10 @@ export class FeeBumpService {
     }
 
     const feeSource = Keypair.fromSecret(feeSourceSecret);
-    const innerTx = new Transaction(innerTxXdr, this.networkPassphrase);
+    const innerTx =
+      typeof innerTxXdr === 'string'
+        ? new Transaction(innerTxXdr, this.networkPassphrase)
+        : innerTxXdr;
 
     const surgeMultiplier = options?.surgeMultiplier ?? 2.0;
     const baseFee = Number(innerTx.fee) || 100;

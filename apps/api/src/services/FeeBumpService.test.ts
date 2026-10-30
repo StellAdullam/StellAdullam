@@ -1,36 +1,26 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi, afterEach } from 'bun:test';
 import { FeeBumpService } from './FeeBumpService';
-
-vi.mock('@stellar/stellar-sdk', () => {
-  return {
-    Keypair: {
-      fromSecret: vi.fn(() => ({ publicKey: () => 'GBUMPKEY' })),
-      random: vi.fn(() => ({
-        publicKey: () => 'GBUMPKEY',
-        secret: () => 'SBUMPSECRET',
-      })),
-    },
-    Transaction: vi.fn().mockImplementation(() => ({
-      fee: '100',
-    })),
-    TransactionBuilder: {
-      buildFeeBumpTransaction: vi.fn((feeSource, fee, innerTx, passphrase) => ({
-        sign: vi.fn(),
-        toXDR: vi.fn(() => 'AAAA_FEE_BUMP_MOCK_XDR'),
-      })),
-    },
-    Networks: {
-      TESTNET: 'Test SDF Network ; September 2015',
-    },
-  };
-});
+import * as StellarSdk from '@stellar/stellar-sdk';
 
 describe('FeeBumpService', () => {
-  it('wraps inner transactions into signed FeeBumpTransaction envelopes', () => {
-    const service = new FeeBumpService('Test SDF Network ; September 2015');
+  const validKeypair = StellarSdk.Keypair.random();
+  const feeSourceSecret = validKeypair.secret();
 
-    const result = service.buildFeeBump('AAAA_INNER_TX_XDR', {
-      feeSourceSecret: 'SBUMPSECRET',
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('wraps inner transactions into signed FeeBumpTransaction envelopes', () => {
+    vi.spyOn(StellarSdk.TransactionBuilder, 'buildFeeBumpTransaction').mockReturnValue({
+      sign: vi.fn(),
+      toXDR: () => 'AAAA_FEE_BUMP_MOCK_XDR',
+    } as unknown as StellarSdk.FeeBumpTransaction);
+
+    const service = new FeeBumpService('Test SDF Network ; September 2015');
+    const mockTx = { fee: '100' } as unknown as StellarSdk.Transaction;
+
+    const result = service.buildFeeBump(mockTx, {
+      feeSourceSecret,
       surgeMultiplier: 2.5,
     });
 
@@ -39,10 +29,16 @@ describe('FeeBumpService', () => {
   });
 
   it('enforces maximum base fee cap on excessive surge multipliers', () => {
-    const service = new FeeBumpService('Test SDF Network ; September 2015');
+    vi.spyOn(StellarSdk.TransactionBuilder, 'buildFeeBumpTransaction').mockReturnValue({
+      sign: vi.fn(),
+      toXDR: () => 'AAAA_FEE_BUMP_MOCK_XDR',
+    } as unknown as StellarSdk.FeeBumpTransaction);
 
-    const result = service.buildFeeBump('AAAA_INNER_TX_XDR', {
-      feeSourceSecret: 'SBUMPSECRET',
+    const service = new FeeBumpService('Test SDF Network ; September 2015');
+    const mockTx = { fee: '100' } as unknown as StellarSdk.Transaction;
+
+    const result = service.buildFeeBump(mockTx, {
+      feeSourceSecret,
       surgeMultiplier: 200,
       maxBaseFeeStroops: 5000,
     });

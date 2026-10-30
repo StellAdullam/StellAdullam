@@ -128,21 +128,48 @@ impl PauseControl {
     }
 
     pub fn is_deposits_paused(env: &Env) -> bool {
-        Self::is_paused(env) || env.storage().instance().get(&RoleKey::PauseDeposits).unwrap_or(false)
+        Self::is_paused(env)
+            || env
+                .storage()
+                .instance()
+                .get(&RoleKey::PauseDeposits)
+                .unwrap_or(false)
     }
 
     pub fn is_borrows_paused(env: &Env) -> bool {
-        Self::is_paused(env) || env.storage().instance().get(&RoleKey::PauseBorrows).unwrap_or(false)
+        Self::is_paused(env)
+            || env
+                .storage()
+                .instance()
+                .get(&RoleKey::PauseBorrows)
+                .unwrap_or(false)
     }
 
     pub fn is_liquidations_paused(env: &Env) -> bool {
-        Self::is_paused(env) || env.storage().instance().get(&RoleKey::PauseLiquidations).unwrap_or(false)
+        Self::is_paused(env)
+            || env
+                .storage()
+                .instance()
+                .get(&RoleKey::PauseLiquidations)
+                .unwrap_or(false)
     }
 
-    pub fn set_granular_pause(env: &Env, caller: &Address, deposits: bool, borrows: bool, liquidations: bool) {
+    pub fn set_granular_pause(
+        env: &Env,
+        caller: &Address,
+        deposits: bool,
+        borrows: bool,
+        liquidations: bool,
+    ) {
         Self::require_can_pause(env, caller);
-        env.storage().instance().set(&RoleKey::PauseDeposits, &deposits);
-        env.storage().instance().set(&RoleKey::PauseBorrows, &borrows);
-        env.storage().instance().set(&RoleKey::PauseLiquidations, &liquidations);
+        env.storage()
+            .instance()
+            .set(&RoleKey::PauseDeposits, &deposits);
+        env.storage()
+            .instance()
+            .set(&RoleKey::PauseBorrows, &borrows);
+        env.storage()
+            .instance()
+            .set(&RoleKey::PauseLiquidations, &liquidations);
     }
 }

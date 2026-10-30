@@ -3163,4 +3163,3 @@ fn test_property_index_grows_faster_with_higher_rate() {
         "Higher borrow rate should produce higher interest index"
     );
 }
-

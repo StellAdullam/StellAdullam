@@ -13,7 +13,7 @@ globalThis.MutationObserver = dom.window.MutationObserver as any;
 
 import { describe, expect, it } from "bun:test";
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import { PropertyTooltip } from "../PropertyTooltip";
 import { GameProperty } from "../../../types/game.types";
 
@@ -66,7 +66,7 @@ describe("PropertyTooltip component", () => {
   });
 
   it("renders property title, building tier, and listing price when visible", () => {
-    render(
+    const { getByText } = render(
       <PropertyTooltip
         property={mockProperty}
         position={{ x: 100, y: 100 }}
@@ -74,8 +74,8 @@ describe("PropertyTooltip component", () => {
       />,
     );
 
-    expect(screen.getByText("Skyline Heights Sector")).toBeDefined();
-    expect(screen.getByText("Commercial")).toBeDefined();
-    expect(screen.getByText("250 LAND")).toBeDefined();
+    expect(getByText("Skyline Heights Sector")).toBeDefined();
+    expect(getByText("Commercial")).toBeDefined();
+    expect(getByText("250 LAND")).toBeDefined();
   });
 });

@@ -213,10 +213,7 @@ impl GameEngine {
     }
 
     pub fn get_treasury(env: Env) -> Address {
-        env.storage()
-            .instance()
-            .get(&StorageKey::Treasury)
-            .unwrap()
+        env.storage().instance().get(&StorageKey::Treasury).unwrap()
     }
 
     pub fn get_token_contract(env: Env) -> Address {
@@ -619,9 +616,18 @@ mod tests {
     #[test]
     fn test_get_improvement_cost_matches_constants() {
         let test = setup_test();
-        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_RESIDENTIAL), IMPROVEMENT_COST_RESIDENTIAL);
-        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_COMMERCIAL), IMPROVEMENT_COST_COMMERCIAL);
-        assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_SKYSCRAPER), IMPROVEMENT_COST_SKYSCRAPER);
+        assert_eq!(
+            test.engine_client.get_improvement_cost(&LEVEL_RESIDENTIAL),
+            IMPROVEMENT_COST_RESIDENTIAL
+        );
+        assert_eq!(
+            test.engine_client.get_improvement_cost(&LEVEL_COMMERCIAL),
+            IMPROVEMENT_COST_COMMERCIAL
+        );
+        assert_eq!(
+            test.engine_client.get_improvement_cost(&LEVEL_SKYSCRAPER),
+            IMPROVEMENT_COST_SKYSCRAPER
+        );
         assert_eq!(test.engine_client.get_improvement_cost(&LEVEL_VACANT), 0);
     }
 
@@ -634,7 +640,10 @@ mod tests {
     #[test]
     fn test_get_token_contract_matches_initialized() {
         let test = setup_test();
-        assert_eq!(test.engine_client.get_token_contract(), test.token_client.address);
+        assert_eq!(
+            test.engine_client.get_token_contract(),
+            test.token_client.address
+        );
     }
 
     #[test]
@@ -652,6 +661,9 @@ mod tests {
     #[test]
     fn test_get_claim_interval_cap_returns_constant() {
         let test = setup_test();
-        assert_eq!(test.engine_client.get_claim_interval_cap(), MAX_CLAIM_INTERVAL_LEDGERS);
+        assert_eq!(
+            test.engine_client.get_claim_interval_cap(),
+            MAX_CLAIM_INTERVAL_LEDGERS
+        );
     }
 }

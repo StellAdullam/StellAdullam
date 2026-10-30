@@ -97,7 +97,11 @@ impl PropertyMetadata {
 
     /// Validates whether the property legal verification is active and within the validity window.
     pub fn is_verification_valid(&self, current_timestamp: u64) -> bool {
-        self.is_active && (current_timestamp <= self.created_at.saturating_add(property_bump::DEFAULT_VERIFICATION_VALIDITY_SECONDS))
+        self.is_active
+            && (current_timestamp
+                <= self
+                    .created_at
+                    .saturating_add(property_bump::DEFAULT_VERIFICATION_VALIDITY_SECONDS))
     }
 
     /// Stores the property metadata in persistent storage with TTL management

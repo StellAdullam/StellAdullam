@@ -172,4 +172,3 @@ fn test_validate_coordinates() {
     assert_eq!(client.validate_coordinates(&20, &5), false);
     assert_eq!(client.validate_coordinates(&5, &20), false);
 }
-

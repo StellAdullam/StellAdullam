@@ -99,7 +99,9 @@ impl PriceOracle {
         // 3. Staleness and future timestamp check
         let current_time = env.ledger().timestamp();
         let max_age = Self::get_max_age(env);
-        if price_data.timestamp > current_time && (price_data.timestamp - current_time) > MAX_FUTURE_TIMESTAMP_DRIFT {
+        if price_data.timestamp > current_time
+            && (price_data.timestamp - current_time) > MAX_FUTURE_TIMESTAMP_DRIFT
+        {
             panic!("Price timestamp is in the future");
         }
         if current_time > price_data.timestamp && (current_time - price_data.timestamp) > max_age {

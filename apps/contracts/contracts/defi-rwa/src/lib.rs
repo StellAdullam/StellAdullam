@@ -714,4 +714,3 @@ impl PropertyTokenContract {
         RoleStorage::revoke_role(&env, &target, &Role::EmergencyGuard);
     }
 }
-
