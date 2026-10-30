@@ -62,3 +62,4 @@ export * from "./title-case";
 export * from "./shallow-equal";
 export * from "./currency-symbols";
 export * from "./clamp-percent";
+export * from "./array-diff";
