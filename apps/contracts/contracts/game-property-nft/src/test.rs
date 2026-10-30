@@ -159,3 +159,9 @@ fn test_get_property_invalid_id() {
     let result = client.try_get_property(&400);
     assert_eq!(result, Err(Ok(NftError::InvalidProperty.into())));
 }
+#[test]
+fn test_total_supply_returns_400() {
+    let (_env, _treasury, _game_engine, client) = initialized();
+    assert_eq!(client.total_supply(), 400);
+}
+
