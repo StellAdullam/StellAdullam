@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.1.0] - 2026-10-30
+
+### Live Deployment — Vercel Production & Stellar Testnet
+
+- **Frontend Edge Deployments (Vercel)**:
+  - Deployed institutional WebApp to Vercel production: [https://stelladullam.vercel.app](https://stelladullam.vercel.app)
+  - Deployed 20×20 city canvas spatial engine to Vercel production: [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app)
+  - Configured edge routing, HTTPS, Turborepo cross-workspace builds, and environment bindings.
+- **Smart Contracts Deployment (Stellar Testnet)**:
+  - Deployed and initialized all 5 Soroban smart contracts on the live Stellar Testnet consensus ledger:
+    - `defi-rwa` (Real Estate Token + Lending): `CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV`
+    - `game-property-nft`: `CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK`
+    - `game-land-token`: `CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2`
+    - `game-engine`: `CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC`
+    - `game-marketplace`: `CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V`
+  - Deployed from protocol treasury account: `GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL`
+- **Documentation & Metadata**:
+  - Updated repository descriptions, tags, and homepage URL on GitHub.
+  - Updated `README.md`, `apps/contracts/README.md`, `docs/contracts/deployment.md`, and `docs/game/DEVELOPER_SETUP.md` with verified live links and contract hashes.
+
+---
+
 ## [1.0.0] - 2026-10-30
 
 ### Production Release — 300 High-Impact Improvements & Stellar Drips Wave Audit

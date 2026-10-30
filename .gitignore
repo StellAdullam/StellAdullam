@@ -101,3 +101,6 @@ bun.lockb
 
 # Snapshot files (generated test artifacts)
 *.snappackages/nextjs/node_modules/
+
+.vercel
+.env*

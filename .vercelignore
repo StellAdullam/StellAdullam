@@ -1,0 +1,11 @@
+node_modules
+target
+apps/contracts/target
+apps/contracts/contracts/*/target
+.next
+.turbo
+dist
+.git
+.github
+*.log
+

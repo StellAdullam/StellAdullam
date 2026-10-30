@@ -444,34 +444,26 @@ Both instances were deployed from the same `rwa_defi_contract.wasm` (built with
 `stellar contract build`, target `wasm32v1-none`) on **Stellar testnet**.
 
 - **Network**: testnet (`Test SDF Network ; September 2015`)
-- **Deployer / admin account**: `GBN4ABG3ES6NHKY4BURL3EMP5RA6EFQJDR4EET6U66M6YIRADPWJ7OQ6`
-- **Uploaded WASM hash**: `c13878bd0845d4965a5eb26138b77db617fdccbb70a70dc47acd8c460af6a0b1`
-- **Deployed on**: 2026-05-31
+- **Deployer / admin account**: `GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL`
+- **Uploaded WASM hash**: `8b5be5f2df1305a00f8b0861f985a8145de2251fe91cb565ddf74775c6a7d4b2`
+- **Deployed on**: 2026-10-30
 - **Source of truth**: [`apps/shared/src/contracts.testnet.json`](../../apps/shared/src/contracts.testnet.json)
 
 | Contract            | Contract ID                                                | Deploy (create) tx                                                 |
 | ------------------- | ---------------------------------------------------------- | ------------------------------------------------------------------ |
-| `REAL_ESTATE_TOKEN` | `CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4` | `ff4c6b52080df05d9ad443a6a3907894fb771e187b04dbd837306c62add89724` |
-| `DEFI_LENDING`      | `CBFOZBCYMIDIZLNHT6ANMBU6LSGC6REM6Z5M4ST35E5T5FDWWZAWZLTX` | `490a50682d4da46c85a8080cc5ae6b50d727bf1156c97a2c9a00c532c441bdd4` |
+| `REAL_ESTATE_TOKEN` | `CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV` | `9a26e74c096f7f93fcba79ebd0a9fa8e7606008d5d43dab1e784f3537ff08bd2` |
+| `DEFI_LENDING`      | `CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV` | `9a26e74c096f7f93fcba79ebd0a9fa8e7606008d5d43dab1e784f3537ff08bd2` |
 
-**WASM upload transaction** (shared by both instances; submitted with the first
-deploy): `c5e2fd6753437a1c8dc217e5a9797b4abdd7621aed6747fedbd03c9c72ab8079`
+**WASM upload transaction**: `4871e43eb1b9c1f4ab5e214e4c7363bc547d97d45aa77a9e06cf13ee789bb944`
 
 ### Verification
 
 Each contract ID was verified **before being committed** by invoking the
-read-only `get_oracle_config` view, which returned the contract defaults
-`(max_age = 3600, min_price = 0)` — confirming the WASM is live and executing:
+contract on testnet confirming the WASM is live and executing:
 
 ```bash
 stellar contract invoke \
-  --id CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4 \
-  --source <account> --network testnet --send=no \
-  -- get_oracle_config
-# => [3600,"0"]
-
-stellar contract invoke \
-  --id CBFOZBCYMIDIZLNHT6ANMBU6LSGC6REM6Z5M4ST35E5T5FDWWZAWZLTX \
+  --id CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV \
   --source <account> --network testnet --send=no \
   -- get_oracle_config
 # => [3600,"0"]
@@ -479,8 +471,8 @@ stellar contract invoke \
 
 Explorer links:
 
-- REAL_ESTATE_TOKEN: <https://stellar.expert/explorer/testnet/contract/CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4>
-- DEFI_LENDING: <https://stellar.expert/explorer/testnet/contract/CBFOZBCYMIDIZLNHT6ANMBU6LSGC6REM6Z5M4ST35E5T5FDWWZAWZLTX>
+- REAL_ESTATE_TOKEN & DEFI_LENDING: <https://stellar.expert/explorer/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV>
+- Stellar Lab: <https://lab.stellar.org/r/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV>
 
 ### Reproducing this deployment
 

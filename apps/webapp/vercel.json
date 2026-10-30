@@ -5,6 +5,9 @@
   "installCommand": "cd ../.. && bun install --frozen-lockfile",
   "outputDirectory": ".next",
   "env": {
+    "NEXT_PUBLIC_SOROBAN_RPC_URL": "https://soroban-testnet.stellar.org",
+    "NEXT_PUBLIC_STELLAR_NETWORK": "testnet",
+    "NEXT_PUBLIC_DEFI_RWA_CONTRACT_ID": "CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV",
     "NEXT_PUBLIC_USE_MOCK": "true"
   },
   "headers": [

@@ -14,16 +14,19 @@
 [![Soroban](https://img.shields.io/badge/Soroban-v25.3_Rust_WASM-orange.svg)](https://soroban.stellar.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Live Testnet](https://img.shields.io/badge/Network-Stellar_Testnet-success.svg)](https://stellar.expert/explorer/testnet)
+[![Vercel App](https://img.shields.io/badge/Vercel-stelladullam.vercel.app-black?logo=vercel)](https://stelladullam.vercel.app)
+[![Vercel Land](https://img.shields.io/badge/Vercel-stelladullam--land.vercel.app-black?logo=vercel)](https://stelladullam-land.vercel.app)
 
 <p align="center">
   <a href="#overview">Overview</a> •
+  <a href="#live-deployments--demos">Live Demos</a> •
+  <a href="#live-smart-contracts-stellar-testnet">Smart Contracts</a> •
   <a href="#stellar-drips-wave-grant-alignment">Drips Wave Alignment</a> •
   <a href="#architecture">Architecture</a> •
   <a href="#features">Features</a> •
-  <a href="#frontend-deployment">Frontend Deployment</a> •
   <a href="#getting-started">Getting Started</a> •
-  <a href="#changelog--300-improvements">Changelog (300 Actions)</a> •
-  <a href="#governance--security">Governance & Security</a>
+  <a href="#changelog--300-improvements">Changelog</a> •
+  <a href="#governance--security">Governance</a>
 </p>
 
 </div>
@@ -171,15 +174,32 @@ sequenceDiagram
 
 ---
 
+## Live Deployments & Demos
+
+Both applications are deployed and running live on **Vercel** with full SSL and global edge routing:
+
+| Application | Live URL | Description | Status |
+| :--- | :--- | :--- | :---: |
+| **StellAdullam WebApp** | [https://stelladullam.vercel.app](https://stelladullam.vercel.app) | Institutional DeFi lending, RWA tokenization, and investor dashboard | ![Ready](https://img.shields.io/badge/Status-Live_Production-success) |
+| **StellAdullam Land** | [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app) | 20×20 GPU-accelerated spatial city canvas, tile trading, and micro-rental yields | ![Ready](https://img.shields.io/badge/Status-Live_Production-success) |
+
+---
+
 ## Live Smart Contracts (Stellar Testnet)
 
-| Contract Name | Directory | Testnet Contract ID | Explorer Link |
-| :--- | :--- | :--- | :--- |
-| `defi-rwa` | `apps/contracts/contracts/defi-rwa` | `CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBFQV2RY5VHVFU3HT2I72FLXWY5YNZC37LWJSOZQCX45B76NBO4YZHM4) |
-| `game-engine` | `apps/contracts/contracts/game-engine` | `CBTPPGX6LT2EPKR7JD7LLUB23E6HI5EFQRXKV3VQNZ6QWJTJ3EZ76RSH` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBTPPGX6LT2EPKR7JD7LLUB23E6HI5EFQRXKV3VQNZ6QWJTJ3EZ76RSH) |
-| `game-property-nft`| `apps/contracts/contracts/game-property-nft`| `CCPUVGQAMDUUASHMXB7Z6F6XHCZI2WXOPR7DXEVPJBEGYZVJEABEABLE` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCPUVGQAMDUUASHMXB7Z6F6XHCZI2WXOPR7DXEVPJBEGYZVJEABEABLE) |
-| `game-land-token` | `apps/contracts/contracts/game-land-token` | `CBQBXOWI3YB5SFICLVPYHK2EL3SY3XIZUZA6QZIGGXDKMVXAT74IOR3K` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBQBXOWI3YB5SFICLVPYHK2EL3SY3XIZUZA6QZIGGXDKMVXAT74IOR3K) |
-| `game-marketplace`| `apps/contracts/contracts/game-marketplace`| `CDKRZTY5PFNA4DHI2GFPSTOAADI2WV7SXYVS4VMTDC6M7IKKIPQJP5A3` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDKRZTY5PFNA4DHI2GFPSTOAADI2WV7SXYVS4VMTDC6M7IKKIPQJP5A3) |
+All core protocol and game engine contracts are compiled to `wasm32v1-none`, deployed, and initialized on the **Stellar Testnet**:
+
+| Contract Name | Directory | Testnet Contract ID | Explorer Link | Initialized |
+| :--- | :--- | :--- | :--- | :---: |
+| `defi-rwa` | `apps/contracts/contracts/defi-rwa` | `CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV) | Yes |
+| `game-property-nft`| `apps/contracts/contracts/game-property-nft`| `CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK) | Yes |
+| `game-land-token` | `apps/contracts/contracts/game-land-token` | `CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2) | Yes |
+| `game-engine` | `apps/contracts/contracts/game-engine` | `CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC) | Yes |
+| `game-marketplace`| `apps/contracts/contracts/game-marketplace`| `CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V` | [Stellar Expert](https://stellar.expert/explorer/testnet/contract/CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V) | Yes |
+
+- **Deployer / Protocol Treasury Account**: [`GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL`](https://stellar.expert/explorer/testnet/account/GA7BAGNA4CRTBX5OCDOWQZHB6O6PW6MQ757O7DBEGGRNTAXGHPJURPXL)
+- **Soroban RPC Endpoint**: `https://soroban-testnet.stellar.org`
+- **Network Passphrase**: `Test SDF Network ; September 2015`
 
 ---
 
@@ -187,9 +207,10 @@ sequenceDiagram
 
 Both frontend applications are fully production-optimized Next.js 16 suites equipped with native zero-config `vercel.json` configurations.
 
-### Deploying to Vercel
+### Production Environment Variables
 
 #### 1. Main WebApp (`apps/webapp`)
+- **Live URL**: [https://stelladullam.vercel.app](https://stelladullam.vercel.app)
 - **Root Directory**: `apps/webapp`
 - **Framework Preset**: `Next.js`
 - **Build Command**: `cd ../.. && bun run build:shared && cd apps/webapp && bun run build`
@@ -200,9 +221,11 @@ Both frontend applications are fully production-optimized Next.js 16 suites equi
   NEXT_PUBLIC_STELLAR_NETWORK=testnet
   NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
   NEXT_PUBLIC_USE_MOCK=false
+  NEXT_PUBLIC_DEFI_RWA_CONTRACT_ID=CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV
   ```
 
 #### 2. StellAdullam Land (`apps/stelladullam-land`)
+- **Live URL**: [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app)
 - **Root Directory**: `apps/stelladullam-land`
 - **Framework Preset**: `Next.js`
 - **Build Command**: `cd ../.. && bun run build:shared && cd apps/stelladullam-land && bun run build`
@@ -210,9 +233,10 @@ Both frontend applications are fully production-optimized Next.js 16 suites equi
 - **Environment Variables**:
   ```env
   NEXT_PUBLIC_SOROBAN_RPC_URL=https://soroban-testnet.stellar.org
-  NEXT_PUBLIC_GAME_ENGINE_CONTRACT_ID=CBTPPGX6LT2EPKR7JD7LLUB23E6HI5EFQRXKV3VQNZ6QWJTJ3EZ76RSH
-  NEXT_PUBLIC_PROPERTY_NFT_CONTRACT_ID=CCPUVGQAMDUUASHMXB7Z6F6XHCZI2WXOPR7DXEVPJBEGYZVJEABEABLE
-  NEXT_PUBLIC_MARKETPLACE_CONTRACT_ID=CDKRZTY5PFNA4DHI2GFPSTOAADI2WV7SXYVS4VMTDC6M7IKKIPQJP5A3
+  NEXT_PUBLIC_GAME_ENGINE_CONTRACT_ID=CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC
+  NEXT_PUBLIC_PROPERTY_NFT_CONTRACT_ID=CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK
+  NEXT_PUBLIC_LAND_TOKEN_CONTRACT_ID=CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2
+  NEXT_PUBLIC_MARKETPLACE_CONTRACT_ID=CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V
   NEXT_PUBLIC_USE_MOCK=false
   ```
 
