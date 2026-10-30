@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="apps/webapp/public/logo.png" alt="StellAdullam Logo" width="128" height="128" />
+
 # StellAdullam
 
 **Institutional Real-World Asset (RWA) Tokenization, DeFi Lending & Spatial City-Canvas on Stellar & Soroban**
