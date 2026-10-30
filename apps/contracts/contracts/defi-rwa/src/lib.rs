@@ -675,6 +675,11 @@ impl PropertyTokenContract {
         EmergencyEvents::emergency_paused(&env, caller);
     }
 
+    /// Returns whether the protocol is currently under a global emergency pause.
+    pub fn is_emergency_paused(env: Env) -> bool {
+        PauseControl::is_paused(&env)
+    }
+
     pub fn schedule_recovery(env: Env, caller: Address) {
         caller.require_auth();
         TimelockControl::schedule_recovery(&env, &caller);
