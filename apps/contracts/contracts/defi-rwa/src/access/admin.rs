@@ -15,6 +15,12 @@ pub struct AdminControl;
 impl AdminControl {
     pub fn initialize(env: &Env, admin: &Address) {
         if Self::is_initialized(env) {
+            if let Some(current) = Self::get_admin(env) {
+                if &current == admin {
+                    RoleStorage::grant_role(env, admin, &Role::Admin);
+                    return;
+                }
+            }
             panic!("Admin already initialized")
         }
 

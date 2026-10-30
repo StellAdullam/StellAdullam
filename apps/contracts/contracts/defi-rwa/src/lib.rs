@@ -133,8 +133,8 @@ pub struct PropertyTokenContract;
 impl PropertyTokenContract {
     // ─── Constructor ───────────────────────────
     pub fn __constructor(env: Env, admin: Address) {
-        set_lending_admin(&env, &admin);
         AdminControl::initialize(&env, &admin);
+        set_lending_admin(&env, &admin);
     }
 
     // ─── Share Management (Admin) ──────────────
