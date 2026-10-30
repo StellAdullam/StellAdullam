@@ -15,3 +15,4 @@ export * from "./grid";
 export * from "./merkle";
 export * from "./circuit-breaker";
 export * from "./fee";
+export * from "./uuid";
