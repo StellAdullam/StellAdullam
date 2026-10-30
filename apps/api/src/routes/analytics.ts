@@ -1,5 +1,6 @@
 import { Elysia, t } from 'elysia';
 import { historicalApyService } from '../services/HistoricalApyService';
+import { MarketplaceAnalyticsService, TradeRecord } from '../services/MarketplaceAnalyticsService';
 
 export interface EcosystemOverviewMetrics {
   totalPropertiesTokenized: number;
@@ -12,6 +13,26 @@ export interface EcosystemOverviewMetrics {
   totalCityTiles: number;
   timestamp: string;
 }
+
+// In-memory trade buffer for recent marketplace settlements
+const recentTrades: TradeRecord[] = [
+  {
+    id: 'tr-001',
+    propertyId: 'b7b80a6b-2993-4e8c-859a-14db456789ab',
+    shares: 25,
+    pricePerShareUsd: 120,
+    feeCollectedUsd: 15,
+    timestamp: Date.now() - 3600 * 1000,
+  },
+  {
+    id: 'tr-002',
+    propertyId: 'c8c90a6b-3994-4e8c-859a-24db456789cd',
+    shares: 10,
+    pricePerShareUsd: 250,
+    feeCollectedUsd: 12.5,
+    timestamp: Date.now() - 7200 * 1000,
+  },
+];
 
 export const analyticsRoutes = new Elysia({ prefix: '/api/v1/analytics' })
   .get('/overview', () => {
@@ -30,6 +51,13 @@ export const analyticsRoutes = new Elysia({ prefix: '/api/v1/analytics' })
     return {
       success: true,
       data: overview,
+    };
+  })
+  .get('/marketplace', () => {
+    const summary = MarketplaceAnalyticsService.computeSummary(recentTrades);
+    return {
+      success: true,
+      data: summary,
     };
   })
   .get(
