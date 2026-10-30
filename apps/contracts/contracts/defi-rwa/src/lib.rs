@@ -609,6 +609,32 @@ impl PropertyTokenContract {
         PositionStorage::get_borrow(&env, &user, &pool_id).expect("borrow position not found")
     }
 
+    pub fn get_health_factor(env: Env, borrower: Address, pool_id: String) -> i128 {
+        let position = match PositionStorage::get_borrow(&env, &borrower, &pool_id) {
+            Some(pos) => pos,
+            None => return i128::MAX,
+        };
+
+        let pool = match PoolStorage::get(&env, &pool_id) {
+            Some(p) => p,
+            None => return 0,
+        };
+
+        let current_debt = PositionStorage::calculate_current_debt(&env, &position);
+        if current_debt <= 0 {
+            return i128::MAX;
+        }
+
+        let collateral_price = PriceOracle::get_price(&env, &position.collateral_asset);
+        let collateral_value = (collateral_price * position.collateral_amount) / PRECISION;
+
+        PositionStorage::calculate_health_factor(
+            collateral_value,
+            current_debt,
+            pool.liquidation_threshold,
+        )
+    }
+
     //  Emergency Controls
 
     pub fn emergency_pause(env: Env, caller: Address) {
