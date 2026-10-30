@@ -225,6 +225,10 @@ impl GameEngine {
             .get(&StorageKey::TokenContract)
             .unwrap()
     }
+
+    pub fn get_max_level(_env: Env) -> u32 {
+        LEVEL_SKYSCRAPER
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -618,5 +622,11 @@ mod tests {
     fn test_get_token_contract_matches_initialized() {
         let test = setup_test();
         assert_eq!(test.engine_client.get_token_contract(), test.token_client.address);
+    }
+
+    #[test]
+    fn test_get_max_level_returns_skyscraper() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_max_level(), LEVEL_SKYSCRAPER);
     }
 }
