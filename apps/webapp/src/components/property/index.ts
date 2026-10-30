@@ -30,3 +30,5 @@ export { RoiCalculatorModal } from "./RoiCalculatorModal";
 export type { RoiCalculatorModalProps } from "./RoiCalculatorModal";
 export { ShareFractionSlider } from "./ShareFractionSlider";
 export type { ShareFractionSliderProps } from "./ShareFractionSlider";
+export { PropertyLegalDisclosuresCard } from "./PropertyLegalDisclosuresCard";
+export type { PropertyLegalDisclosuresCardProps } from "./PropertyLegalDisclosuresCard";
