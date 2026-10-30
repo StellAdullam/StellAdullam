@@ -6,6 +6,12 @@
 class SoundEffectsEngine {
   private ctx: AudioContext | null = null;
   private muted: boolean = false;
+  private masterVolume: number = 0.5;
+
+  public setMasterVolume(vol: number): void {
+    this.masterVolume = Math.max(0, Math.min(1, vol));
+    this.muted = this.masterVolume === 0;
+  }
 
   constructor() {
     if (typeof window !== 'undefined') {
