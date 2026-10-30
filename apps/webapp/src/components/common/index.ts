@@ -14,3 +14,4 @@ export * from './PriorityFeeSelector';
 export * from './CurrencyConverterPill';
 export * from './KeyboardShortcutsModal';
 export * from './LedgerCloseCountdownPill';
+export * from './CopyTransactionLinkButton';
