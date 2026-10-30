@@ -51,6 +51,7 @@ impl TokenConfig {
     pub fn save(&self, env: &Env) {
         let key = StorageKey::TokenConfig;
         env.storage().instance().set(&key, self);
+        env.storage().instance().extend_ttl(120_960, 518_400);
     }
 
     /// Retrieves token configuration from storage
@@ -62,7 +63,11 @@ impl TokenConfig {
     /// * `Option<TokenConfig>` - Configuration if found, None otherwise
     pub fn load(env: &Env) -> Option<TokenConfig> {
         let key = StorageKey::TokenConfig;
-        env.storage().instance().get(&key)
+        let config: Option<TokenConfig> = env.storage().instance().get(&key);
+        if config.is_some() {
+            env.storage().instance().extend_ttl(120_960, 518_400);
+        }
+        config
     }
 
     /// Checks if the contract is initialized

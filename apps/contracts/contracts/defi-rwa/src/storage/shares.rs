@@ -7,6 +7,15 @@ use super::keys::StorageKey;
 /// This module manages the ownership of property shares. Each balance entry
 /// represents how many shares a specific address owns for a given property.
 /// Storage is optimized by using composite keys (property_id, owner_address).
+
+/// TTL bump configuration for persistent share balance storage
+pub mod share_bump {
+    /// TTL bump for persistent share balances (~30 days = 518,400 ledgers)
+    pub const PERSISTENT_BUMP: u32 = 518_400;
+    /// Threshold before extending TTL (~7 days = 120,960 ledgers)
+    pub const PERSISTENT_THRESHOLD: u32 = 120_960;
+}
+
 /// Gets the share balance for a specific owner and property
 ///
 /// # Arguments
@@ -19,7 +28,15 @@ use super::keys::StorageKey;
 #[allow(dead_code)]
 pub fn get_balance(env: &Env, property_id: u64, owner: &Address) -> u64 {
     let key = StorageKey::ShareBalance(property_id, owner.clone());
-    env.storage().persistent().get(&key).unwrap_or(0)
+    let balance: Option<u64> = env.storage().persistent().get(&key);
+    if balance.is_some() {
+        env.storage().persistent().extend_ttl(
+            &key,
+            share_bump::PERSISTENT_THRESHOLD,
+            share_bump::PERSISTENT_BUMP,
+        );
+    }
+    balance.unwrap_or(0)
 }
 
 /// Sets the share balance for a specific owner and property
@@ -41,6 +58,11 @@ pub fn set_balance(env: &Env, property_id: u64, owner: &Address, balance: u64) {
         env.storage().persistent().remove(&key);
     } else {
         env.storage().persistent().set(&key, &balance);
+        env.storage().persistent().extend_ttl(
+            &key,
+            share_bump::PERSISTENT_THRESHOLD,
+            share_bump::PERSISTENT_BUMP,
+        );
     }
 }
 
