@@ -52,3 +52,4 @@ export * from "./ordinal";
 export * from "./case";
 export * from "./partition";
 export * from "./duration";
+export * from "./percentage-change";
