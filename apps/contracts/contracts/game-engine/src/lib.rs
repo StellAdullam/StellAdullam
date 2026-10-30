@@ -265,7 +265,9 @@ pub fn calculate_accrued_income(current_ledger: u64, last_claimed_ledger: u64, l
     if current_ledger <= last_claimed_ledger {
         return 0;
     }
-    let epochs_elapsed = (current_ledger - last_claimed_ledger) / EPOCH_LENGTH;
+    // Apply maintenance decay saturation cap (max 172,800 ledgers ~ 10 days)
+    let elapsed_ledgers = (current_ledger - last_claimed_ledger).min(MAX_CLAIM_INTERVAL_LEDGERS);
+    let epochs_elapsed = elapsed_ledgers / EPOCH_LENGTH;
     if epochs_elapsed == 0 {
         return 0;
     }

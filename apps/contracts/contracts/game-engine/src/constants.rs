@@ -1,4 +1,6 @@
 pub const EPOCH_LENGTH: u64 = 100;
+/// Maximum elapsed ledgers for rental accumulation (~10 days) to enforce active maintenance/harvesting
+pub const MAX_CLAIM_INTERVAL_LEDGERS: u64 = 172_800;
 pub const BASE_RENTAL_RATE: i128 = 10 * 10_000_000; // 10 LAND per epoch (7 decimals)
 
 pub const IMPROVEMENT_COST_RESIDENTIAL: i128 = 200 * 10_000_000;
