@@ -252,6 +252,22 @@ impl GameMarketplace {
         100
     }
 
+    /// Return the connected Property NFT contract address.
+    pub fn get_nft_contract(env: Env) -> Address {
+        env.storage()
+            .instance()
+            .get(&DataKey::NftContract)
+            .unwrap()
+    }
+
+    /// Return the connected LAND payment token contract address.
+    pub fn get_land_token(env: Env) -> Address {
+        env.storage()
+            .instance()
+            .get(&DataKey::LandToken)
+            .unwrap()
+    }
+
     /// Return the total count of currently active marketplace listings.
     pub fn get_listing_count(env: Env) -> u32 {
         let ids: Vec<u32> = env
@@ -520,5 +536,12 @@ mod tests {
         s.nft.approve(&s.treasury, &s.marketplace_id, &10);
         s.marketplace.list(&s.treasury, &10, &100);
         assert_eq!(s.marketplace.is_listed(&10), true);
+    }
+
+    #[test]
+    fn test_contract_address_getters() {
+        let s = setup();
+        assert_eq!(s.marketplace.get_nft_contract(), s.nft_id);
+        assert_eq!(s.marketplace.get_land_token(), s.token_id);
     }
 }
