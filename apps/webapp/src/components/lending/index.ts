@@ -7,3 +7,4 @@ export * from './LiquidationAlertBell';
 export * from './ApyForecastCalculator';
 export * from './CollateralRatioBar';
 export * from './ProjectedHealthFactorPill';
+export * from './CollateralLockupModal';
