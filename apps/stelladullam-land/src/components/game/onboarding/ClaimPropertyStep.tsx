@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useGameWallet } from "@/hooks/useGameWallet";
+import { buildBuyFromTreasuryXdr } from "@/lib/soroban-tx";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, MapPin, CheckCircle, RefreshCw } from "lucide-react";
 
@@ -25,7 +26,7 @@ export function ClaimPropertyStep({
   onComplete: () => void;
   onSkip: () => void;
 }) {
-  const { signAndSubmit } = useGameWallet();
+  const { signAndSubmit, address, isConnected, connect } = useGameWallet();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [status, setStatus] = useState<"idle" | "pending" | "celebrating">(
     "idle",
@@ -35,11 +36,22 @@ export function ClaimPropertyStep({
     if (selectedId === null) return;
     setStatus("pending");
     try {
-      await signAndSubmit("placeholder-starter-claim-xdr");
+      if (!isConnected || !address) {
+        await connect();
+        setStatus("idle");
+        return;
+      }
+      const xdr = await buildBuyFromTreasuryXdr(
+        address,
+        String(selectedId),
+        "GBTREASURY",
+      );
+      await signAndSubmit(xdr);
       setStatus("celebrating");
       // Stay on celebration for 3 seconds, then navigate
       setTimeout(onComplete, 3000);
-    } catch {
+    } catch (err) {
+      console.error("Starter property claim error:", err);
       setStatus("idle");
     }
   };
