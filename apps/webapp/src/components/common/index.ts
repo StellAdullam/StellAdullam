@@ -19,3 +19,4 @@ export * from './AccountTierBadge';
 export * from './KycVerificationBadge';
 export * from './SponsorshipStatusPill';
 export * from './TxStatusTimeline';
+export * from './HighContrastToggle';
