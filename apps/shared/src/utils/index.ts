@@ -29,3 +29,4 @@ export * from "./retry";
 export * from "./hash";
 export * from "./format-intl";
 export * from "./safe-json";
+export * from "./bigint-json";
