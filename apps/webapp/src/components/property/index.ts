@@ -24,3 +24,5 @@ export { RentalYieldBreakdownModal } from "./RentalYieldBreakdownModal";
 export type { RentalYieldBreakdownModalProps } from "./RentalYieldBreakdownModal";
 export { RentalSaturationBadge } from "./RentalSaturationBadge";
 export type { RentalSaturationBadgeProps } from "./RentalSaturationBadge";
+export { TradeVolumeBadge } from "./TradeVolumeBadge";
+export type { TradeVolumeBadgeProps } from "./TradeVolumeBadge";
