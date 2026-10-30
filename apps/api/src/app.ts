@@ -11,6 +11,7 @@ import { ledgerRoutes } from './routes/ledger';
 import { portfolioRoutes } from './routes/portfolio';
 import { analyticsRoutes } from './routes/analytics';
 import { funderRoutes } from './routes/funder';
+import { exportRoutes } from './routes/export';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger } from './middleware';
 
@@ -28,6 +29,7 @@ const app = new Elysia()
   .use(portfolioRoutes)
   .use(analyticsRoutes)
   .use(funderRoutes)
+  .use(exportRoutes)
   .use(userRoutes)
   .use(kycRoutes)
   .use(webhookRoutes)
