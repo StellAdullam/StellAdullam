@@ -59,4 +59,26 @@ export const healthRoutes = new Elysia({ prefix: '' })
       },
       totalDurationMs: Date.now() - startTime,
     };
+  })
+  .get('/api/v1/health/system', () => {
+    const mem = process.memoryUsage();
+    return {
+      status: 'operational',
+      timestamp: new Date().toISOString(),
+      process: {
+        pid: process.pid,
+        runtime: typeof (process.versions as any)?.bun !== 'undefined' ? 'bun' : 'node',
+        version: process.version,
+        platform: process.platform,
+        arch: process.arch,
+        uptimeSeconds: Math.floor(process.uptime()),
+      },
+      memory: {
+        heapUsedMb: Number((mem.heapUsed / 1024 / 1024).toFixed(2)),
+        heapTotalMb: Number((mem.heapTotal / 1024 / 1024).toFixed(2)),
+        rssMb: Number((mem.rss / 1024 / 1024).toFixed(2)),
+        externalMb: Number((mem.external / 1024 / 1024).toFixed(2)),
+        heapUtilizationRatio: Number((mem.heapUsed / mem.heapTotal).toFixed(4)),
+      },
+    };
   });
