@@ -641,6 +641,21 @@ impl PropertyTokenContract {
         )
     }
 
+    /// Checks whether a borrower's position in a pool is currently eligible for liquidation
+    pub fn is_liquidatable(env: Env, borrower: Address, pool_id: String) -> bool {
+        let position = match PositionStorage::get_borrow(&env, &borrower, &pool_id) {
+            Some(pos) => pos,
+            None => return false,
+        };
+
+        if position.principal <= 0 {
+            return false;
+        }
+
+        let hf = Self::get_health_factor(env, borrower, pool_id);
+        hf < PRECISION
+    }
+
     //  Emergency Controls
 
     pub fn emergency_pause(env: Env, caller: Address) {
