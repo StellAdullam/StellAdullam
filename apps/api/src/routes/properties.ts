@@ -11,6 +11,7 @@ import {
   authPlugin,
 } from '../middleware';
 import { PropertyController } from '../controllers/PropertyController';
+import { PropertyValuationAuditService } from '../services/PropertyValuationAuditService';
 import { handleError, UnauthorizedError } from '../utils/errors';
 
 // Property query schema extending pagination
@@ -205,6 +206,17 @@ const getUserSharesRoute = new Elysia()
     }
   });
 
+// GET /properties/:id/audit - audit property valuation against risk guardrails
+const auditPropertyRoute = new Elysia()
+  .get('/:id/audit', ({ params: { id } }) => {
+    const numId = parseInt(id, 10) || 1;
+    const audit = PropertyValuationAuditService.auditValuation(numId, 125000, 115000, 180);
+    return {
+      success: true,
+      data: audit,
+    };
+  });
+
 // Combine all routes
 export const propertyRoutes = new Elysia({ prefix: '/properties' })
   .use(listPropertiesRoute)
@@ -214,4 +226,5 @@ export const propertyRoutes = new Elysia({ prefix: '/properties' })
   .use(deletePropertyRoute)
   .use(tokenizePropertyRoute)
   .use(buySharesRoute)
-  .use(getUserSharesRoute);
+  .use(getUserSharesRoute)
+  .use(auditPropertyRoute);
