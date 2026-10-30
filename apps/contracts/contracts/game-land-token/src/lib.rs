@@ -158,6 +158,11 @@ impl GameLandToken {
         is_testnet(&env)
     }
 
+    /// Returns the authorized game engine contract address.
+    pub fn get_engine_address(env: Env) -> Option<Address> {
+        get_engine(&env)
+    }
+
     pub fn faucet(env: Env, to: Address) {
         to.require_auth();
 
@@ -349,5 +354,15 @@ mod tests {
         client.initialize(&treasury, &engine, &true);
 
         assert_eq!(client.is_testnet_mode(), true);
+    }
+
+    #[test]
+    fn test_get_engine_address_query() {
+        let env = Env::default();
+        env.mock_all_auths();
+        let (treasury, engine, _user, client) = setup_test(&env);
+        client.initialize(&treasury, &engine, &true);
+
+        assert_eq!(client.get_engine_address(), Some(engine));
     }
 }
