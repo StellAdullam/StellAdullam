@@ -34,6 +34,9 @@ import {
 import { rpc as SorobanRpc } from "@stellar/stellar-sdk";
 import { GameProperty, BuildingLevel } from "@/types/game.types";
 import { useGameWallet } from "@/hooks/useGameWallet";
+import { useDashboardData } from "@/hooks/useDashboardData";
+import DashboardLoading from "./loading";
+import { GameErrorFallback } from "@/components/layout/GameErrorFallback";
 import { buildClaimIncomeXdr } from "@/lib/soroban-tx";
 import { TIMEOUTS } from "@/lib/constants";
 
@@ -331,11 +334,26 @@ function eventAmountSign(type: EventType): string {
 export default function DashboardPage() {
   const router = useRouter();
   const wallet = useGameWallet();
+  const dashboardData = useDashboardData(wallet.effectiveAddress);
 
   const isConnected = wallet.isConnected;
   const [landBalance, setLandBalance] = useState(4_250);
-  const [currentLedger, setCurrentLedger] = useState(0);  const [properties, setProperties] =
-    useState<DashboardProperty[]>(MOCK_PROPERTIES);
+  const [currentLedger, setCurrentLedger] = useState(0);
+  const [properties, setProperties] = useState<DashboardProperty[]>(MOCK_PROPERTIES);
+
+  useEffect(() => {
+    if (dashboardData.properties && dashboardData.properties.length > 0) {
+      setProperties(
+        dashboardData.properties.map((p) => ({
+          ...p,
+          lastClaimedLedger: (p as any).lastClaimedLedger || 32000,
+        })),
+      );
+    }
+    if (dashboardData.landBalance !== undefined) {
+      setLandBalance(dashboardData.landBalance);
+    }
+  }, [dashboardData.properties, dashboardData.landBalance]);
   const [claimProgress, setClaimProgress] = useState<ClaimProgress | null>(
     null,
   );
@@ -516,6 +534,10 @@ export default function DashboardPage() {
   const hasMoreEvents = paginatedEvents.length < MOCK_EVENTS.length;
 
   const isClaimRunning = !!claimProgress && !claimProgress.done;
+
+  if (dashboardData.isLoading) {
+    return <DashboardLoading />;
+  }
 
   return (
     <main className="min-h-screen bg-slate-950 text-slate-100 font-sans">
