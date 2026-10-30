@@ -3,6 +3,9 @@ use soroban_sdk::{contracttype, Address, Env, String, Vec};
 use super::interest::PRECISION;
 use super::keys::{lending_bump, LendingKey};
 
+/// Minimum borrow amount (50 USDC in 7-decimal Stroops) to prevent economically unviable dust debt
+pub const MIN_BORROW_AMOUNT: i128 = 50 * 10_000_000;
+
 /// Lending pool configuration and state
 #[derive(Clone)]
 #[contracttype]
@@ -27,6 +30,13 @@ pub struct LendingPool {
     pub is_active: bool,
     /// Pool creation timestamp
     pub created_at: u64,
+}
+
+impl LendingPool {
+    /// Verifies that a proposed borrow amount satisfies minimum position size guardrails.
+    pub fn validate_borrow_amount(&self, amount: i128) -> bool {
+        amount >= MIN_BORROW_AMOUNT
+    }
 }
 
 /// Pool storage helpers
