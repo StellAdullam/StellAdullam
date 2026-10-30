@@ -153,6 +153,11 @@ impl GameLandToken {
         has_claimed_faucet(&env, &account)
     }
 
+    /// Check whether the contract is currently operating in testnet mode.
+    pub fn is_testnet_mode(env: Env) -> bool {
+        is_testnet(&env)
+    }
+
     pub fn faucet(env: Env, to: Address) {
         to.require_auth();
 
@@ -334,5 +339,15 @@ mod tests {
         assert_eq!(client.has_claimed(&user), false);
         client.faucet(&user);
         assert_eq!(client.has_claimed(&user), true);
+    }
+
+    #[test]
+    fn test_is_testnet_mode_query() {
+        let env = Env::default();
+        env.mock_all_auths();
+        let (treasury, engine, _user, client) = setup_test(&env);
+        client.initialize(&treasury, &engine, &true);
+
+        assert_eq!(client.is_testnet_mode(), true);
     }
 }
