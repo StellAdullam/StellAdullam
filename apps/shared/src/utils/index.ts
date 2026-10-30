@@ -12,3 +12,4 @@ export * from "./performance";
 export * from "./math";
 export * from "./explorer";
 export * from "./grid";
+export * from "./merkle";
