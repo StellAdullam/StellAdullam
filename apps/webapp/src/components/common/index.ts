@@ -21,3 +21,4 @@ export * from './SponsorshipStatusPill';
 export * from './TxStatusTimeline';
 export * from './HighContrastToggle';
 export * from './DisplayCurrencySwitch';
+export * from './EmergencyPauseBanner';
