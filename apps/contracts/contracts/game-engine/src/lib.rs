@@ -229,6 +229,10 @@ impl GameEngine {
     pub fn get_max_level(_env: Env) -> u32 {
         LEVEL_SKYSCRAPER
     }
+
+    pub fn get_epoch_length(_env: Env) -> u64 {
+        EPOCH_LENGTH
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -628,5 +632,11 @@ mod tests {
     fn test_get_max_level_returns_skyscraper() {
         let test = setup_test();
         assert_eq!(test.engine_client.get_max_level(), LEVEL_SKYSCRAPER);
+    }
+
+    #[test]
+    fn test_get_epoch_length_returns_constant() {
+        let test = setup_test();
+        assert_eq!(test.engine_client.get_epoch_length(), EPOCH_LENGTH);
     }
 }
