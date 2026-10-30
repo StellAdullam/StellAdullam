@@ -188,6 +188,20 @@ impl GameEngine {
 
         calculate_accrued_income(current_ledger, prop.last_claimed_ledger, prop.level)
     }
+
+    pub fn get_daily_rate(_env: Env, level: u32) -> i128 {
+        let (num, den) = match level {
+            LEVEL_RESIDENTIAL => MULTIPLIER_RESIDENTIAL,
+            LEVEL_COMMERCIAL => MULTIPLIER_COMMERCIAL,
+            LEVEL_SKYSCRAPER => MULTIPLIER_SKYSCRAPER,
+            _ => MULTIPLIER_VACANT,
+        };
+        let rate_per_epoch = BASE_RENTAL_RATE
+            .checked_mul(num)
+            .and_then(|r| r.checked_div(den))
+            .unwrap_or(0);
+        rate_per_epoch * 172
+    }
 }
 
 // ================= Staged ECS Pipeline Builder =================
@@ -546,5 +560,19 @@ mod tests {
 
         let res = test.engine_client.try_claim_rental(&test.owner, &0);
         assert_eq!(res, Err(Ok(EngineError::NothingToClaim.into())));
+    }
+
+    #[test]
+    fn test_get_daily_rate_scales_with_property_level() {
+        let test = setup_test();
+
+        let vacant_daily = test.engine_client.get_daily_rate(&LEVEL_VACANT);
+        let residential_daily = test.engine_client.get_daily_rate(&LEVEL_RESIDENTIAL);
+        let commercial_daily = test.engine_client.get_daily_rate(&LEVEL_COMMERCIAL);
+        let skyscraper_daily = test.engine_client.get_daily_rate(&LEVEL_SKYSCRAPER);
+
+        assert!(residential_daily > vacant_daily);
+        assert!(commercial_daily > residential_daily);
+        assert!(skyscraper_daily > commercial_daily);
     }
 }
