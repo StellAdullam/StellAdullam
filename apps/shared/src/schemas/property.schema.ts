@@ -89,3 +89,24 @@ export type ShareOwnership = z.infer<typeof shareOwnershipSchema>;
 export type PropertyInfoInput = z.input<typeof propertyInfoSchema>;
 export type PropertyInfoOutput = z.output<typeof propertyInfoSchema>;
 export type ShareOwnershipInput = z.input<typeof shareOwnershipSchema>;
+
+/**
+ * Schema for tokenization mint params
+ */
+export const tokenizationParamsSchema = z.object({
+  propertyId: z.string().uuid(),
+  totalShares: z.number().int().positive("Total shares must be a positive integer"),
+  pricePerShare: positiveAmountSchema,
+  sorobanPropertyId: z.number().int().nonnegative().optional(),
+  recipientAddress: stellarAddressSchema,
+});
+
+export const purchaseSharesParamsSchema = z.object({
+  propertyId: z.string().uuid(),
+  buyerAddress: stellarAddressSchema,
+  sharesToBuy: z.number().int().positive("Shares to buy must be positive"),
+  paymentTokenAddress: stellarAddressSchema,
+});
+
+export type TokenizationParams = z.infer<typeof tokenizationParamsSchema>;
+export type PurchaseSharesParams = z.infer<typeof purchaseSharesParamsSchema>;
