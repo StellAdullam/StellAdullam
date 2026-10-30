@@ -57,3 +57,4 @@ export * from "./group-by";
 export * from "./round";
 export * from "./parse-boolean";
 export * from "./mask-email";
+export * from "./shuffle";
