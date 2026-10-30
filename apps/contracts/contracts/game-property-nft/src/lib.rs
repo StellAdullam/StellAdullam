@@ -80,6 +80,14 @@ impl GamePropertyNft {
         env.storage().instance().get(&symbol_short!("engine"))
     }
 
+    /// Returns the ledger sequence number when the property contract was initialized.
+    pub fn get_init_ledger(env: Env) -> u64 {
+        env.storage()
+            .instance()
+            .get(&symbol_short!("init_ledg"))
+            .unwrap_or(0)
+    }
+
     /// Mint all 400 tiles to `treasury` logically.
     pub fn initialize(env: Env, treasury: Address, game_engine: Address) {
         let ownable = Ownable::new(symbol_short!("prop_nft"));
