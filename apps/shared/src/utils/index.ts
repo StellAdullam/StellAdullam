@@ -18,3 +18,4 @@ export * from "./fee";
 export * from "./uuid";
 export * from "./event-topics";
 export * from "./type-guards";
+export * from "./address";
