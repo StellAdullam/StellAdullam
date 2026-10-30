@@ -81,4 +81,32 @@ export const healthRoutes = new Elysia({ prefix: '' })
         heapUtilizationRatio: Number((mem.heapUsed / mem.heapTotal).toFixed(4)),
       },
     };
+  })
+  .get('/metrics', ({ set }) => {
+    const mem = process.memoryUsage();
+    const uptime = Math.floor(process.uptime());
+    set.headers['content-type'] = 'text/plain; version=0.0.4; charset=utf-8';
+
+    return [
+      '# HELP process_uptime_seconds Process uptime in seconds',
+      '# TYPE process_uptime_seconds gauge',
+      `process_uptime_seconds ${uptime}`,
+      '',
+      '# HELP process_heap_used_bytes Process heap memory currently utilized',
+      '# TYPE process_heap_used_bytes gauge',
+      `process_heap_used_bytes ${mem.heapUsed}`,
+      '',
+      '# HELP process_heap_total_bytes Total allocated process heap memory',
+      '# TYPE process_heap_total_bytes gauge',
+      `process_heap_total_bytes ${mem.heapTotal}`,
+      '',
+      '# HELP process_rss_bytes Resident set size memory in bytes',
+      '# TYPE process_rss_bytes gauge',
+      `process_rss_bytes ${mem.rss}`,
+      '',
+      '# HELP nodejs_version_info Runtime platform and version info',
+      '# TYPE nodejs_version_info gauge',
+      `nodejs_version_info{version="${process.version}",platform="${process.platform}"} 1`,
+      '',
+    ].join('\n');
   });
