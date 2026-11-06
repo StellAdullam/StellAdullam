@@ -6,12 +6,7 @@
 
 **Institutional Real-World Asset (RWA) Tokenization, DeFi Lending & Spatial City-Canvas on Stellar & Soroban**
 
-[![Monorepo CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/monorepo-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/monorepo-ci.yml)
-[![API CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/api-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/api-ci.yml)
-[![Webapp CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/webapp-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/webapp-ci.yml)
-[![Contracts CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/contracts-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/contracts-ci.yml)
-[![Shared CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/shared-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/shared-ci.yml)
-[![Land CI](https://github.com/StellAdullam/StellAdullam/actions/workflows/land-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions/workflows/land-ci.yml)
+[![CI Status](https://github.com/StellAdullam/StellAdullam/actions/workflows/monorepo-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions)
 [![Soroban](https://img.shields.io/badge/Soroban-v25.3_Rust_WASM-orange.svg)](https://soroban.stellar.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: Live Testnet](https://img.shields.io/badge/Network-Stellar_Testnet-success.svg)](https://stellar.expert/explorer/testnet)
