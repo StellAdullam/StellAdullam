@@ -16,6 +16,7 @@ import { simulationRoutes } from './routes/simulation';
 import { ipfsRoutes } from './routes/ipfs';
 import { errorHandler } from './middleware/errorHandler';
 import { requestLogger, requestTracing, securityHeaders } from './middleware';
+import { isAllowedOrigin } from './middleware/cors';
 
 /**
  * Base Elysia app without swagger
@@ -24,7 +25,11 @@ import { requestLogger, requestTracing, securityHeaders } from './middleware';
 const app = new Elysia()
   .use(requestTracing)
   .use(requestLogger)
-  .use(cors())
+  .use(
+    cors({
+      origin: (request) => isAllowedOrigin(request.headers.get('origin') ?? undefined),
+    }),
+  )
   .use(securityHeaders)
   .use(errorHandler)
   .use(authRoutes)
