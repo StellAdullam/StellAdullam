@@ -7,7 +7,6 @@ use super::keys::StorageKey;
 /// This module manages the ownership of property shares. Each balance entry
 /// represents how many shares a specific address owns for a given property.
 /// Storage is optimized by using composite keys (property_id, owner_address).
-
 /// TTL bump configuration for persistent share balance storage
 pub mod share_bump {
     /// TTL bump for persistent share balances (~30 days = 518,400 ledgers)

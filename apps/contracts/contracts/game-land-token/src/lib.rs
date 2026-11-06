@@ -341,9 +341,9 @@ mod tests {
         let (treasury, engine, user, client) = setup_test(&env);
         client.initialize(&treasury, &engine, &true);
 
-        assert_eq!(client.has_claimed(&user), false);
+        assert!(!client.has_claimed(&user));
         client.faucet(&user);
-        assert_eq!(client.has_claimed(&user), true);
+        assert!(client.has_claimed(&user));
     }
 
     #[test]
@@ -353,7 +353,7 @@ mod tests {
         let (treasury, engine, _user, client) = setup_test(&env);
         client.initialize(&treasury, &engine, &true);
 
-        assert_eq!(client.is_testnet_mode(), true);
+        assert!(client.is_testnet_mode());
     }
 
     #[test]

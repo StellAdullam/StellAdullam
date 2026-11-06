@@ -536,10 +536,10 @@ mod tests {
     #[test]
     fn test_is_listed_query() {
         let s = setup();
-        assert_eq!(s.marketplace.is_listed(&10), false);
+        assert!(!s.marketplace.is_listed(&10));
         s.nft.approve(&s.treasury, &s.marketplace_id, &10);
         s.marketplace.list(&s.treasury, &10, &100);
-        assert_eq!(s.marketplace.is_listed(&10), true);
+        assert!(s.marketplace.is_listed(&10));
     }
 
     #[test]

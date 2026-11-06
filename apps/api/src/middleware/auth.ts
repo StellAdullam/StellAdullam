@@ -4,6 +4,15 @@ import { ApiError } from '../errors/ApiError';
 
 const DEV_DEFAULT_SECRET = 'super-secret-default-key-for-dev';
 
+if (
+  process.env.NODE_ENV === 'production' &&
+  (!process.env.JWT_SECRET || process.env.JWT_SECRET === DEV_DEFAULT_SECRET)
+) {
+  throw new Error(
+    'FATAL: JWT_SECRET must be set to a strong, unique secret in production environment.',
+  );
+}
+
 const JWT_SECRET = process.env.JWT_SECRET || DEV_DEFAULT_SECRET;
 
 // Runtime guard: warn if the dev default secret is used in a non-dev environment

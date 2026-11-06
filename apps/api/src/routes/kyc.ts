@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia';
 import { KYCController } from '../controllers/KYCController';
+import { kycRepository } from '../repositories/KYCRepository';
 import { ApiError } from '../errors/ApiError';
 import { rateLimit, authPlugin } from '../middleware';
 
@@ -86,13 +87,14 @@ const userScoped = new Elysia()
     }
   });
 
-// Unauthenticated routes (require JWT but no ownership)
+// Authenticated routes (require JWT and validate document/user ownership)
 const jwtScoped = new Elysia()
   .use(authPlugin)
   .post(
     '/upload',
-    async ({ request, set }) => {
+    async ({ request, set, getAuthenticatedUser }) => {
       try {
+        const { id: authenticatedId } = await getAuthenticatedUser();
         const contentType = request.headers.get('content-type') ?? '';
         if (!contentType.includes('multipart/form-data')) {
           set.status = 400;
@@ -111,6 +113,13 @@ const jwtScoped = new Elysia()
         if (!userId || typeof userId !== 'string') {
           set.status = 400;
           return { success: false, error: 'BAD_REQUEST', message: 'userId is required' };
+        }
+        if (userId !== authenticatedId) {
+          throw new ApiError(
+            403,
+            'FORBIDDEN',
+            'Access denied: cannot upload documents for another user',
+          );
         }
         if (!documentType || typeof documentType !== 'string') {
           set.status = 400;
@@ -147,26 +156,48 @@ const jwtScoped = new Elysia()
     },
     { beforeHandle: [rateLimit()] },
   )
-  .get('/file/:documentId', async ({ params: { documentId }, set }) => {
-    try {
-      const { buffer, contentType, fileName } = await KYCController.getDocumentFile(documentId);
-      set.headers['Content-Type'] = contentType;
-      set.headers['Content-Disposition'] = `inline; filename="${fileName}"`;
-      return new Response(new Uint8Array(buffer), {
-        status: 200,
-        headers: {
-          'Content-Type': contentType,
-          'Content-Disposition': `inline; filename="${fileName}"`,
-        },
-      });
-    } catch (error) {
-      const body = handleKycError(error, set);
-      return new Response(JSON.stringify(body), {
-        status: typeof set.status === 'number' ? set.status : 500,
-        headers: { 'Content-Type': 'application/json' },
-      });
-    }
-  });
+  .get(
+    '/file/:documentId',
+    async ({ params: { documentId }, set, headers, getAuthenticatedUser }) => {
+      try {
+        const internalKey =
+          headers['internal-api-key'] ||
+          headers['x-internal-api-key'] ||
+          headers['internal_api_key'];
+        const isInternal = Boolean(
+          process.env.INTERNAL_API_KEY && internalKey === process.env.INTERNAL_API_KEY,
+        );
+
+        if (!isInternal) {
+          const { id: callerId } = await getAuthenticatedUser();
+          const doc = await kycRepository.findById(documentId);
+          if (!doc) {
+            throw new ApiError(404, 'NOT_FOUND', 'Document not found');
+          }
+          if (doc.userId !== callerId) {
+            throw new ApiError(403, 'FORBIDDEN', 'Access denied to this document');
+          }
+        }
+
+        const { buffer, contentType, fileName } = await KYCController.getDocumentFile(documentId);
+        set.headers['Content-Type'] = contentType;
+        set.headers['Content-Disposition'] = `inline; filename="${fileName}"`;
+        return new Response(new Uint8Array(buffer), {
+          status: 200,
+          headers: {
+            'Content-Type': contentType,
+            'Content-Disposition': `inline; filename="${fileName}"`,
+          },
+        });
+      } catch (error) {
+        const body = handleKycError(error, set);
+        return new Response(JSON.stringify(body), {
+          status: typeof set.status === 'number' ? set.status : 500,
+          headers: { 'Content-Type': 'application/json' },
+        });
+      }
+    },
+  );
 // Internal-only routes (require INTERNAL_API_KEY header and reject user JWTs)
 const internalScoped = new Elysia().post(
   '/verify/:documentId',

@@ -25,6 +25,28 @@ export class WebhookSubscriptionService {
       throw new Error('Webhook URL must use HTTP or HTTPS protocol.');
     }
 
+    try {
+      const parsed = new URL(url);
+      const hostname = parsed.hostname.toLowerCase();
+      if (
+        process.env.NODE_ENV === 'production' &&
+        (hostname === 'localhost' ||
+          hostname === '127.0.0.1' ||
+          hostname === '0.0.0.0' ||
+          hostname === '169.254.169.254' ||
+          hostname.startsWith('10.') ||
+          hostname.startsWith('192.168.') ||
+          hostname.startsWith('172.16.') ||
+          hostname.endsWith('.internal') ||
+          hostname.endsWith('.local'))
+      ) {
+        throw new Error('Private or internal webhook URLs are not permitted.');
+      }
+    } catch (e) {
+      if (e instanceof Error && e.message.includes('Private or internal')) throw e;
+      throw new Error('Invalid webhook URL format.');
+    }
+
     if (!events || events.length === 0) {
       throw new Error('At least one event topic must be selected.');
     }

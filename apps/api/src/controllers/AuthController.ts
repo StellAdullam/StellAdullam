@@ -50,9 +50,17 @@ export class AuthController {
       throw new ApiError(400, 'INVALID_ADDRESS', 'Invalid Stellar address format');
     }
 
+    // Evict expired entries to prevent memory exhaustion
+    const now = Date.now();
+    for (const [addr, entry] of challengeStore.entries()) {
+      if (now > entry.expiresAt) {
+        challengeStore.delete(addr);
+      }
+    }
+
     // Generate a secure random nonce
     const nonce = crypto.randomUUID();
-    const expiresAt = Date.now() + CHALLENGE_EXPIRATION_MS;
+    const expiresAt = now + CHALLENGE_EXPIRATION_MS;
 
     challengeStore.set(stellarAddress, { nonce, expiresAt });
 

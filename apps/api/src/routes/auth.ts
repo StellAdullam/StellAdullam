@@ -20,7 +20,18 @@ const sessionSchema = z.object({
   signature: z.string().min(1),
 });
 
-const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-default-key-for-dev';
+const DEV_DEFAULT_SECRET = 'super-secret-default-key-for-dev';
+
+if (
+  process.env.NODE_ENV === 'production' &&
+  (!process.env.JWT_SECRET || process.env.JWT_SECRET === DEV_DEFAULT_SECRET)
+) {
+  throw new Error(
+    'FATAL: JWT_SECRET must be set to a strong, unique secret in production environment.',
+  );
+}
+
+const JWT_SECRET = process.env.JWT_SECRET || DEV_DEFAULT_SECRET;
 
 export const authRoutes = new Elysia({ prefix: '/auth' })
   .use(jwt({ name: 'jwt', secret: JWT_SECRET }))

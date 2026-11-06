@@ -115,7 +115,11 @@ export function rateLimit(options: RateLimitOptions = {}) {
   }
 
   return async function rateLimitMiddleware({ request, set }: Pick<Context, 'request' | 'set'>) {
-    if (request.headers.get('x-test-bypass-ratelimit') === 'true') {
+    if (
+      (process.env.NODE_ENV === 'test' || !process.env.NODE_ENV) &&
+      process.env.NODE_ENV !== 'production' &&
+      request.headers.get('x-test-bypass-ratelimit') === 'true'
+    ) {
       return;
     }
 

@@ -673,6 +673,60 @@ impl PropertyTokenContract {
         hf < PRECISION
     }
 
+    /// Liquidates an underwater borrow position (health factor < 1.0)
+    pub fn liquidate(env: Env, liquidator: Address, borrower: Address, pool_id: String) {
+        liquidator.require_auth();
+        PauseControl::require_not_paused(&env);
+
+        let pool = PoolStorage::get(&env, &pool_id).expect("Pool not found");
+        if !pool.is_active || PoolStorage::is_paused(&env, &pool_id) {
+            panic!("Pool is paused or inactive");
+        }
+
+        accrue_interest_internal(&env, &pool_id);
+
+        let position = PositionStorage::get_borrow(&env, &borrower, &pool_id)
+            .expect("Borrow position not found");
+
+        let hf = Self::get_health_factor(env.clone(), borrower.clone(), pool_id.clone());
+        if hf >= PRECISION {
+            panic!("Position is not eligible for liquidation");
+        }
+
+        let total_debt = PositionStorage::calculate_current_debt(&env, &position);
+        if total_debt <= 0 {
+            panic!("No outstanding debt to liquidate");
+        }
+
+        // Liquidator repays total debt
+        let pool_token = token::Client::new(&env, &pool.asset_address);
+        pool_token.transfer(&liquidator, &env.current_contract_address(), &total_debt);
+
+        // Seize collateral and transfer to liquidator
+        let collateral_token = token::Client::new(&env, &position.collateral_asset);
+        collateral_token.transfer(
+            &env.current_contract_address(),
+            &liquidator,
+            &position.collateral_amount,
+        );
+
+        // Remove borrow position and update pool total borrows
+        PositionStorage::remove_borrow(&env, &borrower, &pool_id);
+        let total_borrows = PoolStorage::get_total_borrows(&env, &pool_id);
+        let updated_total_borrows = total_borrows.saturating_sub(total_debt);
+        PoolStorage::set_total_borrows(&env, &pool_id, updated_total_borrows);
+
+        // Emit liquidation event
+        LendingEvents::repay(
+            &env,
+            pool_id,
+            borrower,
+            total_debt,
+            0,
+            position.collateral_amount,
+        );
+    }
+
     //  Emergency Controls
 
     pub fn emergency_pause(env: Env, caller: Address) {
