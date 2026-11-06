@@ -57,9 +57,9 @@ export class StellarNetworkService {
       this.lastFetchedMs = now;
       return networkStatus;
     } catch {
-      // Return resilient fallback snapshot
-      return (
-        this.cachedStatus || {
+      // Return resilient fallback snapshot (cached for TTL)
+      if (!this.cachedStatus) {
+        this.cachedStatus = {
           network: 'testnet',
           networkPassphrase: 'Test SDF Network ; September 2015',
           latestLedger: 1052000,
@@ -68,8 +68,10 @@ export class StellarNetworkService {
           ledgerCloseTimeSeconds: 5.0,
           status: 'optimal',
           timestamp: new Date().toISOString(),
-        }
-      );
+        };
+        this.lastFetchedMs = now;
+      }
+      return this.cachedStatus;
     }
   }
 
