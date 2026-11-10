@@ -67,7 +67,7 @@ jobs:
       - name: Run Clippy lints
         run: |
           cd apps/contracts
-          cargo clippy --all-targets --all-features || true
+          cargo clippy --all-targets --all-features
           
       - name: Build contracts
         run: |

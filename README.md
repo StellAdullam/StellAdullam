@@ -4,7 +4,7 @@
 
 # StellAdullam
 
-**Institutional Real-World Asset (RWA) Tokenization, DeFi Lending & Spatial City-Canvas on Stellar & Soroban**
+**Institutional Real-World Asset (RWA) Tokenization, DeFi Lending & Spatial City Digital Twin on Stellar & Soroban**
 
 [![CI Status](https://github.com/StellAdullam/StellAdullam/actions/workflows/monorepo-ci.yml/badge.svg)](https://github.com/StellAdullam/StellAdullam/actions)
 [![Soroban](https://img.shields.io/badge/Soroban-v25.3_Rust_WASM-orange.svg)](https://soroban.stellar.org)
@@ -38,7 +38,7 @@ Both applications are deployed to production on **Vercel** with full SSL, global
 | Application | Live URL | Description | Status |
 | :--- | :--- | :--- | :---: |
 | **StellAdullam WebApp** | [https://stelladullam.vercel.app](https://stelladullam.vercel.app) | Institutional DeFi lending, RWA fractional tokenization, and investor dashboard | ![Production](https://img.shields.io/badge/Status-Live_Production-success) |
-| **StellAdullam Land** | [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app) | 20×20 GPU-accelerated spatial city canvas, tile trading, and micro-rental yields | ![Production](https://img.shields.io/badge/Status-Live_Production-success) |
+| **StellAdullam Land** | [https://stelladullam-land.vercel.app](https://stelladullam-land.vercel.app) | 20×20 GPU-accelerated spatial city digital twin, visual asset map, tile trading, and micro-rental yields | ![Production](https://img.shields.io/badge/Status-Live_Production-success) |
 
 ---
 
@@ -70,7 +70,7 @@ Real estate represents over \$330 trillion in global wealth but suffers from cri
 StellAdullam resolves both challenges simultaneously:
 1. **Fractional Real-World Asset Tokenization**: Property owners tokenize deed-backed assets into divisible, SEP-0041 compliant fungible shares, enabling global retail and institutional investment starting from as little as **\$100**.
 2. **Overcollateralized RWA DeFi Lending**: Investors pledge fractional real estate tokens as on-chain collateral to borrow stable liquid capital (USDC/XLM) via an algorithmic interest rate pool, monitored 24/7 by autonomous liquidation keepers.
-3. **StellAdullam Land (20×20 Spatial Canvas)**: A gamified spatial economy where 400 interactive parcels accrue continuous micro-rental yields, distribute on-chain dividends every ledger close (~5 seconds), and foster community-driven urban development.
+3. **StellAdullam Land (Spatial Digital Twin & Visual Asset Map)**: A 20×20 GPU-accelerated spatial city digital twin where 400 interactive parcels map on-chain real estate deeds, accrue continuous micro-rental yields, distribute on-chain dividends every ledger close (~5 seconds), and provide visual asset telemetry for tokenized properties.
 
 ---
 
@@ -183,11 +183,11 @@ sequenceDiagram
 - **Interactive Health Factor Simulator**: Real-time what-if modeling allowing borrowers to stress-test their collateral against market price drawdowns.
 - **Bad-Debt Socialized Backstop**: Protocol treasury reserve pool absorbing edge-case liquidation slippage.
 
-### 🗺️ StellAdullam Land (Spatial 20×20 Canvas)
-- **400-Parcel Grid**: Interactive GPU-accelerated canvas mapping real estate parcels into four distinct economic zones (Financial Center, Waterfront, Innovation Park, Residential Heights).
-- **Micro-Rental Yield Engine**: Parcels continuously generate LAND tokens based on district density and architectural upgrade tier.
+### 🗺️ StellAdullam Land (Spatial Digital Twin & Visual Asset Map)
+- **400-Parcel Spatial Grid**: Interactive GPU-accelerated canvas mapping tokenized real estate parcels into four distinct economic zones (Financial Center, Waterfront, Innovation Park, Residential Heights).
+- **Micro-Rental Yield Engine**: Parcels continuously generate LAND tokens based on district density, deed valuation, and architectural upgrade tier.
 - **Built-in Atomic Marketplace**: Non-custodial escrow order book for trading land deeds and property NFTs with sub-second execution.
-- **Spatial HUD & Spatial Sound**: Web Audio API synthesized soundscapes, compass coordinate jumping, density heatmaps, and day/night ambient city cycles.
+- **Spatial Telemetry HUD**: Live ledger feed pills, coordinate jumping, district density heatmaps, and day/night ambient cycles representing real-time protocol activity.
 
 ---
 
@@ -280,7 +280,20 @@ For the production release of StellAdullam, the protocol implemented **300 produ
 - **StellAdullam Land (60 Actions)**: Built 400-parcel density heatmap, district territory atmosphere overlay, Web Audio sound engine, coordinate jump bar, and upgrade particle physics.
 - **Shared Codebase & CI (60 Actions)**: Added comprehensive Zod validation schemas, 4,500+ assertion fuzz testing suites, fixed GitHub Actions CI runners, and standardized open-source governance.
 
-*Review the complete release breakdown in [CHANGELOG.md](CHANGELOG.md) and [docs/AUDIT_AND_COMPLETION_REPORT_300.md](docs/AUDIT_AND_COMPLETION_REPORT_300.md).*
+*Review the complete release breakdown in [CHANGELOG.md](CHANGELOG.md).*
+
+---
+
+## 🌊 Stellar Drips Wave & Community Contributions
+
+StellAdullam participates actively in the **Stellar Drips Wave** ecosystem initiative to reward open-source builders. 
+
+We welcome contributors across:
+- **Soroban Smart Contracts**: Rust optimizations, invariant fuzz testing, and oracle integrations.
+- **Frontend & Web3 UI**: Simulation tooling, accessibility, and wallet interoperability.
+- **Data Engineering & Indexing**: Keeper automation, webhook events, and Horizon pipeline resilience.
+
+To get started, explore active contributor issues tagged with [`drips-wave`](https://github.com/StellAdullam/StellAdullam/issues?q=is%3Aissue+is%3Aopen+label%3Adrips-wave) in our [GitHub Issues](https://github.com/StellAdullam/StellAdullam/issues). Detailed contribution workflows are documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 

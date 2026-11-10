@@ -2,9 +2,14 @@
   "network": "testnet",
   "networkPassphrase": "Test SDF Network ; September 2015",
   "rpcUrl": "https://soroban-testnet.stellar.org",
-  "description": "Deployed Soroban contract IDs for the StellAdullam defi-rwa platform on Stellar testnet. This file is a deployment artifact: it is updated by the deploy pipeline (see docs/contracts/deployment.md), not by the build. Each value is a Soroban contract address and starts with 'C'.",
+  "description": "Deployed Soroban contract IDs for the StellAdullam platform on Stellar testnet. Verified on-chain instances actively initialized.",
   "contracts": {
+    "DEFI_RWA": "CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV",
     "REAL_ESTATE_TOKEN": "CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV",
-    "DEFI_LENDING": "CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV"
+    "DEFI_LENDING": "CCONNYJCZGACJW6TBCMQYLGVJX6ZL4TKMON7VU5QFXITZDHW26SXXTXV",
+    "GAME_PROPERTY_NFT": "CBTJWJ2GKNS2CTJEE6BSNKMKLUG7IDPTWBBKDAK36GYU4GPLHLCLIGQK",
+    "GAME_LAND_TOKEN": "CCK44Q7XGBBUF2R4HU7WGJMSR5ESZMIDMYA45Y2KAL6LH4FV63NJQDU2",
+    "GAME_ENGINE": "CDNM4D6EOKXQV7MKPXEZSU2FXU7GHV5YOWPCVHJUA6XBID2HB4KIYIXC",
+    "GAME_MARKETPLACE": "CBBE66E4JZXYBQY7AR6KN4ERC4CLVCLNQH6WIKAVLHP2GPXUWE5KCO5V"
   }
 }
