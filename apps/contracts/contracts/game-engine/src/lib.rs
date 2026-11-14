@@ -4,7 +4,7 @@
 extern crate alloc;
 
 use soroban_sdk::{
-    contract, contracterror, contractimpl, panic_with_error, symbol_short, Address, Env,
+    contract, contracterror, contractimpl, panic_with_error, symbol_short, Address, Env, Vec,
 };
 
 pub mod constants;
@@ -55,6 +55,8 @@ pub enum EngineError {
     AlreadyMaxLevel = 3,
     NothingToClaim = 4,
     InsufficientBalance = 5,
+    BatchLimitExceeded = 6,
+    ReentrancyDetected = 7,
 }
 
 #[soroban_sdk::contracttype]
@@ -64,6 +66,7 @@ pub enum StorageKey {
     TokenContract,
     Treasury,
     Initialized,
+    ClaimLock,
 }
 
 #[contract]
@@ -172,6 +175,78 @@ impl GameEngine {
         // Emit claimed event
         env.events()
             .publish((symbol_short!("claimed"), caller, property_id), income);
+    }
+
+    pub fn batch_claim_income(env: Env, player: Address, property_ids: Vec<u32>) -> i128 {
+        player.require_auth();
+
+        let count = property_ids.len();
+        if count == 0 {
+            panic_with_error!(&env, EngineError::NothingToClaim);
+        }
+        if count > MAX_BATCH_CLAIM_PARCELS {
+            panic_with_error!(&env, EngineError::BatchLimitExceeded);
+        }
+
+        let is_locked: bool = env
+            .storage()
+            .instance()
+            .get(&StorageKey::ClaimLock)
+            .unwrap_or(false);
+        if is_locked {
+            panic_with_error!(&env, EngineError::ReentrancyDetected);
+        }
+        env.storage().instance().set(&StorageKey::ClaimLock, &true);
+
+        let nft_contract: Address = env
+            .storage()
+            .instance()
+            .get(&StorageKey::NftContract)
+            .unwrap();
+        let token_contract: Address = env
+            .storage()
+            .instance()
+            .get(&StorageKey::TokenContract)
+            .unwrap();
+
+        let nft_client = GamePropertyNftClient::new(&env, &nft_contract);
+        let current_ledger = env.ledger().sequence() as u64;
+        let engine_addr = env.current_contract_address();
+
+        let mut total_income: i128 = 0;
+        let mut claimed_parcels: u32 = 0;
+
+        for property_id in property_ids.iter() {
+            let prop = nft_client.get_property(&property_id);
+            if prop.owner != player {
+                panic_with_error!(&env, EngineError::NotOwner);
+            }
+
+            let parcel_income =
+                calculate_accrued_income(current_ledger, prop.last_claimed_ledger, prop.level);
+            if parcel_income > 0 {
+                nft_client.set_last_claimed_ledger(&engine_addr, &property_id, &current_ledger);
+                total_income = total_income.checked_add(parcel_income).unwrap_or(0);
+                claimed_parcels += 1;
+            }
+        }
+
+        if total_income == 0 {
+            env.storage().instance().set(&StorageKey::ClaimLock, &false);
+            panic_with_error!(&env, EngineError::NothingToClaim);
+        }
+
+        let token_client = GameLandTokenClient::new(&env, &token_contract);
+        token_client.mint(&engine_addr, &player, &total_income);
+
+        env.storage().instance().set(&StorageKey::ClaimLock, &false);
+
+        env.events().publish(
+            (symbol_short!("b_claimed"), player),
+            (total_income, claimed_parcels),
+        );
+
+        total_income
     }
 
     pub fn get_accrued_income(env: Env, property_id: u32) -> i128 {
@@ -665,5 +740,75 @@ mod tests {
             test.engine_client.get_claim_interval_cap(),
             MAX_CLAIM_INTERVAL_LEDGERS
         );
+    }
+
+    #[test]
+    fn test_batch_claim_income_empty_vector_fails() {
+        let test = setup_test();
+        let empty: Vec<u32> = Vec::new(&test.env);
+        let res = test.engine_client.try_batch_claim_income(&test.owner, &empty);
+        assert_eq!(res, Err(Ok(EngineError::NothingToClaim.into())));
+    }
+
+    #[test]
+    fn test_batch_claim_income_single_and_multi_parcel() {
+        let test = setup_test();
+
+        // Transfer properties 1 and 2 to owner (owner already holds property 0)
+        test.nft_client.transfer(&test.treasury, &test.owner, &1);
+        test.nft_client.transfer(&test.treasury, &test.owner, &2);
+
+        // Upgrade property 1 to Residential (1.5x) and property 2 to Commercial (3x)
+        test.engine_client.improve(&test.owner, &1);
+        test.engine_client.improve(&test.owner, &2);
+        test.engine_client.improve(&test.owner, &2);
+
+        let balance_before = test.token_client.balance(&test.owner);
+
+        // Advance ledger by 2 epochs (200 ledgers)
+        let mut ledger = test.env.ledger().get();
+        ledger.sequence_number += 200;
+        test.env.ledger().set(ledger);
+
+        // Expected income for 2 epochs:
+        // prop 0 (Vacant 1x): 2 * 10 = 20 LAND
+        // prop 1 (Residential 1.5x): 2 * 15 = 30 LAND
+        // prop 2 (Commercial 3x): 2 * 30 = 60 LAND
+        // Total = 110 LAND = 11 * BASE_RENTAL_RATE
+        let parcels = soroban_sdk::vec![&test.env, 0u32, 1u32, 2u32];
+        let claimed = test.engine_client.batch_claim_income(&test.owner, &parcels);
+        assert_eq!(claimed, BASE_RENTAL_RATE * 11);
+
+        let balance_after = test.token_client.balance(&test.owner);
+        assert_eq!(balance_after - balance_before, BASE_RENTAL_RATE * 11);
+
+        // Immediate second batch claim fails with NothingToClaim
+        let res_again = test.engine_client.try_batch_claim_income(&test.owner, &parcels);
+        assert_eq!(res_again, Err(Ok(EngineError::NothingToClaim.into())));
+    }
+
+    #[test]
+    fn test_batch_claim_income_rejects_51_parcels_limit_boundary() {
+        let test = setup_test();
+        let mut parcels: Vec<u32> = Vec::new(&test.env);
+        for i in 0..51u32 {
+            parcels.push_back(i);
+        }
+        let res = test.engine_client.try_batch_claim_income(&test.owner, &parcels);
+        assert_eq!(res, Err(Ok(EngineError::BatchLimitExceeded.into())));
+    }
+
+    #[test]
+    fn test_batch_claim_income_fails_if_not_owner_of_all_parcels() {
+        let test = setup_test();
+
+        let mut ledger = test.env.ledger().get();
+        ledger.sequence_number += 100;
+        test.env.ledger().set(ledger);
+
+        // Owner owns parcel 0, but parcel 1 belongs to treasury
+        let parcels = soroban_sdk::vec![&test.env, 0u32, 1u32];
+        let res = test.engine_client.try_batch_claim_income(&test.owner, &parcels);
+        assert_eq!(res, Err(Ok(EngineError::NotOwner.into())));
     }
 }
