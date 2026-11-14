@@ -13,6 +13,6 @@ pub use interest::{
     InterestRateModel, InterestStorage, MAX_BORROW_RATE, PRECISION, SECONDS_PER_YEAR,
 };
 pub use keys::{lending_bump, LendingKey};
-pub use oracle::PriceOracle;
+pub use oracle::{PriceOracle, DEFAULT_HEARTBEAT_SECONDS, DEFAULT_MAX_DEVIATION_BPS};
 pub use pool::{LendingPool, PoolStorage};
 pub use positions::{BorrowPosition, DepositPosition, PositionStorage};

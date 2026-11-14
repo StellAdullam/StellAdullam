@@ -79,6 +79,22 @@ pub enum LendingKey {
     /// Minimum acceptable normalized price (floor)
     /// Storage: Instance
     OracleMinPrice,
+
+    /// Strict SEP-40 heartbeat threshold in seconds (default 300s / ~60 ledgers)
+    /// Storage: Instance
+    OracleHeartbeat,
+
+    /// Maximum single-epoch price deviation in basis points (default 1500 = 15%)
+    /// Storage: Instance
+    OracleMaxDeviationBps,
+
+    /// Whether the single-epoch price deviation circuit breaker is active on get_price
+    /// Storage: Instance
+    OracleDeviationGuardEnabled,
+
+    /// Last validated normalized oracle price for an asset (for epoch deviation checks)
+    /// Storage: Persistent
+    OracleLastPrice(Address),
 }
 
 /// TTL bump amounts for lending storage
