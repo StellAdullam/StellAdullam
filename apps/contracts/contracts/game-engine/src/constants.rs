@@ -17,3 +17,5 @@ pub const LEVEL_VACANT: u32 = 0;
 pub const LEVEL_RESIDENTIAL: u32 = 1;
 pub const LEVEL_COMMERCIAL: u32 = 2;
 pub const LEVEL_SKYSCRAPER: u32 = 3;
+
+pub const MAX_BATCH_CLAIM_PARCELS: u32 = 50;
