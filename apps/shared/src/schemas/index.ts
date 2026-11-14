@@ -73,3 +73,19 @@ export {
   type KycDocumentInput,
   type OraclePriceInput,
 } from "./user.schema";
+
+// Soroban cross-contract state schemas and parsers
+export {
+  sorobanAddressSchema,
+  nonNegativeBigIntSchema,
+  positiveBigIntSchema,
+  SorobanPropertyStateSchema,
+  SorobanLoanPositionSchema,
+  normalizeSorobanPayload,
+  parseSorobanPropertyState,
+  safeParseSorobanPropertyState,
+  parseSorobanLoanPosition,
+  safeParseSorobanLoanPosition,
+  type SorobanPropertyState,
+  type SorobanLoanPosition,
+} from "./soroban.schema";
